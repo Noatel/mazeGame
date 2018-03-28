@@ -23,7 +23,7 @@ public class Player {
     private int startCoordsY;
     
     public String toString() {
-        return "Positie van " + SYMBOL + " Coord x :" + coordX + " Coord y :" + coordY + " direction :" + direction;
+        return "Coord x :" + coordX + " Coord y :" + coordY + " direction :" + direction;
     }
 
     public void setPosition(int x, int y) {

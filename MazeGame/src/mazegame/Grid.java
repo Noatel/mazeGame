@@ -14,7 +14,6 @@ public class Grid {
     private int corners[][] = {{0, 0}, {0, 0}, {0, 0}, {0, 0}};
 
 
-
     public void calculateCorners(int x, int y){
         //First corner/ left corner
         corners[0][0] = (x / 30);        //x = 2
