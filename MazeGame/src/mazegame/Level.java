@@ -16,10 +16,13 @@ import java.util.Scanner;
  */
 public class Level {
     
-    public static ArrayList<int[]> loadLevel(int level) throws FileNotFoundException {
+    public static ArrayList<int[]> loadLevel(int level){
        
         String readLevel = ".";
         String map = new File("src/mazegame/Levels").getAbsolutePath();
+        
+        //Clear the level before if there is one
+        Grid.map.clear();
         
         switch(level){
             case 1:
@@ -33,18 +36,18 @@ public class Level {
                 break;
         }
        
+        try {
             File file = new File(readLevel);
             Scanner scanner = new Scanner(file);
 
             //Standard 20x20 field
-            int width = 20;
+            int width = 20 ;
             while (scanner.hasNextLine()) {
-                // Setup current row:
+                // create a new current row:
                 int[] row = new int[width];
-                // For each number..
+                // enter a number into the row 1 throught 20 each row
                 for (int i = 0; i < width; i++) {
                     // Read the number and add it to the current row:
-                    System.out.println(scanner.nextInt());
                     row[i] = scanner.nextInt();
                 }
                 // Add the row to the results:
@@ -57,6 +60,9 @@ public class Level {
                 }
             }
             scanner.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         
 
         return Grid.map;

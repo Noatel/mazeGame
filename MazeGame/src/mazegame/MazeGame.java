@@ -49,17 +49,16 @@ public class MazeGame  extends JComponent {
         //First we assign how big the big the board needs to be
         //For some reason its a 10x10 now (it divdes with 3)
         //Need to look in more why this is happening
-        dimX = 1; // this is not the best solution
-        dimY = 1; // for defining the size of the game!
+        dimX = 60; // this is not the best solution
+        dimY = 60; // for defining the size of the game!
 
 //        grid.calculateCorners(dimX, dimY);
 
         //Because the board is 60 * every time you need to multiple the position
         //Need to look in more why this is happening
-        int spiderXPosition =  player.getXPosition();
-        int spiderYPosition = player.getYPosition();
+        int spiderXPosition =  player.getXPosition() * 30;
+        int spiderYPosition = player.getYPosition()  * 30;
         
-        System.out.println(spiderXPosition + " AND " + spiderYPosition);
         
         ArrayList<int[]> map = Level.loadLevel(1);
 
@@ -67,67 +66,42 @@ public class MazeGame  extends JComponent {
         int j = 0;
         //Print the grid out with the spider and the fly
         //Draw all the rectangles in the screen
-        for (int x = dimX; x <= 20; x += 1) {
+        for (int x = dimX; x <= 630; x += 30) {
 //          System.out.println(x);
-            for (int y = dimY; y <= 20; y += 1) {
+            for (int y = dimY; y <= 630; y += 30) {
                 //If the bord got max;
                 if (i == 20) {
                     i = 0;
                     j++;
                 }
-               if (map.get(i)[j] == 1) {
-                    g.setColor(Color.GRAY);
-                    g.fillRect(x, y, 30, 30);
-                    g.drawRect(x, y, 30, 30);
-                } else if (map.get(i)[j] == 2) {
-                    if (clearStartPosition != 1) {
+                
+                System.out.println((map.get(i)[j]));
+                switch(map.get(i)[j]){
+                    case 1:
+                        g.setColor(Color.GRAY);
+                        g.fillRect(x, y, 30, 30);
+                        g.drawRect(x, y, 30, 30);
+                        break;
+                    case 2:
                         g.setColor(Color.RED);
                         g.fillRect(x, y, 30, 30);
                         g.drawRect(x, y, 30, 30);
 
-                        player.setPosition((x / 30), (y / 30));
-                        player.saveStartCoords((x / 30), (y / 30));
-                    }
-                } else if (map.get(i)[j] == 4) {
-                    g.setColor(Color.YELLOW);
-                    g.fillRect(x, y, 30, 30);
-                    g.drawRect(x, y, 30, 30);
-                } else if (map.get(i)[j] == 5) {
-                    g.setColor(Color.BLUE);
-                    g.fillRect(x, y, 30, 30);
-                    g.drawRect(x, y, 30, 30);
-                } else if (x == spiderXPosition && y == spiderYPosition) {
-                    //Set the spider color (Red)
-                    g.setColor(Color.RED);
-                    //Draw a rectangle filling the square
-                    g.fillRect(spiderXPosition, spiderYPosition, 30, 30);
-                    g.drawRect(spiderXPosition, spiderYPosition, 30, 30);
-                    //Set the color agian to black because else every thing else is Red
-
-                    if (clearStartPosition != 1) {
-                        int startPostitionX = player.getStartCoordsX();
-                        int startPostitionY = player.getStartCoordsY();
-
-                        System.out.println(startPostitionX);
-                        System.out.println(startPostitionY);
-                        g.fillRect(startPostitionX, startPostitionY, 30, 30);
-                        g.drawRect(startPostitionX, startPostitionY, 30, 30);
-                        g.setColor(Color.BLUE); // BLUE FOR TEMP / TESTING
-
-                        clearStartPosition = 1;
-
-                    }
-                    //fill the grid where the fly is
+//                      player.setPosition((x / 30), (y / 30));
+//                      player.saveStartCoords((x / 30), (y / 30));
+                        break;
+                    default:
+                      break;
                 }
-
+                 
                 g.setColor(Color.BLACK);
-                g.drawRect(x, y, 30, 30);
-//                }
-                i++;
+                g.drawRect(x, y, 30, 30);   
+                                i++;
 
+                }
             }
         }
-    }
+    
 
     public static void main(String[] a) {
         //Create the GUI and set the Title "Maze game"
