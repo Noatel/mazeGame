@@ -10,7 +10,7 @@ package mazegame;
  * @author Jordie
  */
 public class Player {
-     private int coordX;
+    private int coordX;
     private int coordY;
     private int direction;
     private String SYMBOL;

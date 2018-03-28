@@ -56,9 +56,11 @@ public class MazeGame  extends JComponent {
 
         //Because the board is 60 * every time you need to multiple the position
         //Need to look in more why this is happening
-        int spiderXPosition = player.getXPosition() * 30;
-        int spiderYPosition = player.getYPosition() * 30;
+        int spiderXPosition = 2 * 30;
+        int spiderYPosition = 2 * 30;
 
+        
+        System.out.println(spiderXPosition + " AND " + spiderYPosition);
         
         //Print the grid out with the spider and the fly
         //Draw all the rectangles in the screen
