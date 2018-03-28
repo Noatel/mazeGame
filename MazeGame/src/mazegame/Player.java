@@ -22,6 +22,10 @@ public class Player {
     private int startCoordsX;
     private int startCoordsY;
     
+    public Player(){
+        direction = NORTH;
+}
+    
     public String toString() {
         return "Coord x :" + coordX + " Coord y :" + coordY + " direction :" + direction;
     }
@@ -32,7 +36,6 @@ public class Player {
             coordY = y;
             setPositionOneTime = 1;
         }
-
     }
 
     public int getYPosition() {

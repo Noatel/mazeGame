@@ -22,7 +22,7 @@ public class MazeGame  extends JComponent {
     private int dimY;
     private JButton buttonMessage;
     private JPanel panelMain;
-
+    private int clearStartPosition;
 
     //Because you want to spawn the "fly" random you need to declare the random function
     static Random rand = new Random();
@@ -49,48 +49,90 @@ public class MazeGame  extends JComponent {
         //First we assign how big the big the board needs to be
         //For some reason its a 10x10 now (it divdes with 3)
         //Need to look in more why this is happening
-        dimX = 60; // this is not the best solution
-        dimY = 60; // for defining the size of the game!
+        dimX = 1; // this is not the best solution
+        dimY = 1; // for defining the size of the game!
 
-        grid.calculateCorners(dimX, dimY);
+//        grid.calculateCorners(dimX, dimY);
 
         //Because the board is 60 * every time you need to multiple the position
         //Need to look in more why this is happening
-        int spiderXPosition = 2 * 30;
-        int spiderYPosition = 2 * 30;
-
+        int spiderXPosition =  player.getXPosition();
+        int spiderYPosition = player.getYPosition();
         
         System.out.println(spiderXPosition + " AND " + spiderYPosition);
         
+        ArrayList<int[]> map = Level.loadLevel(1);
+
+        int i = 0;
+        int j = 0;
         //Print the grid out with the spider and the fly
         //Draw all the rectangles in the screen
-        for (int x = dimX; x <= 600; x += 30) {
-//            System.out.println(x);
-            for (int y = dimY; y <= 600; y += 30) {
-                //If the rectangles is the same position as the spider x and y
+        for (int x = dimX; x <= 20; x += 1) {
+//          System.out.println(x);
+            for (int y = dimY; y <= 20; y += 1) {
+                //If the bord got max;
+                if (i == 20) {
+                    i = 0;
+                    j++;
+                }
+               if (map.get(i)[j] == 1) {
+                    g.setColor(Color.GRAY);
+                    g.fillRect(x, y, 30, 30);
+                    g.drawRect(x, y, 30, 30);
+                } else if (map.get(i)[j] == 2) {
+                    if (clearStartPosition != 1) {
+                        g.setColor(Color.RED);
+                        g.fillRect(x, y, 30, 30);
+                        g.drawRect(x, y, 30, 30);
 
-                if (x == spiderXPosition && y == spiderYPosition) {
+                        player.setPosition((x / 30), (y / 30));
+                        player.saveStartCoords((x / 30), (y / 30));
+                    }
+                } else if (map.get(i)[j] == 4) {
+                    g.setColor(Color.YELLOW);
+                    g.fillRect(x, y, 30, 30);
+                    g.drawRect(x, y, 30, 30);
+                } else if (map.get(i)[j] == 5) {
+                    g.setColor(Color.BLUE);
+                    g.fillRect(x, y, 30, 30);
+                    g.drawRect(x, y, 30, 30);
+                } else if (x == spiderXPosition && y == spiderYPosition) {
                     //Set the spider color (Red)
                     g.setColor(Color.RED);
                     //Draw a rectangle filling the square
-                    g.fillRect(x, y, 30, 30);
-                    g.drawRect(x, y, 30, 30);
+                    g.fillRect(spiderXPosition, spiderYPosition, 30, 30);
+                    g.drawRect(spiderXPosition, spiderYPosition, 30, 30);
                     //Set the color agian to black because else every thing else is Red
-                    g.setColor(Color.BLACK);
 
+                    if (clearStartPosition != 1) {
+                        int startPostitionX = player.getStartCoordsX();
+                        int startPostitionY = player.getStartCoordsY();
+
+                        System.out.println(startPostitionX);
+                        System.out.println(startPostitionY);
+                        g.fillRect(startPostitionX, startPostitionY, 30, 30);
+                        g.drawRect(startPostitionX, startPostitionY, 30, 30);
+                        g.setColor(Color.BLUE); // BLUE FOR TEMP / TESTING
+
+                        clearStartPosition = 1;
+
+                    }
                     //fill the grid where the fly is
-                } else {
-                    //If the position is not the same as the fly or spider, draw a simple rectangle
-                    g.drawRect(x, y, 30, 30);
                 }
+
+                g.setColor(Color.BLACK);
+                g.drawRect(x, y, 30, 30);
+//                }
+                i++;
+
             }
         }
     }
 
     public static void main(String[] a) {
-        //Create the GUI and set the Title "Bug game"
+        //Create the GUI and set the Title "Maze game"
         JFrame window = new JFrame();
-        window.setTitle("Bug game");
+        window.setTitle("Maze game");
 
         //Because you want to play with the arrows you need to focus it
         window.setFocusable(true);
@@ -106,32 +148,28 @@ public class MazeGame  extends JComponent {
                 //Get the keycode of the key (like the left arrow)
                 int keyCode = e.getKeyCode();
                 //If the user press one of the arrow keys
-//                System.out.println(spider.getYPosition() + " AND " + spider.getXPosition());
-
-                int[][] corners = grid.getCorners();
-
-                System.out.println(player.getYPosition() + "-" + corners[0][0]);
-
-                if (keyCode == KeyEvent.VK_LEFT) {          //Left arrow key
-                    if (player.getXPosition() > corners[0][0]) {       //If the position is on the left border
-                        player.turn(3);
-                        player.move();
-                    }
-                } else if (keyCode == KeyEvent.VK_RIGHT) {   //right arrow key
-                    if (player.getXPosition() < corners[1][0]) {        //If the position is on the right border
-                        player.turn(1);
-                        player.move();
-                    }
-                } else if (keyCode == KeyEvent.VK_UP) {      //Up arrow key
-                    if (corners[0][0] < player.getYPosition()) {        //If the position is on the up border
-                        player.turn(2);
-                        player.move();
-                    }
-                } else if (keyCode == KeyEvent.VK_DOWN) {    //Down arrow key
-                    if ( player.getYPosition() < corners[2][1] ) {        //If the position is on the down border
-                        player.turn(0);
-                        player.move();
-                    }
+                
+//                System.out.println(spider.getXPosition() + "-" + spider.getYPosition());
+                if (keyCode == KeyEvent.VK_LEFT) {                     //Left arrow key
+//                    if (spider.getXPosition() >= corners[0][0]) {       //If the position is on the left border
+                    player.turn(3);
+                    player.move();
+//                    }
+                } else if (keyCode == KeyEvent.VK_RIGHT) {              //right arrow key
+//                    if (spider.getXPosition() <= corners[1][0]) {        //If the position is on the right border
+                    player.turn(1);
+                    player.move();
+//                    }
+                } else if (keyCode == KeyEvent.VK_UP) {                 //Up arrow key
+//                    if (corners[0][0] <= spider.getYPosition()) {        //If the position is on the up border
+                    player.turn(2);
+                    player.move();
+//                    }
+                } else if (keyCode == KeyEvent.VK_DOWN) {                //Down arrow key
+//                    if (spider.getYPosition() <= corners[2][1]) {       //If the position is on the down border
+                    player.turn(0);
+                    player.move();
+//                    }
                 }
 
                 //After we assign the new position and turn to the "Spider"
