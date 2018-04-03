@@ -24,6 +24,7 @@ public class Level {
         //Clear the level before if there is one
         Grid.map.clear();
         
+        //Because we got multiple levels
         switch(level){
             case 1:
                 readLevel = map + "/level1.txt";
@@ -36,12 +37,19 @@ public class Level {
                 break;
         }
        
+        //In this try and catch we going to find the file
         try {
+            
+            //We use the string that we loaded in the switch
             File file = new File(readLevel);
+            
+            //After that we are going to use that file and scan it
             Scanner scanner = new Scanner(file);
 
             //Standard 20x20 field
             int width = 20 ;
+            
+            //While it got a next line on the file
             while (scanner.hasNextLine()) {
                 // create a new current row:
                 int[] row = new int[width];
@@ -59,6 +67,7 @@ public class Level {
                     scanner.nextLine();
                 }
             }
+            //Close the scanner and 
             scanner.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();

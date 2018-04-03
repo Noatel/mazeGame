@@ -12,6 +12,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import java.util.ArrayList;
 import java.util.Random;
+import mazegame.VeldTiles.Wall;
 /**
  *
  * @author NoahTelussa
@@ -71,16 +72,17 @@ public class MazeGame  extends JComponent {
             for (int y = dimY; y <= 630; y += 30) {
                 //If the bord got max;
                 if (i == 20) {
+                    //Reset it to the first tile
                     i = 0;
+                    
+                    //And goest to the next tile
                     j++;
                 }
                 
-                System.out.println((map.get(i)[j]));
                 switch(map.get(i)[j]){
                     case 1:
-                        g.setColor(Color.GRAY);
-                        g.fillRect(x, y, 30, 30);
-                        g.drawRect(x, y, 30, 30);
+                        //If there is a 1, spawn a wall
+                        Wall.setWall(g,x,y);
                         break;
                     case 2:
                         g.setColor(Color.RED);
@@ -97,7 +99,6 @@ public class MazeGame  extends JComponent {
                 g.setColor(Color.BLACK);
                 g.drawRect(x, y, 30, 30);   
                                 i++;
-
                 }
             }
         }

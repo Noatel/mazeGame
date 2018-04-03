@@ -6,17 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="698509b5-f4d8-40f3-8662-8bd45e3bdec7" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mazegame/src/com/codebind/App.form" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mazegame/src/com/codebind/App.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mazegame/src/com/codebind/Bug.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mazegame/src/com/codebind/Grid.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MazeGame/nbproject/project.properties" afterPath="$PROJECT_DIR$/MazeGame/nbproject/project.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MazeGame/src/mazegame/Level.java" afterPath="$PROJECT_DIR$/MazeGame/src/mazegame/Level.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MazeGame/src/mazegame/MazeGame.java" afterPath="$PROJECT_DIR$/MazeGame/src/mazegame/MazeGame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mazegame/src/mazegame/Levels/level1.txt" afterPath="$PROJECT_DIR$/mazegame/src/mazegame/Levels/level1.txt" />
-    </list>
+    <list default="true" id="698509b5-f4d8-40f3-8662-8bd45e3bdec7" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
