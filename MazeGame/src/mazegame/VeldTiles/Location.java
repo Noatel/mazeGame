@@ -13,7 +13,6 @@ public class Location extends Veld {
     //Location can be a start or end locaiton
      int type;
      public Location(int coordX, int coordY,int type){
-           super(coordX, coordY);
-           this.type = type;
+           super(coordX, coordY, type);
     }
 }

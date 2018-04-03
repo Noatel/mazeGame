@@ -12,10 +12,16 @@ package mazegame.VeldTiles;
 abstract public class Veld {
     public int coordX;
     public int coordY;
+    public int type;
     
-    public Veld(int coordX, int coordY){
+    public Veld(int coordX, int coordY, int type){
         this.coordX = coordX;
         this.coordY = coordY;
+        this.type = type;
+    }
+   
+    public int returnType(){
+        return type;
     }
     
 }

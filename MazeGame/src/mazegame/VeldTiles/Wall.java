@@ -13,8 +13,8 @@ import java.awt.Graphics;
  * @author Jordie
  */
 public class Wall extends Veld {
-    public Wall(int coordX, int coordY){
-           super(coordX, coordY);
+    public Wall(int coordX, int coordY,int type){
+           super(coordX, coordY, type);
     }
     
     public static void setWall(Graphics g,int x, int y){

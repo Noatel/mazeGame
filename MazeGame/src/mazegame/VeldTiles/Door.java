@@ -10,5 +10,9 @@ package mazegame.VeldTiles;
  * @author Jordie
  */
 public class Door extends Veld{
-    
+   int closed; 
+   public Door(int coordX, int coordY,int closed){
+           super(coordX, coordY);
+           this.closed = closed;
+    }
 }
