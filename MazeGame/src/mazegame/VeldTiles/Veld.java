@@ -9,6 +9,13 @@ package mazegame.VeldTiles;
  *
  * @author Jordie
  */
-public class Veld {
+abstract public class Veld {
+    public int coordX;
+    public int coordY;
+    
+    public Veld(int coordX, int coordY){
+        this.coordX = coordX;
+        this.coordY = coordY;
+    }
     
 }

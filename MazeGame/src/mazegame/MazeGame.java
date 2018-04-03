@@ -146,7 +146,6 @@ public class MazeGame  extends JComponent {
                     player.move();
 //                    }
                 }
-
                 //After we assign the new position and turn to the "Spider"
                 //repaint all the rectangle (Maybe not the best way to do it)
                 window.repaint();
