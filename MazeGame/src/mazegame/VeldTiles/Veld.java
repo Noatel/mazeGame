@@ -5,10 +5,17 @@
  */
 package mazegame.VeldTiles;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 /**
  *
  * @author Jordie
  */
 public class Veld {
-    
+    public static void setVeld(Graphics g,int x, int y){
+            g.setColor(Color.WHITE);
+            g.fillRect(x, y, 30, 30);
+            g.drawRect(x, y, 30, 30);
+    }
 }
