@@ -12,6 +12,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import java.util.ArrayList;
 import java.util.Random;
+import mazegame.VeldTiles.Veld;
 import mazegame.VeldTiles.Wall;
 /**
  *
@@ -80,6 +81,9 @@ public class MazeGame  extends JComponent {
                 }
                 
                 switch(map.get(i)[j]){
+                    case 0:
+                        Veld.setVeld(g,x,y);
+                        break;
                     case 1:
                         //If there is a 1, spawn a wall
                         Wall.setWall(g,x,y);
@@ -93,17 +97,28 @@ public class MazeGame  extends JComponent {
 //                      player.saveStartCoords((x / 30), (y / 30));
                         break;
                     default:
+                        Wall.setWall(g,x,y);
                       break;
                 }
                  
                 g.setColor(Color.BLACK);
                 g.drawRect(x, y, 30, 30);   
-                                i++;
+                i++;
+                
+                //check if the player is in the chosen square.
+                //if so
+                if(x == player.getXPosition() && y == player.getYPosition()){
+                    g.setColor(Color.RED);
+                    g.fillRect(x, y, 30, 30);
+                    g.drawRect(x, y, 30, 30);
+                }
+                
+                
+                
                 }
             }
         }
     
-
     public static void main(String[] a) {
         //Create the GUI and set the Title "Maze game"
         JFrame window = new JFrame();
@@ -124,28 +139,21 @@ public class MazeGame  extends JComponent {
                 int keyCode = e.getKeyCode();
                 //If the user press one of the arrow keys
                 
-//                System.out.println(spider.getXPosition() + "-" + spider.getYPosition());
-                if (keyCode == KeyEvent.VK_LEFT) {                     //Left arrow key
-//                    if (spider.getXPosition() >= corners[0][0]) {       //If the position is on the left border
-                    player.turn(3);
-                    player.move();
-//                    }
-                } else if (keyCode == KeyEvent.VK_RIGHT) {              //right arrow key
-//                    if (spider.getXPosition() <= corners[1][0]) {        //If the position is on the right border
-                    player.turn(1);
-                    player.move();
-//                    }
-                } else if (keyCode == KeyEvent.VK_UP) {                 //Up arrow key
-//                    if (corners[0][0] <= spider.getYPosition()) {        //If the position is on the up border
-                    player.turn(2);
-                    player.move();
-//                    }
-                } else if (keyCode == KeyEvent.VK_DOWN) {                //Down arrow key
-//                    if (spider.getYPosition() <= corners[2][1]) {       //If the position is on the down border
-                    player.turn(0);
-                    player.move();
-//                    }
+                switch(keyCode){
+                    case KeyEvent.VK_UP:
+                        player.move('n');
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        player.move('e');
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        player.move('s');
+                        break;
+                    case KeyEvent.VK_LEFT:
+                        player.move('w');
+                        break;
                 }
+//                System.out.println(spider.getXPosition() + "-" + spider.getYPosition());
 
                 //After we assign the new position and turn to the "Spider"
                 //repaint all the rectangle (Maybe not the best way to do it)
