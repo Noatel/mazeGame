@@ -12,10 +12,27 @@ import java.awt.Graphics;
  *
  * @author Jordie
  */
-public class Veld {
+abstract public class Veld {
+    public int coordX;
+    public int coordY;
+    public int type;
+    
+    public Veld(int coordX, int coordY, int type){
+        this.coordX = coordX;
+        this.coordY = coordY;
+        this.type = type;
+    }
+    
     public static void setVeld(Graphics g,int x, int y){
             g.setColor(Color.WHITE);
             g.fillRect(x, y, 30, 30);
             g.drawRect(x, y, 30, 30);
     }
+   
+    public int returnType(){
+        return type;
+    }
+    
+    
+    
 }

@@ -10,5 +10,11 @@ package mazegame.VeldTiles;
  * @author Jordie
  */
 public class Key extends Veld{
-    
+   int type; 
+   int collected;
+   public Key(int coordX, int coordY,int collected, int type){
+           super(coordX, coordY, type);
+           this.type = type;
+           this.collected = collected;
+    }
 }

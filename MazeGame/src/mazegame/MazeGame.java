@@ -51,15 +51,15 @@ public class MazeGame  extends JComponent {
         //First we assign how big the big the board needs to be
         //For some reason its a 10x10 now (it divdes with 3)
         //Need to look in more why this is happening
-        dimX = 60; // this is not the best solution
-        dimY = 60; // for defining the size of the game!
+        dimX = 30; // this is not the best solution
+        dimY = 30; // for defining the size of the game!
 
 //        grid.calculateCorners(dimX, dimY);
 
         //Because the board is 60 * every time you need to multiple the position
         //Need to look in more why this is happening
-        int spiderXPosition =  player.getXPosition() * 30;
-        int spiderYPosition = player.getYPosition()  * 30;
+        int spiderXPosition =  player.getXPosition() * 15;
+        int spiderYPosition = player.getYPosition()  * 15;
         
         
         ArrayList<int[]> map = Level.loadLevel(1);
@@ -68,11 +68,11 @@ public class MazeGame  extends JComponent {
         int j = 0;
         //Print the grid out with the spider and the fly
         //Draw all the rectangles in the screen
-        for (int x = dimX; x <= 630; x += 30) {
+        for (int x = dimX; x <= 315; x += 30) {
 //          System.out.println(x);
-            for (int y = dimY; y <= 630; y += 30) {
+            for (int y = dimY; y <= 315; y += 30) {
                 //If the bord got max;
-                if (i == 20) {
+                if (i == 10) {
                     //Reset it to the first tile
                     i = 0;
                     
@@ -115,9 +115,9 @@ public class MazeGame  extends JComponent {
                 
                 
                 
-                }
             }
         }
+    }
     
     public static void main(String[] a) {
         //Create the GUI and set the Title "Maze game"
@@ -153,8 +153,6 @@ public class MazeGame  extends JComponent {
                         player.move('w');
                         break;
                 }
-//                System.out.println(spider.getXPosition() + "-" + spider.getYPosition());
-
                 //After we assign the new position and turn to the "Spider"
                 //repaint all the rectangle (Maybe not the best way to do it)
                 window.repaint();
@@ -171,7 +169,7 @@ public class MazeGame  extends JComponent {
 
         //Set how big the program needs to be
         //For looks i got a width of 360 and 390
-        window.setBounds(0, 0, 720, 780);
+        window.setBounds(0, 0, 360, 390);
 
         //After we set the width and height
         //Center it to the middle of your screen

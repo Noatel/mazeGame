@@ -47,7 +47,7 @@ public class Level {
             Scanner scanner = new Scanner(file);
 
             //Standard 20x20 field
-            int width = 20 ;
+            int width = 10 ;
             
             //While it got a next line on the file
             while (scanner.hasNextLine()) {
