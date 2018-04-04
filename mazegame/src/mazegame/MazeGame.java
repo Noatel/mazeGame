@@ -165,6 +165,7 @@ public class MazeGame extends JComponent {
 
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
+                        Wall.getWall();
                         player.move('n');
                         break;
                     case KeyEvent.VK_RIGHT:
@@ -190,6 +191,18 @@ public class MazeGame extends JComponent {
 //                }
             }
         });
+        //Menu to restart the game
+        JButton button = new JButton("Restart");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Level.loadLevel(Level.currentLevel);
+            }
+        });
+        
+        window.add(button, BorderLayout.SOUTH);
+        
+      
 
         //Set how big the program needs to be
         //For looks i got a width of 360 and 390

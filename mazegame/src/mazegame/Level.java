@@ -16,6 +16,7 @@ import java.util.Scanner;
  */
 public class Level {
     
+    public static int currentLevel = 1;
     public static ArrayList<int[]> loadLevel(int level){
        
         String readLevel = ".";

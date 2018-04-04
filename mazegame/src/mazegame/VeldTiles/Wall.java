@@ -18,8 +18,19 @@ public class Wall extends Veld {
     }
     
     public static void setWall(Graphics g,int x, int y){
+        Veld.walls.add(new Wall((x / 30), (y / 30),1));
+        
             g.setColor(Color.GRAY);
             g.fillRect(x, y, 30, 30);
             g.drawRect(x, y, 30, 30);
+    }
+    
+    public static void getWall(){
+        for(Wall wall: Veld.walls) {
+        System.out.println("Coord x : ");  
+        System.out.print(wall.coordX);  
+        System.out.println("Coord y : ");  
+        System.out.print(wall.coordY);  
+     }
     }
 }

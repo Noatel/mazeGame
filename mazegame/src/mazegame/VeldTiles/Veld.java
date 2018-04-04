@@ -7,6 +7,7 @@ package mazegame.VeldTiles;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,6 +17,7 @@ abstract public class Veld {
     public int coordX;
     public int coordY;
     public int type;
+    public static ArrayList<Wall> walls = new ArrayList<Wall>();
     
     public Veld(int coordX, int coordY, int type){
         this.coordX = coordX;
