@@ -46,6 +46,4 @@ public class Door extends Veld {
             key.setCollected(false);
         }
     }
-    
-    // voor jordie cause he fucked up
 }
