@@ -5,11 +5,15 @@
  */
 package mazegame;
 
+import static java.awt.SystemColor.window;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author Jordie
  */
-public class Player {
+public class Player{
     private int coordX;
     private int coordY;
     private int direction;
@@ -48,21 +52,25 @@ public class Player {
 
     public String getSymbol() {
         return SYMBOL;
-    }
+    }   
 
-    public void move() {
-        switch (direction) {
-            case NORTH: //North
+    public void move(char getDirection) {
+        switch (getDirection) {
+            case 'n': //North
                 coordY++;
+                System.out.println("Up");
                 break;
-            case EAST: //East
+            case 'e': //East
                 coordX++;
+                System.out.println("Right");
                 break;
-            case SOUTH: //South
+            case 's': //South
                 coordY--;
+                System.out.println("Down");
                 break;
-            case WEST: //West
+            case 'w': //West
                 coordX--;
+                System.out.println("Left");
                 break;
         }
     }
