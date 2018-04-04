@@ -185,19 +185,20 @@ public class MazeGame extends JComponent {
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
                         
-                        for(Wall wall: Veld.walls){
+                        for(Wall wall: Veld.walls){ //Cycle through each and every wall
+                            //check if the player input is going to be a wall or not
                             if(player.getXPosition() == wall.coordX && (player.getYPosition() - 1) == wall.coordY){
-                                System.out.println("You cant move"); // plz work
-                                checkObstacle = false;
-                                break;
+                                System.out.println("You cant move"); 
+                                checkObstacle = false; //set checkobstacle to false to stop the player from moving
+                                break; //break the forloop and continue on
                             }else{
-                                checkObstacle = true;
+                                checkObstacle = true; // set
                             }
                         }
-                        if(checkObstacle)
-                            player.move('n');
+                        if(checkObstacle)//check if there is no obstacle
+                            player.move('n'); // move the player
                         else
-                            System.out.println("You can't move");
+                            System.out.println("You can't move"); //you weren't able to move
                         break;
                     case KeyEvent.VK_RIGHT:
                         for(Wall wall: Veld.walls){
