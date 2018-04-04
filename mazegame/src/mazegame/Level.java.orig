@@ -9,7 +9,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import mazegame.VeldTiles.Wall;
+<<<<<<< .merge_file_vNlPd0
+import mazegame.VeldTiles.Veld;
+=======
+>>>>>>> .merge_file_qRh48Y
 
 /**
  *
@@ -17,15 +20,23 @@ import mazegame.VeldTiles.Wall;
  */
 public class Level {
     public static int currentLevel  = 1;
+<<<<<<< .merge_file_vNlPd0
+    
+=======
+>>>>>>> .merge_file_qRh48Y
     public static ArrayList<int[]> loadLevel(int level){
+       
         String readLevel = ".";
         String map = new File("src/mazegame/Levels").getAbsolutePath();
         
         //Clear the level before if there is one
         Grid.map.clear();
-        Wall.walls.clear();
-
+<<<<<<< .merge_file_vNlPd0
+        Veld.walls.clear();
+          
+=======
         
+>>>>>>> .merge_file_qRh48Y
         //Because we got multiple levels
         switch(level){
             case 1:
@@ -41,7 +52,11 @@ public class Level {
        
         //In this try and catch we going to find the file
         try {
+<<<<<<< .merge_file_vNlPd0
+   
+=======
             
+>>>>>>> .merge_file_qRh48Y
             //We use the string that we loaded in the switch
             File file = new File(readLevel);
             
@@ -55,11 +70,21 @@ public class Level {
             while (scanner.hasNextLine()) {
                 // create a new current row:
                 int[] row = new int[width];
+<<<<<<< .merge_file_vNlPd0
+                // enter a number into the row 1 throught 10 each row
+                for (int i = 0; i < width; i++) {
+                    // Read the number and add it to the current row:
+                    row[i] = scanner.nextInt();
+                     
+                }
+               
+=======
                 // enter a number into the row 1 throught 20 each row
                 for (int i = 0; i < width; i++) {
                     // Read the number and add it to the current row:
                     row[i] = scanner.nextInt();
                 }
+>>>>>>> .merge_file_qRh48Y
                 // Add the row to the results:
                 Grid.map.add(row);
 
@@ -78,5 +103,9 @@ public class Level {
 
         return Grid.map;
 }
+<<<<<<< .merge_file_vNlPd0
+ }
+=======
 }
+>>>>>>> .merge_file_qRh48Y
     

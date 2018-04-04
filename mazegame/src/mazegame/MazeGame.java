@@ -55,10 +55,12 @@ public class MazeGame extends JComponent {
         int playerXPosition = player.getXPosition() * 30;
         int playerYPosition = player.getYPosition() * 30;
 
-        player.saveStartCoords(playerXPosition, playerYPosition);
+        System.out.println("Positions are" + playerXPosition);
+        System.out.println("Positions are" + playerXPosition);
+        
         player.setPosition(playerXPosition, playerYPosition);
 
-        ArrayList<int[]> map = Level.loadLevel(1);
+        ArrayList<int[]> map = Level.loadLevel(Level.currentLevel);
 
         int i = 0;
         int j = 0;
@@ -79,25 +81,21 @@ public class MazeGame extends JComponent {
                 switch (map.get(i)[j]) {
                     case 0:
                         Veld.setVeld(g, x, y);
-                        System.out.print("0");
                         break;
                     case 1:
                         //If there is a 1, spawn a wall
                         Wall.setWall(g, x, y);
-                        System.out.print("1");
                         break;
                     case 2:
                         if (!startPosition) {
                             g.setColor(Color.RED);
                             g.fillRect(x, y, 30, 30);
                             g.drawRect(x, y, 30, 30);
-                            System.out.print("2");
                             startPosition = true;
                         } else {
                             g.setColor(Color.WHITE);
                             g.fillRect(x, y, 30, 30);
                             g.drawRect(x, y, 30, 30);
-                            System.out.println("0");
                         }
                         break;
                     case 3:
@@ -153,13 +151,6 @@ public class MazeGame extends JComponent {
                 }
 
                 if (x == playerXPosition && y == playerYPosition) {
-                    /*for(Wall wall: Veld.walls) {
-                    System.out.print(wall.coordX);  
-                    System.out.print(wall.coordY);  
-                    if(playerXPosition != wall.coordX){
-
-                    }*/
-
                     g.setColor(Color.RED);
                     g.fillRect(playerXPosition, playerYPosition, 30, 30);
                     g.drawRect(playerXPosition, playerYPosition, 30, 30);
@@ -278,29 +269,43 @@ public class MazeGame extends JComponent {
                 }
                 //After we assign the new position and turn to the "Spider"
                 //repaint all the rectangle (Maybe not the best way to do it)
-                window.repaint();
 
-                //If the position of the "Spider" is the same as the position of the "Fly"
-//                if (spider.getXPosition() == fly.getXPosition() && spider.getYPosition() == fly.getYPosition()) {
-//                    //Takes first time long to load for some reaason
-//                    //Show the you won message as a alert and in the terminal with system out println
-//                    System.out.println("won");
-//                    JOptionPane.showMessageDialog(null, "WON");
-//                }
+                      //Check if the player is at the end location
+                     if(player.getXPosition() == Veld.endLocation[0] && player.getYPosition() == Veld.endLocation[1]){
+                            if(Level.currentLevel == 3){
+                                JOptionPane.showMessageDialog(null, "You complete the game!");                            
+                              
+                                Level.currentLevel = 1;   
+                            } else {
+                                //Level finished +1
+                                Level.currentLevel++;
+                            }
+                            //Load in next level
+                                Level.loadLevel(Level.currentLevel); 
+                                Player.setPositionOneTime = 0;
+                                Player.setPosition(0,0);
+                                
+               }
+                     
+             window.repaint();
+
             }
         });
-
         //Menu to restart the game
         JButton button = new JButton("Restart");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Level.loadLevel(Level.currentLevel);
+                Player.setPositionOneTime = 0;
+                Player.setPosition(0,0);
+                window.repaint();
+                window.setFocusable(true);
+                window.requestFocusInWindow();
             }
         });
 
         window.add(button, BorderLayout.SOUTH);
-
         //Set how big the program needs to be
         //For looks i got a width of 360 and 390
         window.setBounds(0, 0, 360, 390);

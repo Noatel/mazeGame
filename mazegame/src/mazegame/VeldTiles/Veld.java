@@ -19,7 +19,8 @@ abstract public class Veld {
     public int type;
     public static ArrayList<Wall> walls = new ArrayList<Wall>();
     public static ArrayList<Key> keys = new ArrayList<Key>();
-    
+    public static int[] endLocation = new int[2];
+
     public Veld(int coordX, int coordY, int type){
         this.coordX = coordX;
         this.coordY = coordY;

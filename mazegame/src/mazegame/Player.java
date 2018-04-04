@@ -14,15 +14,15 @@ import java.awt.event.KeyEvent;
  * @author Jordie
  */
 public class Player{
-    private int coordX;
-    private int coordY;
+    private static int coordX;
+    private static int coordY;
     private int direction;
     private String SYMBOL;
     private static final int NORTH = 0;
     private static final int EAST = 1;
     private static final int SOUTH = 2;
     private static final int WEST = 3;
-    private int setPositionOneTime;
+    public static int setPositionOneTime;
     private int startCoordsX;
     private int startCoordsY;
     
@@ -34,11 +34,12 @@ public class Player{
         return "Coord x :" + coordX + " Coord y :" + coordY + " direction :" + direction;
     }
 
-    public void setPosition(int x, int y) {
+    public static void setPosition(int x, int y) {
         if (setPositionOneTime == 0) {
             coordX = x + 1;
             coordY = y + 1;
             setPositionOneTime = 1;
+            System.out.println("x = " + x + " y = " + y);
         }
     }
 
@@ -48,6 +49,12 @@ public class Player{
 
     public int getXPosition() {
         return coordX;
+    }
+    
+    public static void resetPlayer(){
+        coordX = 1;
+        coordY = 1;
+        setPositionOneTime = 0;
     }
 
     public String getSymbol() {
@@ -106,10 +113,6 @@ public class Player{
         direction = turns;
     }
 
-    public void saveStartCoords(int x , int y){
-        startCoordsX = x + 1;
-        startCoordsY = y + 1;
-    }
     public int getStartCoordsX(){
         return startCoordsX * 15;
     }

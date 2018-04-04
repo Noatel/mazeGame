@@ -16,6 +16,11 @@ public class End extends Veld{
     }
     
     public static void setEnd(Graphics g, int x, int y) {
+        /*
+        Sla de eindlocatie op
+        */
+        Veld.endLocation[0] = (x / 30);
+        Veld.endLocation[1] = (y / 30);
         
         /*
         geeft de kleur de positie en de groote aan van het blok
