@@ -33,6 +33,7 @@ public class MazeGame extends JComponent {
     //Create the Spider with a standard postion of x = 2 and y 2
     static Player player = new Player();
     boolean startPosition = false;
+ 
 
     public MazeGame() {
 
@@ -51,6 +52,8 @@ public class MazeGame extends JComponent {
 //        grid.calculateCorners(dimX, dimY);
         //Because the board is 60 * every time you need to multiple the position
         //Need to look in more why this is happening
+        
+        
         int playerXPosition =  player.getXPosition() * 30;
         int playerYPosition = player.getYPosition()  * 30;
 
@@ -133,7 +136,16 @@ public class MazeGame extends JComponent {
                         System.out.print("3");
                         break;
                 }
-                if(x == playerXPosition && y == playerYPosition){
+                if(x == playerXPosition && y == playerYPosition ){
+                     /*for(Wall wall: Veld.walls) {
+        System.out.print(wall.coordX);  
+        System.out.print(wall.coordY);  
+        if(playerXPosition != wall.coordX){
+            
+        }*/
+                
+                     
+                    
                     g.setColor(Color.RED);
                     g.fillRect(playerXPosition, playerYPosition, 30, 30);
                     g.drawRect(playerXPosition, playerYPosition, 30, 30);
@@ -172,7 +184,16 @@ public class MazeGame extends JComponent {
 
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
-                        player.move('n');
+                        for(Wall wall: Veld.walls){
+                            System.out.println("walls: " + wall.coordY);
+                            System.out.println("PLayer Y : " + player.getYPosition());
+                            if((player.getYPosition() - 1) == wall.coordY){
+                                System.out.println("You cant move");
+                            }else
+                            player.move('n');
+                        }
+                        
+                        
                         break;
                     case KeyEvent.VK_RIGHT:
                         player.move('e');
