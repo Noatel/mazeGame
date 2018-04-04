@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import java.util.ArrayList;
 import java.util.Random;
 import mazegame.VeldTiles.*;
+
 /**
  *
  * @author NoahTelussa
@@ -33,7 +34,6 @@ public class MazeGame extends JComponent {
     //Create the Spider with a standard postion of x = 2 and y 2
     static Player player = new Player();
     boolean startPosition = false;
- 
 
     public MazeGame() {
 
@@ -52,14 +52,12 @@ public class MazeGame extends JComponent {
 //        grid.calculateCorners(dimX, dimY);
         //Because the board is 60 * every time you need to multiple the position
         //Need to look in more why this is happening
-        
-        
-        int playerXPosition =  player.getXPosition() * 30;
-        int playerYPosition = player.getYPosition()  * 30;
+        int playerXPosition = player.getXPosition() * 30;
+        int playerYPosition = player.getYPosition() * 30;
 
         player.saveStartCoords(playerXPosition, playerYPosition);
         player.setPosition(playerXPosition, playerYPosition);
-        
+
         ArrayList<int[]> map = Level.loadLevel(1);
 
         int i = 0;
@@ -80,22 +78,22 @@ public class MazeGame extends JComponent {
 
                 switch (map.get(i)[j]) {
                     case 0:
-                        Veld.setVeld(g,x,y);
+                        Veld.setVeld(g, x, y);
                         System.out.print("0");
                         break;
                     case 1:
                         //If there is a 1, spawn a wall
-                        Wall.setWall(g,x,y);
+                        Wall.setWall(g, x, y);
                         System.out.print("1");
                         break;
                     case 2:
-                        if(!startPosition){
-                        g.setColor(Color.RED);
-                        g.fillRect(x, y, 30, 30);
-                        g.drawRect(x, y, 30, 30);
+                        if (!startPosition) {
+                            g.setColor(Color.RED);
+                            g.fillRect(x, y, 30, 30);
+                            g.drawRect(x, y, 30, 30);
                             System.out.print("2");
                             startPosition = true;
-                        }else{
+                        } else {
                             g.setColor(Color.WHITE);
                             g.fillRect(x, y, 30, 30);
                             g.drawRect(x, y, 30, 30);
@@ -109,43 +107,49 @@ public class MazeGame extends JComponent {
                         break;
                     case 4:
                         // dit maakt een nieuw sleutel object waardoor ik de pin aan het object kan toevoegen
-                        Key key100 = new Key(x, y, 4);
-                        key100.setKey(g, x, y, 100);
+//                        Key key100 = new Key(x, y, 4);
+//                        key100.setKey(g, x, y, 100);
+
+                        Key.setKey(g, x, y, 100);
                         break;
                     case 5:
                         Door door200 = new Door(x, y, 5);
                         door200.setDoor(g, x, y, 200);
                         break;
                     case 6:
-                        Key key200 = new Key(x, y, 6);
-                        key200.setKey(g, x, y, 200);
+                        Key.setKey(g, x, y, 200);
+                        if (Key.isCollected()) {
+                            g.setColor(Color.WHITE);
+                            g.fillRect(x, y, 30, 30);
+                            g.drawRect(x, y, 30, 30);
+
+                        }
                         break;
                     case 7:
                         Door door300 = new Door(x, y, 7);
                         door300.setDoor(g, x, y, 300);
                         break;
                     case 8:
-                        Key key300 = new Key(x, y, 8);
-                        key300.setKey(g, x, y, 300);
+                        Key.setKey(g, x, y, 300);
                         break;
                     case 9:
                         End.setEnd(g, x, y);
                         break;
                     default:
-                        Wall.setWall(g,x,y);
+                        Wall.setWall(g, x, y);
                         System.out.print("3");
                         break;
                 }
-                if(x == playerXPosition && y == playerYPosition ){
-                     /*for(Wall wall: Veld.walls) {
-        System.out.print(wall.coordX);  
-        System.out.print(wall.coordY);  
-        if(playerXPosition != wall.coordX){
-            
-        }*/
                 
-                     
-                    
+
+                if (x == playerXPosition && y == playerYPosition) {
+                    /*for(Wall wall: Veld.walls) {
+                    System.out.print(wall.coordX);  
+                    System.out.print(wall.coordY);  
+                    if(playerXPosition != wall.coordX){
+
+                    }*/
+
                     g.setColor(Color.RED);
                     g.fillRect(playerXPosition, playerYPosition, 30, 30);
                     g.drawRect(playerXPosition, playerYPosition, 30, 30);
@@ -157,9 +161,10 @@ public class MazeGame extends JComponent {
 
                 //check if the player is in the chosen square.
                 //if so paint the player
-
             }
+
         }
+
     }
 
     public static void main(String[] a) {
@@ -184,66 +189,80 @@ public class MazeGame extends JComponent {
                 boolean checkObstacle = false;
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
-                        
-                        for(Wall wall: Veld.walls){ //Cycle through each and every wall
+
+                        for (Wall wall : Veld.walls) { //Cycle through each and every wall
                             //check if the player input is going to be a wall or not
-                            if(player.getXPosition() == wall.coordX && (player.getYPosition() - 1) == wall.coordY){
-                                System.out.println("You cant move"); 
+                            if (player.getXPosition() == wall.coordX && (player.getYPosition() - 1) == wall.coordY) {
+                                System.out.println("You cant move");
                                 checkObstacle = false; //set checkobstacle to false to stop the player from moving
                                 break; //break the forloop and continue on
-                            }else{
+                            } else {
                                 checkObstacle = true; // set
                             }
                         }
-                        if(checkObstacle)//check if there is no obstacle
+
+                        for (Key key : Veld.keys) {
+                            if (player.getXPosition() == key.coordX && player.getYPosition() == key.coordY) {
+                                Bag.addKey(key);
+                                key.setCollected(true);
+                                System.out.println("Key collected");
+                            }
+                        }
+
+                        if (checkObstacle)//check if there is no obstacle
+                        {
                             player.move('n'); // move the player
-                        else
+                        } else {
                             System.out.println("You can't move"); //you weren't able to move
+                        }
                         break;
                     case KeyEvent.VK_RIGHT:
-                        for(Wall wall: Veld.walls){
-                            if((player.getXPosition() + 1) == wall.coordX && player.getYPosition() == wall.coordY){
+                        for (Wall wall : Veld.walls) {
+                            if ((player.getXPosition() + 1) == wall.coordX && player.getYPosition() == wall.coordY) {
                                 System.out.println("You cant move"); // plz work
                                 checkObstacle = false;
                                 break;
-                            }else{
+                            } else {
                                 checkObstacle = true;
                             }
                         }
-                        if(checkObstacle)
+                        if (checkObstacle) {
                             player.move('e');
-                        else
+                        } else {
                             System.out.println("You can't move");
+                        }
                         break;
                     case KeyEvent.VK_DOWN:
-                        for(Wall wall: Veld.walls){
-                            if(player.getXPosition() == wall.coordX && (player.getYPosition() + 1) == wall.coordY){
+                        for (Wall wall : Veld.walls) {
+                            if (player.getXPosition() == wall.coordX && (player.getYPosition() + 1) == wall.coordY) {
                                 System.out.println("You cant move"); // plz work
                                 checkObstacle = false;
                                 break;
-                            }else{
+                            } else {
                                 checkObstacle = true;
                             }
                         }
-                        if(checkObstacle)
+                        if (checkObstacle) {
                             player.move('s');
-                        else
+                        } else {
                             System.out.println("You can't move");
+                        }
                         break;
                     case KeyEvent.VK_LEFT:
-                        for(Wall wall: Veld.walls){
-                            if((player.getXPosition() - 1) == wall.coordX && player.getYPosition() == wall.coordY){
+                        for (Wall wall : Veld.walls) {
+                            if ((player.getXPosition() - 1) == wall.coordX && player.getYPosition() == wall.coordY) {
                                 System.out.println("You cant move"); // plz work
                                 checkObstacle = false;
                                 break;
-                            }else{
+                            } else {
                                 checkObstacle = true;
                             }
                         }
-                        if(checkObstacle)
+                        if (checkObstacle) {
                             player.move('w');
-                        else
+                        } else {
                             System.out.println("You can't move");
+                        }
                         break;
                 }
                 //After we assign the new position and turn to the "Spider"
@@ -260,7 +279,7 @@ public class MazeGame extends JComponent {
             }
         });
 
-         //Menu to restart the game
+        //Menu to restart the game
         JButton button = new JButton("Restart");
         button.addActionListener(new ActionListener() {
             @Override
@@ -268,9 +287,9 @@ public class MazeGame extends JComponent {
                 Level.loadLevel(Level.currentLevel);
             }
         });
-        
+
         window.add(button, BorderLayout.SOUTH);
-        
+
         //Set how big the program needs to be
         //For looks i got a width of 360 and 390
         window.setBounds(0, 0, 360, 390);
