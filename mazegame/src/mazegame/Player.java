@@ -36,8 +36,8 @@ public class Player{
 
     public void setPosition(int x, int y) {
         if (setPositionOneTime == 0) {
-            coordX = x;
-            coordY = y;
+            coordX = x + 1;
+            coordY = y + 1;
             setPositionOneTime = 1;
         }
     }
@@ -57,7 +57,7 @@ public class Player{
     public void move(char getDirection) {
         switch (getDirection) {
             case 'n': //North
-                if(coordY > 0){
+                if(coordY > 1){
                     coordY--;
                 }else{
                     System.out.println("You reached the border");
@@ -82,7 +82,7 @@ public class Player{
                 System.out.println("Down");
                 break;
             case 'w': //West
-                if(coordX > 0){
+                if(coordX > 1){
                     coordX--;
                 }else{
                     System.out.println("You reached the border");
