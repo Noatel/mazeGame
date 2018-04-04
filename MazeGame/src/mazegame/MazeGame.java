@@ -94,22 +94,30 @@ public class MazeGame extends JComponent {
 //                      player.saveStartCoords((x / 30), (y / 30));
                         break;
                     case 3:
-                        Door.setDoor(g, x, y, 100);
+                        // dit maakt een nieuw deur object waardoor ik de pin aan het object kan toevoegen
+                        Door door100 = new Door(x, y, 3);
+                        door100.setDoor(g, x, y, 100);
                         break;
                     case 4:
-                        Key.setKey(g, x, y, 100);
+                        // dit maakt een nieuw sleutel object waardoor ik de pin aan het object kan toevoegen
+                        Key key100 = new Key(x, y, 4);
+                        key100.setKey(g, x, y, 100);
                         break;
                     case 5:
-                        Door.setDoor(g, x, y, 200);
+                        Door door200 = new Door(x, y, 5);
+                        door200.setDoor(g, x, y, 200);
                         break;
                     case 6:
-                        Key.setKey(g, x, y, 200);
+                        Key key200 = new Key(x, y, 6);
+                        key200.setKey(g, x, y, 200);
                         break;
                     case 7:
-                        Door.setDoor(g, x, y, 300);
+                        Door door300 = new Door(x, y, 7);
+                        door300.setDoor(g, x, y, 300);
                         break;
                     case 8:
-                        Key.setKey(g, x, y, 300);
+                        Key key300 = new Key(x, y, 8);
+                        key300.setKey(g, x, y, 300);
                         break;
                     case 9:
                         End.setEnd(g, x, y);
