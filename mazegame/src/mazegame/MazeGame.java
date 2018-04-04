@@ -181,28 +181,68 @@ public class MazeGame extends JComponent {
                 //Get the keycode of the key (like the left arrow)
                 int keyCode = e.getKeyCode();
                 //If the user press one of the arrow keys
-
+                boolean checkObstacle = false;
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
+                        
                         for(Wall wall: Veld.walls){
-                            System.out.println("walls: " + wall.coordY);
-                            System.out.println("PLayer Y : " + player.getYPosition());
-                            if((player.getYPosition() - 1) == wall.coordY){
-                                System.out.println("You cant move");
-                            }else
-                            player.move('n');
+                            if(player.getXPosition() == wall.coordX && (player.getYPosition() - 1) == wall.coordY){
+                                System.out.println("You cant move"); // plz work
+                                checkObstacle = false;
+                                break;
+                            }else{
+                                checkObstacle = true;
+                            }
                         }
-                        
-                        
+                        if(checkObstacle)
+                            player.move('n');
+                        else
+                            System.out.println("You can't move");
                         break;
                     case KeyEvent.VK_RIGHT:
-                        player.move('e');
+                        for(Wall wall: Veld.walls){
+                            if((player.getXPosition() + 1) == wall.coordX && player.getYPosition() == wall.coordY){
+                                System.out.println("You cant move"); // plz work
+                                checkObstacle = false;
+                                break;
+                            }else{
+                                checkObstacle = true;
+                            }
+                        }
+                        if(checkObstacle)
+                            player.move('e');
+                        else
+                            System.out.println("You can't move");
                         break;
                     case KeyEvent.VK_DOWN:
-                        player.move('s');
+                        for(Wall wall: Veld.walls){
+                            if(player.getXPosition() == wall.coordX && (player.getYPosition() + 1) == wall.coordY){
+                                System.out.println("You cant move"); // plz work
+                                checkObstacle = false;
+                                break;
+                            }else{
+                                checkObstacle = true;
+                            }
+                        }
+                        if(checkObstacle)
+                            player.move('s');
+                        else
+                            System.out.println("You can't move");
                         break;
                     case KeyEvent.VK_LEFT:
-                        player.move('w');
+                        for(Wall wall: Veld.walls){
+                            if((player.getXPosition() - 1) == wall.coordX && player.getYPosition() == wall.coordY){
+                                System.out.println("You cant move"); // plz work
+                                checkObstacle = false;
+                                break;
+                            }else{
+                                checkObstacle = true;
+                            }
+                        }
+                        if(checkObstacle)
+                            player.move('w');
+                        else
+                            System.out.println("You can't move");
                         break;
                 }
                 //After we assign the new position and turn to the "Spider"
