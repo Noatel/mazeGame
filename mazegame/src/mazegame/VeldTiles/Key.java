@@ -36,6 +36,7 @@ public class Key extends Veld {
 //    }
     
     public static void setKey(Graphics g, int x, int y,int pin) {
+        Key.pin = pin;
         Veld.keys.add(new Key((x / 30), (y / 30), 1));
 
         g.setColor(Color.magenta);
@@ -62,5 +63,16 @@ public class Key extends Veld {
     public void oppakken() {
         this.collected = true;
     }
-   
+
+    public static int getPin() {
+        return pin;
+    }
+
+    public static void setPin(int pin) {
+        Key.pin = pin;
+    }
+    
+    public int getNonStaticPin(){
+        return Key.pin;
+    }
 }

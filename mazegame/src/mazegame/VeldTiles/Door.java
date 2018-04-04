@@ -16,17 +16,17 @@ import java.text.AttributedString;
  */
 public class Door extends Veld {
 
-    private int pin;
-    private boolean closed;
+    static int pin;
+    static boolean closed;
 
     public Door(int coordX, int coordY, int type) {
         super(coordX, coordY, type);
     }
 
-    public void setDoor(Graphics g, int x, int y, int pin) {
+    public static void setDoor(Graphics g, int x, int y, int pin) {
 
         //zet de geven pin als de pin van het object
-        this.pin = pin;
+        Door.pin = pin;
 
         //geeft de kleur de positie en de groote aan van het blok
         g.setColor(Color.ORANGE);
@@ -40,10 +40,23 @@ public class Door extends Veld {
     }
 
     //dit kijkt eerst of de key pin klopt met deze pin daarna zet hij de deur op false
-    public void openDoor(Key key) {
-        if (key.pin == pin) {
+    public static boolean openDoor(int pin) {
+        if (pin == Door.pin) {
             closed = false;
-            key.setCollected(false);
+            Key.setCollected(false);
+            return false;
         }
+        
+        return true;
     }
+
+    public static boolean isClosed() {
+        return closed;
+    }
+
+    public static void setClosed(boolean closed) {
+        Door.closed = closed;
+    }
+    
+    
 }

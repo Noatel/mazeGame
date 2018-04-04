@@ -102,19 +102,27 @@ public class MazeGame extends JComponent {
                         break;
                     case 3:
                         // dit maakt een nieuw deur object waardoor ik de pin aan het object kan toevoegen
-                        Door door100 = new Door(x, y, 3);
-                        door100.setDoor(g, x, y, 100);
+                        Door.setDoor(g, x, y, 100);
+
+//                        if (!Bag.getBag().isEmpty()) {
+//                            if (Door.openDoor(Bag.getBag().get(0).getNonStaticPin())) {
+//                                g.setColor(Color.WHITE);
+//                                g.fillRect(x, y, 30, 30);
+//                                g.drawRect(x, y, 30, 30);
+//                            }
+//                        }
                         break;
                     case 4:
                         // dit maakt een nieuw sleutel object waardoor ik de pin aan het object kan toevoegen
-//                        Key key100 = new Key(x, y, 4);
-//                        key100.setKey(g, x, y, 100);
-
                         Key.setKey(g, x, y, 100);
+                        if (Key.isCollected()) {
+                            g.setColor(Color.WHITE);
+                            g.fillRect(x, y, 30, 30);
+                            g.drawRect(x, y, 30, 30);
+                        }
                         break;
                     case 5:
-                        Door door200 = new Door(x, y, 5);
-                        door200.setDoor(g, x, y, 200);
+                        Door.setDoor(g, x, y, 200);
                         break;
                     case 6:
                         Key.setKey(g, x, y, 200);
@@ -122,15 +130,18 @@ public class MazeGame extends JComponent {
                             g.setColor(Color.WHITE);
                             g.fillRect(x, y, 30, 30);
                             g.drawRect(x, y, 30, 30);
-
                         }
                         break;
                     case 7:
-                        Door door300 = new Door(x, y, 7);
-                        door300.setDoor(g, x, y, 300);
+                        Door.setDoor(g, x, y, 300);
                         break;
                     case 8:
                         Key.setKey(g, x, y, 300);
+                        if (Key.isCollected()) {
+                            g.setColor(Color.WHITE);
+                            g.fillRect(x, y, 30, 30);
+                            g.drawRect(x, y, 30, 30);
+                        }
                         break;
                     case 9:
                         End.setEnd(g, x, y);
@@ -140,7 +151,6 @@ public class MazeGame extends JComponent {
                         System.out.print("3");
                         break;
                 }
-                
 
                 if (x == playerXPosition && y == playerYPosition) {
                     /*for(Wall wall: Veld.walls) {
@@ -206,6 +216,7 @@ public class MazeGame extends JComponent {
                                 Bag.addKey(key);
                                 key.setCollected(true);
                                 System.out.println("Key collected");
+                                System.out.println(Bag.getBag().get(0).getPin());
                             }
                         }
 
