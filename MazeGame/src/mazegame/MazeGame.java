@@ -30,13 +30,9 @@ public class MazeGame  extends JComponent {
     static Random rand = new Random();
     static Grid grid = new Grid();
 
-    //After loading in the random function, declare 2
-    //variables and assign a random number to the "fly"
-    private static int randomNumberX = rand.nextInt(10) + 1;
-    private static int randomNumberY = rand.nextInt(10) + 1;
-
     //Create the Spider with a standard postion of x = 2 and y 2
     static Player player = new Player();
+    boolean startPosition = false;
 
   
 
@@ -58,14 +54,18 @@ public class MazeGame  extends JComponent {
 
         //Because the board is 60 * every time you need to multiple the position
         //Need to look in more why this is happening
-        int spiderXPosition =  player.getXPosition() * 15;
-        int spiderYPosition = player.getYPosition()  * 15;
+        int playerXPosition =  player.getXPosition() * 30;
+        int playerYPosition = player.getYPosition()  * 30;
         
+        player.saveStartCoords(playerXPosition, playerYPosition);
+        player.setPosition(playerXPosition, playerYPosition);
         
         ArrayList<int[]> map = Level.loadLevel(1);
 
         int i = 0;
         int j = 0;
+        
+        
         //Print the grid out with the spider and the fly
         //Draw all the rectangles in the screen
         for (int x = dimX; x <= 315; x += 30) {
@@ -75,6 +75,7 @@ public class MazeGame  extends JComponent {
                 if (i == 10) {
                     //Reset it to the first tile
                     i = 0;
+//                    System.out.println("");
                     
                     //And goest to the next tile
                     j++;
@@ -83,22 +84,36 @@ public class MazeGame  extends JComponent {
                 switch(map.get(i)[j]){
                     case 0:
                         Veld.setVeld(g,x,y);
+                        System.out.print("0");
                         break;
                     case 1:
                         //If there is a 1, spawn a wall
                         Wall.setWall(g,x,y);
+                        System.out.print("1");
                         break;
                     case 2:
+                        if(!startPosition){
                         g.setColor(Color.RED);
                         g.fillRect(x, y, 30, 30);
                         g.drawRect(x, y, 30, 30);
-
-//                      player.setPosition((x / 30), (y / 30));
-//                      player.saveStartCoords((x / 30), (y / 30));
+                            System.out.print("2");
+                            startPosition = true;
+                        }else{
+                            g.setColor(Color.WHITE);
+                            g.fillRect(x, y, 30, 30);
+                            g.drawRect(x, y, 30, 30);
+                            System.out.println("0");
+                        }
                         break;
                     default:
                         Wall.setWall(g,x,y);
+                        System.out.print("3");
                       break;
+                }
+                if(x == playerXPosition && y == playerYPosition){
+                    g.setColor(Color.RED);
+                    g.fillRect(playerXPosition, playerYPosition, 30, 30);
+                    g.drawRect(playerXPosition, playerYPosition, 30, 30);
                 }
                  
                 g.setColor(Color.BLACK);
@@ -106,12 +121,8 @@ public class MazeGame  extends JComponent {
                 i++;
                 
                 //check if the player is in the chosen square.
-                //if so
-                if(x == player.getXPosition() && y == player.getYPosition()){
-                    g.setColor(Color.RED);
-                    g.fillRect(x, y, 30, 30);
-                    g.drawRect(x, y, 30, 30);
-                }
+                //if so paint the player
+                
                 
                 
                 
