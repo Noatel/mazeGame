@@ -57,22 +57,43 @@ public class Player{
     public void move(char getDirection) {
         switch (getDirection) {
             case 'n': //North
-                coordY++;
+                if(coordY > 0){
+                    coordY--;
+                }else{
+                    System.out.println("You reached the border");
+                }
                 System.out.println("Up");
                 break;
             case 'e': //East
+                if(coordX < 10){
                 coordX++;
+                }else{
+                    System.out.println("You reached the border");
+                }
                 System.out.println("Right");
                 break;
             case 's': //South
-                coordY--;
+                if(coordY < 10){
+                    coordY++;
+                }else{
+                    System.out.println("You reached the border");
+                    //continue
+                }
                 System.out.println("Down");
                 break;
             case 'w': //West
-                coordX--;
+                if(coordX > 0){
+                    coordX--;
+                }else{
+                    System.out.println("You reached the border");
+                }
+                
                 System.out.println("Left");
                 break;
         }
+        
+        System.out.println("coordX: " + coordX + " coordY: " + coordY);
+        
     }
 
     //get the direction of the bug
@@ -86,14 +107,14 @@ public class Player{
     }
 
     public void saveStartCoords(int x , int y){
-        startCoordsX = x;
-        startCoordsY = y;
+        startCoordsX = x + 1;
+        startCoordsY = y + 1;
     }
     public int getStartCoordsX(){
-        return startCoordsX * 30;
+        return startCoordsX * 15;
     }
     public int getStartCoordsY(){
-        return startCoordsY * 30;
+        return startCoordsY * 15;
     }
 
 }
