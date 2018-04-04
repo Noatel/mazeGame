@@ -12,8 +12,8 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import java.util.ArrayList;
 import java.util.Random;
-import mazegame.VeldTiles.Veld;
-import mazegame.VeldTiles.Wall;
+import mazegame.VeldTiles.*;
+
 /**
  *
  * @author NoahTelussa
@@ -31,9 +31,13 @@ public class MazeGame extends JComponent {
     static Random rand = new Random();
     static Grid grid = new Grid();
 
+    //After loading in the random function, declare 2
+    //variables and assign a random number to the "fly"
+    private static int randomNumberX = rand.nextInt(10) + 1;
+    private static int randomNumberY = rand.nextInt(10) + 1;
+
     //Create the Spider with a standard postion of x = 2 and y 2
     static Player player = new Player();
-    boolean startPosition = false;
 
     public MazeGame() {
 
@@ -52,12 +56,9 @@ public class MazeGame extends JComponent {
 //        grid.calculateCorners(dimX, dimY);
         //Because the board is 60 * every time you need to multiple the position
         //Need to look in more why this is happening
-        int playerXPosition =  player.getXPosition() * 30;
-        int playerYPosition = player.getYPosition()  * 30;
+        int spiderXPosition = player.getXPosition() * 15;
+        int spiderYPosition = player.getYPosition() * 15;
 
-        player.saveStartCoords(playerXPosition, playerYPosition);
-        player.setPosition(playerXPosition, playerYPosition);
-        
         ArrayList<int[]> map = Level.loadLevel(1);
 
         int i = 0;
@@ -78,27 +79,19 @@ public class MazeGame extends JComponent {
 
                 switch (map.get(i)[j]) {
                     case 0:
-                        Veld.setVeld(g,x,y);
-                        System.out.print("0");
+                        Veld.setVeld(g, x, y);
                         break;
                     case 1:
                         //If there is a 1, spawn a wall
-                        Wall.setWall(g,x,y);
-                        System.out.print("1");
+                        Wall.setWall(g, x, y);
                         break;
                     case 2:
-                        if(!startPosition){
                         g.setColor(Color.RED);
                         g.fillRect(x, y, 30, 30);
                         g.drawRect(x, y, 30, 30);
-                            System.out.print("2");
-                            startPosition = true;
-                        }else{
-                            g.setColor(Color.WHITE);
-                            g.fillRect(x, y, 30, 30);
-                            g.drawRect(x, y, 30, 30);
-                            System.out.println("0");
-                        }
+
+//                      player.setPosition((x / 30), (y / 30));
+//                      player.saveStartCoords((x / 30), (y / 30));
                         break;
                     case 3:
                         // dit maakt een nieuw deur object waardoor ik de pin aan het object kan toevoegen
@@ -130,14 +123,8 @@ public class MazeGame extends JComponent {
                         End.setEnd(g, x, y);
                         break;
                     default:
-                        Wall.setWall(g,x,y);
-                        System.out.print("3");
+                        Wall.setWall(g, x, y);
                         break;
-                }
-                if(x == playerXPosition && y == playerYPosition){
-                    g.setColor(Color.RED);
-                    g.fillRect(playerXPosition, playerYPosition, 30, 30);
-                    g.drawRect(playerXPosition, playerYPosition, 30, 30);
                 }
 
                 g.setColor(Color.BLACK);
@@ -145,7 +132,12 @@ public class MazeGame extends JComponent {
                 i++;
 
                 //check if the player is in the chosen square.
-                //if so paint the player
+                //if so
+                if (x == player.getXPosition() && y == player.getYPosition()) {
+                    g.setColor(Color.RED);
+                    g.fillRect(x, y, 30, 30);
+                    g.drawRect(x, y, 30, 30);
+                }
 
             }
         }
