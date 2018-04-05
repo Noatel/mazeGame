@@ -33,14 +33,7 @@ public class Wall extends Field {
             g.drawRect(x, y, 30, 30);
     }
     
-    public static void getWall(){
-        for(Wall wall: Field.walls) {
-        System.out.println("Coord x : ");  
-        System.out.print(wall.coordX);  
-        System.out.println("Coord y : ");  
-        System.out.print(wall.coordY);  
-     }
-
+  
      /**
      * Return a arrayList with all the x and y of a wall
      *
