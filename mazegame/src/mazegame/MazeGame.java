@@ -274,8 +274,8 @@ public class MazeGame extends JComponent {
                      if(player.getXPosition() == Veld.endLocation[0] && player.getYPosition() == Veld.endLocation[1]){
                             if(Level.currentLevel == 3){
                                 JOptionPane.showMessageDialog(null, "You complete the game!");                            
-                              
-                                Level.currentLevel = 1;   
+                                window.setVisible(false); 
+                                window.dispose(); 
                             } else {
                                 //Level finished +1
                                 Level.currentLevel++;
