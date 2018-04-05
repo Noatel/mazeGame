@@ -11,7 +11,6 @@ import java.awt.event.*;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * MazeGame is used for loading the JFrame and Paint the components
