@@ -16,8 +16,8 @@ import java.text.AttributedString;
  */
 public class Door extends Field {
 
-    static int pin;
-    static boolean closed;
+    public int pin;
+    public static boolean closed;
 
      /**
      * Constructs a door that needs the position of the x coordinate, y coordinate and the type
@@ -25,8 +25,11 @@ public class Door extends Field {
      * @param coordY coordinate of a field
      * @param type type of the door 
      */
-    public Door(int coordX, int coordY, int type) {
+    public Door(int coordX, int coordY, int pinCode ,int type) {
         super(coordX, coordY, type);
+        
+        //zet de geven pin als de pin van het object
+        pin = pinCode;
     }
 
      /**
@@ -35,30 +38,29 @@ public class Door extends Field {
      * @param x coordinate of a field
      * @param y coordinate of a field
      * @param pin each door got a specific pin that is connected to a key
+     * @param type of a field
     */
-    public static void setDoor(Graphics g, int x, int y, int pin) {
-
-        //zet de geven pin als de pin van het object
-        Door.pin = pin;
-
+    public static void setDoor(Graphics g, int x, int y, int pinCode, int type) {
+        Field.doors.add(new Door((x / 30), (y / 30), pinCode, type));
+        
         //geeft de kleur de positie en de groote aan van het blok
         g.setColor(Color.ORANGE);
         g.fillRect(x, y, 30, 30);
         g.drawRect(x, y, 30, 30);
 
         //geeft attributes aan strings waardoor je de kleur kan veranderen 
-        AttributedString as = new AttributedString(Integer.toString(pin));
+        AttributedString as = new AttributedString(Integer.toString(pinCode));
         as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
         g.drawString(as.getIterator(), x + 5, y + 20);
     }
 
      /**
-     * Open the door and set {@closed} to open. If the key is wrong it doenst open the door
+     * Open the door and set {@closed} to open. If the key is wrong it doesn't open the door
      * @param pin Each door got a specific pin that is connected to a key
-     * @return if the door is opend or closed
+     * @return if the door is opened or closed
      */
-    public static boolean openDoor(int pin) {
-        if (pin == Door.pin) {
+    public boolean openDoor(int pinCode) {
+        if (pin == pinCode) {
             closed = false;
             Key.setCollected(false);
             return false;
@@ -79,8 +81,11 @@ public class Door extends Field {
      * Set the door closed 
      * @param closed Check if the door is open or closed
      */
-    public static void setClosed(boolean closed) {
+    public void setClosed(boolean closed) {
         Door.closed = closed;
+    }
+    public int getPin(){
+        return pin;
     }
     
     

@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JFrame;
+import mazegame.FieldTiles.Field;
 import mazegame.FieldTiles.Wall;
 
 /**
@@ -39,8 +40,9 @@ public class Level {
         //Clear the level before if there is one
         Grid.map.clear();
         Wall.walls.clear();
+        Bag.alreadyCollected.clear();
+        Field.doors.clear();
 
-        
         //Because we got multiple levels
         switch(level){
             case 1:
