@@ -266,13 +266,12 @@ public class MazeGame extends JComponent {
                 }
                 //After we assign the new position and turn to the "Spider"
                 //repaint all the rectangle (Maybe not the best way to do it)
-
                 //Check if the player is at the end location
                 if (player.getXPosition() == Veld.endLocation[0] && player.getYPosition() == Veld.endLocation[1]) {
                     if (Level.currentLevel == 3) {
                         JOptionPane.showMessageDialog(null, "You complete the game!");
-
-                        Level.currentLevel = 1;
+                        window.setVisible(false);
+                        window.dispose();
                     } else {
                         //Level finished +1
                         Level.currentLevel++;
@@ -293,7 +292,6 @@ public class MazeGame extends JComponent {
                 }
 
                 window.repaint();
-
             }
         });
         //Menu to restart the game
