@@ -57,7 +57,7 @@ public class MazeGame extends JComponent {
 
         System.out.println("Positions are" + playerXPosition);
         System.out.println("Positions are" + playerXPosition);
-        
+
         player.setPosition(playerXPosition, playerYPosition);
 
         ArrayList<int[]> map = Level.loadLevel(Level.currentLevel);
@@ -112,8 +112,10 @@ public class MazeGame extends JComponent {
                         break;
                     case 4:
                         // dit maakt een nieuw sleutel object waardoor ik de pin aan het object kan toevoegen
-                        Key.setKey(g, x, y, 100);
-                        if (Key.isCollected()) {
+                        Key.setKey(g, x, y, 100, 4);
+
+                        // when the key is picked up the color changes to white
+                        if (Key.isCollected() && Key.getId() == 4) {
                             g.setColor(Color.WHITE);
                             g.fillRect(x, y, 30, 30);
                             g.drawRect(x, y, 30, 30);
@@ -123,8 +125,8 @@ public class MazeGame extends JComponent {
                         Door.setDoor(g, x, y, 200);
                         break;
                     case 6:
-                        Key.setKey(g, x, y, 200);
-                        if (Key.isCollected()) {
+                        Key.setKey(g, x, y, 200, 6);
+                        if (Key.isCollected() && Key.getId() == 6) {
                             g.setColor(Color.WHITE);
                             g.fillRect(x, y, 30, 30);
                             g.drawRect(x, y, 30, 30);
@@ -134,8 +136,8 @@ public class MazeGame extends JComponent {
                         Door.setDoor(g, x, y, 300);
                         break;
                     case 8:
-                        Key.setKey(g, x, y, 300);
-                        if (Key.isCollected()) {
+                        Key.setKey(g, x, y, 300, 8);
+                        if (Key.isCollected() && Key.getId() == 8) {
                             g.setColor(Color.WHITE);
                             g.fillRect(x, y, 30, 30);
                             g.drawRect(x, y, 30, 30);
@@ -202,15 +204,6 @@ public class MazeGame extends JComponent {
                             }
                         }
 
-                        for (Key key : Veld.keys) {
-                            if (player.getXPosition() == key.coordX && player.getYPosition() == key.coordY) {
-                                Bag.addKey(key);
-                                key.setCollected(true);
-                                System.out.println("Key collected");
-                                System.out.println(Bag.getBag().get(0).getPin());
-                            }
-                        }
-
                         if (checkObstacle)//check if there is no obstacle
                         {
                             player.move('n'); // move the player
@@ -228,11 +221,13 @@ public class MazeGame extends JComponent {
                                 checkObstacle = true;
                             }
                         }
+
                         if (checkObstacle) {
                             player.move('e');
                         } else {
                             System.out.println("You can't move");
                         }
+
                         break;
                     case KeyEvent.VK_DOWN:
                         for (Wall wall : Veld.walls) {
@@ -244,6 +239,7 @@ public class MazeGame extends JComponent {
                                 checkObstacle = true;
                             }
                         }
+
                         if (checkObstacle) {
                             player.move('s');
                         } else {
@@ -260,6 +256,7 @@ public class MazeGame extends JComponent {
                                 checkObstacle = true;
                             }
                         }
+
                         if (checkObstacle) {
                             player.move('w');
                         } else {
@@ -270,24 +267,32 @@ public class MazeGame extends JComponent {
                 //After we assign the new position and turn to the "Spider"
                 //repaint all the rectangle (Maybe not the best way to do it)
 
-                      //Check if the player is at the end location
-                     if(player.getXPosition() == Veld.endLocation[0] && player.getYPosition() == Veld.endLocation[1]){
-                            if(Level.currentLevel == 3){
-                                JOptionPane.showMessageDialog(null, "You complete the game!");                            
-                              
-                                Level.currentLevel = 1;   
-                            } else {
-                                //Level finished +1
-                                Level.currentLevel++;
-                            }
-                            //Load in next level
-                                Level.loadLevel(Level.currentLevel); 
-                                Player.setPositionOneTime = 0;
-                                Player.setPosition(0,0);
-                                
-               }
-                     
-             window.repaint();
+                //Check if the player is at the end location
+                if (player.getXPosition() == Veld.endLocation[0] && player.getYPosition() == Veld.endLocation[1]) {
+                    if (Level.currentLevel == 3) {
+                        JOptionPane.showMessageDialog(null, "You complete the game!");
+
+                        Level.currentLevel = 1;
+                    } else {
+                        //Level finished +1
+                        Level.currentLevel++;
+                    }
+                    //Load in next level
+                    Level.loadLevel(Level.currentLevel);
+                    Player.setPositionOneTime = 0;
+                    Player.setPosition(0, 0);
+
+                }
+
+                for (Key key : Veld.keys) {
+                    if (player.getXPosition() == key.coordX && player.getYPosition() == key.coordY && key.getId() == Veld.keys.get(0).getId()) {
+                        Bag.addKey(key);
+                        key.setCollected(true);
+                        System.out.println("Key collected");
+                    }
+                }
+
+                window.repaint();
 
             }
         });
@@ -298,7 +303,7 @@ public class MazeGame extends JComponent {
             public void actionPerformed(ActionEvent e) {
                 Level.loadLevel(Level.currentLevel);
                 Player.setPositionOneTime = 0;
-                Player.setPosition(0,0);
+                Player.setPosition(0, 0);
                 window.repaint();
                 window.setFocusable(true);
                 window.requestFocusInWindow();

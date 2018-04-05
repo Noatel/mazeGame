@@ -17,11 +17,15 @@ import java.util.ArrayList;
  */
 public class Key extends Veld {
 
+    static int id;
     static boolean collected; // dit kijkt of de key is opgepakt of niet
     static int pin;
 
-    public Key(int coordX, int coordY, int type) {
+    public Key(int coordX, int coordY, int type, int id, int pin) {
         super(coordX, coordY, type);
+        
+        Key.id = id;
+        Key.pin = pin;
     }
 
 //    public void setKey(Graphics g, int x, int y, int pin) {
@@ -35,9 +39,8 @@ public class Key extends Veld {
 //        g.drawString(as.getIterator(), x + 5, y + 20);
 //    }
     
-    public static void setKey(Graphics g, int x, int y,int pin) {
-        Key.pin = pin;
-        Veld.keys.add(new Key((x / 30), (y / 30), 1));
+    public static void setKey(Graphics g, int x, int y,int pin, int id) {
+        Veld.keys.add(new Key((x / 30), (y / 30), 1, id, pin));
 
         g.setColor(Color.magenta);
         g.fillRect(x, y, 30, 30);
@@ -60,10 +63,6 @@ public class Key extends Veld {
         Key.collected = collected;
     }
 
-    public void oppakken() {
-        this.collected = true;
-    }
-
     public static int getPin() {
         return pin;
     }
@@ -74,5 +73,17 @@ public class Key extends Veld {
     
     public int getNonStaticPin(){
         return Key.pin;
+    }
+
+    public static int getId() {
+        return id;
+    }
+
+    public static void setId(int id) {
+        Key.id = id;
+    }
+    
+    public static void isPickedUp(){
+        
     }
 }
