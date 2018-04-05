@@ -127,6 +127,12 @@ public class MazeGame extends JComponent {
                     case 3:
                         // dit maakt een nieuw deur object waardoor ik de pin aan het object kan toevoegen
                         Door.setDoor(g, x, y, 100, 4);
+                        
+                        if (Door.isClosed() != true && Bag.getBag() == 100) {
+                            g.setColor(new Color(255, 255, 255));
+                            g.fillRect(x, y, 30, 30);
+                            g.drawRect(x, y, 30, 30);
+                        }
 
 //                            if (Door.openDoor(Bag.getBag().get(0).getNonStaticPin())) {
 //                                g.setColor(Color.WHITE);
@@ -149,6 +155,12 @@ public class MazeGame extends JComponent {
                         break;
                     case 5:
                         Door.setDoor(g, x, y, 200, 7);
+                        
+                        if (Door.isClosed() != true && Bag.getBag() == 200) {
+                            g.setColor(new Color(255, 255, 255));
+                            g.fillRect(x, y, 30, 30);
+                            g.drawRect(x, y, 30, 30);
+                        }
                         break;
                     case 6:
                         if (!Bag.collected(200)) {
@@ -159,11 +171,16 @@ public class MazeGame extends JComponent {
                             g.setColor(new Color(255, 255, 255));
                             g.fillRect(x, y, 30, 30);
                             g.drawRect(x, y, 30, 30);
-
                         }
                         break;
                     case 7:
                         Door.setDoor(g, x, y, 300, 8);
+                        
+                        if (Door.isClosed() != true && Bag.getBag() == 300) {
+                            g.setColor(new Color(255, 255, 255));
+                            g.fillRect(x, y, 30, 30);
+                            g.drawRect(x, y, 30, 30);
+                        }
                         break;
                     case 8:
                         if (!Bag.collected(300)) {
