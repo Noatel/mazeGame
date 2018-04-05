@@ -48,6 +48,7 @@ abstract public class Field {
     * Create a int array of length of 2 where the x and y coords are being saved in {@endLocation}
      */
     public static int[] endLocation = new int[2];
+    static final int NEW_COORDS = 100;
 
     //Construct Field with the coord x, coord y and the type
     /**

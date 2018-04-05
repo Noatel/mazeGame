@@ -136,7 +136,7 @@ public class MazeGame extends JComponent {
                         break;
                     case 4:
                         // dit maakt een nieuw sleutel object waardoor ik de pin aan het object kan toevoegen
-                        if (Bag.collected(100)) {
+                        if (!Bag.collected(100)) {
                             Key.setKey(g, x, y, 100, 4);
                         }
 
@@ -151,7 +151,7 @@ public class MazeGame extends JComponent {
                         Door.setDoor(g, x, y, 200, 7);
                         break;
                     case 6:
-                        if (Bag.collected(200)) {
+                        if (!Bag.collected(200)) {
                             Key.setKey(g, x, y, 200, 6);
                         }
 
@@ -166,7 +166,7 @@ public class MazeGame extends JComponent {
                         Door.setDoor(g, x, y, 300, 8);
                         break;
                     case 8:
-                        if (Bag.collected(300)) {
+                        if (!Bag.collected(300)) {
                             Key.setKey(g, x, y, 300, 8);
                         }
                         if (Key.isCollected() && Bag.getBag() == 300) {
@@ -237,6 +237,7 @@ public class MazeGame extends JComponent {
                                     if (player.getXPosition() == doors.coordX && (player.getYPosition() - 1) == doors.coordY) {
                                         if (Bag.getBag() == doors.getPin()) {
                                             checkObstacle = true;
+                                            doors.changeLocation(doors);
                                             doors.setClosed(false);
                                             break;
                                         } else {
@@ -268,6 +269,7 @@ public class MazeGame extends JComponent {
                                     if ((player.getXPosition() + 1) == doors.coordX && player.getYPosition() == doors.coordY) {
                                         if (Bag.getBag() == doors.getPin()) {
                                             checkObstacle = true;
+                                            doors.changeLocation(doors);
                                             doors.setClosed(false);
                                             break;
                                         } else {
@@ -300,7 +302,8 @@ public class MazeGame extends JComponent {
                                     if (player.getXPosition() == doors.coordX && (player.getYPosition() + 1) == doors.coordY) {
                                         if (Bag.getBag() == doors.getPin()) {
                                             checkObstacle = true;
-                                             doors.setClosed(false);
+                                            doors.changeLocation(doors);
+                                            doors.setClosed(false);
                                             break;
                                         } else {
                                             checkObstacle = false; //set checkobstacle to false to stop the player from moving
@@ -331,6 +334,7 @@ public class MazeGame extends JComponent {
                                     if ((player.getXPosition() - 1) == doors.coordX && player.getYPosition() == doors.coordY) {
                                         if (Bag.getBag() == doors.getPin()) {
                                             checkObstacle = true;
+                                            doors.changeLocation(doors);
                                             doors.setClosed(false);
                                             break;
                                         } else {
@@ -371,14 +375,14 @@ public class MazeGame extends JComponent {
                     Player.setPositionOneTime = 0;
                     Player.setPosition(0, 0);
                 }
+
                 //Repaint the frame
                 window.repaint();
+
                 for (Key key : Field.keys) {
                     if (player.getXPosition() == key.coordX && player.getYPosition() == key.coordY) {
                         Bag.addKey(key);
                         key.setCollected(true);
-//                                System.out.println("Key collected");
-//                                System.out.println(Bag.getBag().get(0).getPin());
                         Key.movePosition(key);
                     }
                 }

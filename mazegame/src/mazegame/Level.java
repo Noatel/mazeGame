@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JFrame;
 import mazegame.FieldTiles.Field;
+import mazegame.FieldTiles.Key;
 import mazegame.FieldTiles.Wall;
 
 /**
@@ -41,8 +42,9 @@ public class Level {
         Grid.map.clear();
         Wall.walls.clear();
         Bag.alreadyCollected.clear();
+        Key.keys.clear();
         Field.doors.clear();
-
+        
         //Because we got multiple levels
         switch(level){
             case 1:

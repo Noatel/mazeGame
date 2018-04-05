@@ -36,6 +36,6 @@ public class Bag {
     }
 
     public static boolean collected(int pin) {
-        return !alreadyCollected.contains(pin);
+        return alreadyCollected.contains(pin);
     }
 }

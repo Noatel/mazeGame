@@ -68,7 +68,6 @@ public class Door extends Field {
         
         return true;
     }
-
      /**
      * See if the door is closed or open  (True / false)
      * @return closed Check if the door is open or closed
@@ -86,6 +85,14 @@ public class Door extends Field {
     }
     public int getPin(){
         return pin;
+    }
+
+    public void changeLocation(Door doors) {
+        System.out.println(doors.coordX);
+        doors.coordX = Field.NEW_COORDS;
+        doors.coordY = Field.NEW_COORDS;
+        System.out.println("NIUEWWE");
+        System.out.println(doors.coordX);
     }
     
     

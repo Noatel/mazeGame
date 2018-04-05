@@ -19,7 +19,7 @@ public class Key extends Field {
 
     public static boolean collected; // dit kijkt of de key is opgepakt of niet
     public int pin;
-    static final int NEW_COORDS = 100;
+    
 
     /**
      * Constructs a end point that needs the position of the x coordinate, y
@@ -55,7 +55,6 @@ public class Key extends Field {
      */
 
     public static void setKey(Graphics g, int x, int y, int pin, int type) {
-       
         Field.keys.add(new Key((x / 30), (y / 30), type, pin));
           
         g.setColor(Color.magenta);
@@ -68,8 +67,8 @@ public class Key extends Field {
     }
 
     public static void movePosition(Key key){
-        key.coordX = NEW_COORDS;
-        key.coordY = NEW_COORDS;
+        key.coordX = Field.NEW_COORDS;
+        key.coordY = Field.NEW_COORDS;
     }
     /**
      * @return Field.Keys that got all the locations of the keys inside
