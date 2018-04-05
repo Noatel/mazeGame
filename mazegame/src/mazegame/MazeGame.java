@@ -11,7 +11,6 @@ import java.awt.event.*;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.TimerTask;
 import java.util.Timer;
 
