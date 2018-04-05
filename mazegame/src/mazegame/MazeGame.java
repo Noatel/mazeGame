@@ -12,6 +12,8 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.TimerTask;
+import java.util.Timer;
 
 /**
  * MazeGame is used for loading the JFrame and Paint the components
@@ -48,6 +50,25 @@ public class MazeGame extends JComponent {
 
     public static JLabel label1 = new JLabel("Total Moves: " + Player.totalMoves);
 
+    static int secondsPassed = 0;
+    private static boolean timerChecker = false;
+
+    public static JLabel label2 = new JLabel("Time: " + secondsPassed);
+
+    Timer timer = new Timer();
+    boolean timerStarted = false;
+    TimerTask task = new TimerTask() {
+        public void run() {
+            secondsPassed++;
+            label2.setText("Time: " + secondsPassed);
+        }
+
+    };
+
+    public void start() {
+        timer.scheduleAtFixedRate(task, 1000, 1000);
+    }
+
     /**
      * With the paint classes we can draw the rectangles on the JFrame that we
      * create in the main We assign the basic values of the grid, Set the player
@@ -75,6 +96,10 @@ public class MazeGame extends JComponent {
     public void paint(Graphics g) {
         super.paint(g);
 
+        if (!timerStarted) {
+            start();
+            timerStarted = true;
+        }
         //First we assign how big the big the board needs to be
         dimX = 30;
         dimY = 30;
@@ -374,6 +399,8 @@ public class MazeGame extends JComponent {
                         Level.currentLevel++;
                         Player.totalMoves = 0; // set the total moves back to 0
                         label1.setText("Total Moves: " + Player.totalMoves); //rewrite the text to the total moves
+                        label2.setHorizontalTextPosition(0);
+                        label2.setVerticalTextPosition(0);
                         Bag.alreadyCollected.clear();
                         Bag.bag = 0;
 
@@ -438,8 +465,8 @@ public class MazeGame extends JComponent {
         label1.setHorizontalTextPosition(0);
         label1.setVerticalTextPosition(0);
         panel.add(label1);
+        panel.add(label2);
         window.add(panel);
-
     }
 
 }
