@@ -57,6 +57,7 @@ public class Player {
                 System.out.println("Up");
                 break;
             case 'e': //East
+
                 if (coordX < 10) {
                     coordX++;
                     totalMoves++;
@@ -88,5 +89,4 @@ public class Player {
         }
         MazeGame.label1.setText("Total Moves: " + totalMoves);
     }
-
 }
