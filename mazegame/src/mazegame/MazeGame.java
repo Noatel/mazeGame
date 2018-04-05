@@ -133,12 +133,6 @@ public class MazeGame extends JComponent {
                             g.fillRect(x, y, 30, 30);
                             g.drawRect(x, y, 30, 30);
                         }
-
-//                            if (Door.openDoor(Bag.getBag().get(0).getNonStaticPin())) {
-//                                g.setColor(Color.WHITE);
-//                                g.fillRect(x, y, 30, 30);
-//                                g.drawRect(x, y, 30, 30);
-//                            }
                         break;
                     case 4:
                         // dit maakt een nieuw sleutel object waardoor ik de pin aan het object kan toevoegen

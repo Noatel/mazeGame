@@ -111,6 +111,8 @@ public class Level {
                 Level.loadLevel(Level.currentLevel);
                 Player.setPositionOneTime = 0;
                 Player.setPosition(0,0);
+                Bag.alreadyCollected.clear();
+                Key.keys.clear();
                 window.repaint();
                 window.setFocusable(true);
                 window.requestFocusInWindow();
