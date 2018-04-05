@@ -26,6 +26,7 @@ public class MazeGame extends JComponent {
     private JButton buttonMessage;
     private JPanel panelMain;
     private int clearStartPosition;
+    
 
     //Because you want to spawn the "fly" random you need to declare the random function
     static Random rand = new Random();
@@ -34,6 +35,8 @@ public class MazeGame extends JComponent {
     //Create the Spider with a standard postion of x = 2 and y 2
     static Player player = new Player();
     boolean startPosition = false;
+    
+    public static JLabel label1 = new JLabel("Total Moves: " + Player.totalMoves);
 
     public MazeGame() {
 
@@ -61,7 +64,7 @@ public class MazeGame extends JComponent {
         player.setPosition(playerXPosition, playerYPosition);
 
         ArrayList<int[]> map = Level.loadLevel(Level.currentLevel);
-
+        
         int i = 0;
         int j = 0;
         //Print the grid out with the spider and the fly
@@ -270,7 +273,7 @@ public class MazeGame extends JComponent {
                 //After we assign the new position and turn to the "Spider"
                 //repaint all the rectangle (Maybe not the best way to do it)
 
-                      //Check if the player is at the end location
+                 //Check if the player is at the end location
                      if(player.getXPosition() == Veld.endLocation[0] && player.getYPosition() == Veld.endLocation[1]){
                             if(Level.currentLevel == 3){
                                 JOptionPane.showMessageDialog(null, "You complete the game!");                            
@@ -279,6 +282,8 @@ public class MazeGame extends JComponent {
                             } else {
                                 //Level finished +1
                                 Level.currentLevel++;
+                                Player.totalMoves = 0; // set the total moves back to 0
+                                label1.setText("Total Moves: " + Player.totalMoves); //rewrite the text to the total moves
                             }
                             //Load in next level
                                 Level.loadLevel(Level.currentLevel); 
@@ -287,7 +292,8 @@ public class MazeGame extends JComponent {
                                 
                }
                      
-             window.repaint();
+               
+            window.repaint();     
 
             }
         });
@@ -302,6 +308,8 @@ public class MazeGame extends JComponent {
                 window.repaint();
                 window.setFocusable(true);
                 window.requestFocusInWindow();
+                Player.totalMoves = 0; // reset the total moves
+                label1.setText("Total Moves: " + Player.totalMoves); //rewrite the total moves to the screen
             }
         });
 
@@ -318,6 +326,14 @@ public class MazeGame extends JComponent {
 
         window.getContentPane().add(new MazeGame());
         window.setVisible(true);
+        
+        JPanel panel = new JPanel();
+        label1.setHorizontalTextPosition(0);
+        label1.setVerticalTextPosition(0);
+        panel.add(label1);
+        window.add(panel);
+        
+        
     }
 
 }
