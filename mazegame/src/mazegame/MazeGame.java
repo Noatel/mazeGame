@@ -5,6 +5,11 @@
  */
 package mazegame;
 
+import mazegame.FieldTiles.Door;
+import mazegame.FieldTiles.Key;
+import mazegame.FieldTiles.End;
+import mazegame.FieldTiles.Wall;
+import mazegame.FieldTiles.Field;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -12,7 +17,6 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import java.util.ArrayList;
 import java.util.Random;
-import mazegame.VeldTiles.*;
 
 /**
  *
@@ -23,9 +27,6 @@ public class MazeGame extends JComponent {
     //Set the variables, the x coords, y coords
     private int dimX;
     private int dimY;
-    private JButton buttonMessage;
-    private JPanel panelMain;
-    private int clearStartPosition;
 
     //Because you want to spawn the "fly" random you need to declare the random function
     static Random rand = new Random();
@@ -44,22 +45,19 @@ public class MazeGame extends JComponent {
         super.paint(g);
 
         //First we assign how big the big the board needs to be
-        //For some reason its a 10x10 now (it divdes with 3)
-        //Need to look in more why this is happening
-        dimX = 30; // this is not the best solution
-        dimY = 30; // for defining the size of the game!
+        dimX = 30;
+        dimY = 30; 
 
-//        grid.calculateCorners(dimX, dimY);
         //Because the board is 60 * every time you need to multiple the position
         //Need to look in more why this is happening
         int playerXPosition = player.getXPosition() * 30;
         int playerYPosition = player.getYPosition() * 30;
 
-        System.out.println("Positions are" + playerXPosition);
-        System.out.println("Positions are" + playerXPosition);
         
+        //Set the player position
         player.setPosition(playerXPosition, playerYPosition);
 
+        //Load the level and put it in the array map
         ArrayList<int[]> map = Level.loadLevel(Level.currentLevel);
 
         int i = 0;
@@ -80,7 +78,7 @@ public class MazeGame extends JComponent {
 
                 switch (map.get(i)[j]) {
                     case 0:
-                        Veld.setVeld(g, x, y);
+                        Field.setField(g, x, y);
                         break;
                     case 1:
                         //If there is a 1, spawn a wall
@@ -163,9 +161,7 @@ public class MazeGame extends JComponent {
                 //check if the player is in the chosen square.
                 //if so paint the player
             }
-
         }
-
     }
 
     public static void main(String[] a) {
@@ -190,8 +186,7 @@ public class MazeGame extends JComponent {
                 boolean checkObstacle = false;
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
-
-                        for (Wall wall : Veld.walls) { //Cycle through each and every wall
+                        for (Wall wall : Field.walls) { //Cycle through each and every wall
                             //check if the player input is going to be a wall or not
                             if (player.getXPosition() == wall.coordX && (player.getYPosition() - 1) == wall.coordY) {
                                 System.out.println("You cant move");
@@ -202,7 +197,7 @@ public class MazeGame extends JComponent {
                             }
                         }
 
-                        for (Key key : Veld.keys) {
+                        for (Key key : Field.keys) {
                             if (player.getXPosition() == key.coordX && player.getYPosition() == key.coordY) {
                                 Bag.addKey(key);
                                 key.setCollected(true);
@@ -219,7 +214,7 @@ public class MazeGame extends JComponent {
                         }
                         break;
                     case KeyEvent.VK_RIGHT:
-                        for (Wall wall : Veld.walls) {
+                        for (Wall wall : Field.walls) {
                             if ((player.getXPosition() + 1) == wall.coordX && player.getYPosition() == wall.coordY) {
                                 System.out.println("You cant move"); // plz work
                                 checkObstacle = false;
@@ -235,7 +230,7 @@ public class MazeGame extends JComponent {
                         }
                         break;
                     case KeyEvent.VK_DOWN:
-                        for (Wall wall : Veld.walls) {
+                        for (Wall wall : Field.walls) {
                             if (player.getXPosition() == wall.coordX && (player.getYPosition() + 1) == wall.coordY) {
                                 System.out.println("You cant move"); // plz work
                                 checkObstacle = false;
@@ -251,7 +246,7 @@ public class MazeGame extends JComponent {
                         }
                         break;
                     case KeyEvent.VK_LEFT:
-                        for (Wall wall : Veld.walls) {
+                        for (Wall wall : Field.walls) {
                             if ((player.getXPosition() - 1) == wall.coordX && player.getYPosition() == wall.coordY) {
                                 System.out.println("You cant move"); // plz work
                                 checkObstacle = false;
@@ -267,41 +262,40 @@ public class MazeGame extends JComponent {
                         }
                         break;
                 }
-                //After we assign the new position and turn to the "Spider"
-                //repaint all the rectangle (Maybe not the best way to do it)
-
-                      //Check if the player is at the end location
-                     if(player.getXPosition() == Veld.endLocation[0] && player.getYPosition() == Veld.endLocation[1]){
+                     //Check if the player is at the end location
+                     if(player.getXPosition() == Field.endLocation[0] && player.getYPosition() == Field.endLocation[1]){
+                            //If the player beats 3 levels, close the game
                             if(Level.currentLevel == 3){
                                 JOptionPane.showMessageDialog(null, "You complete the game!");                            
                                 window.setVisible(false); 
                                 window.dispose(); 
                             } else {
                                 //Level finished +1
-                                Level.currentLevel++;
-                            }
-                            //Load in next level
+                                Level.currentLevel++;       
+                                //Load in next level
                                 Level.loadLevel(Level.currentLevel); 
+                                
+                                //Set the player to x = 0 and y = 0 coords
                                 Player.setPositionOneTime = 0;
                                 Player.setPosition(0,0);
+                            }
                                 
                }
                      
+                     
+            //Repaint the frame
              window.repaint();
 
             }
         });
         //Menu to restart the game
+        //Create the button
         JButton button = new JButton("Restart");
         button.addActionListener(new ActionListener() {
+            //Override the button click function
             @Override
             public void actionPerformed(ActionEvent e) {
-                Level.loadLevel(Level.currentLevel);
-                Player.setPositionOneTime = 0;
-                Player.setPosition(0,0);
-                window.repaint();
-                window.setFocusable(true);
-                window.requestFocusInWindow();
+                Level.restart(window);
             }
         });
 
@@ -316,8 +310,10 @@ public class MazeGame extends JComponent {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         window.setLocation(dim.width / 2 - window.getSize().width / 2, dim.height / 2 - window.getSize().height / 2);
 
+        //Add the MazeGame() and set the window to visible to show it
         window.getContentPane().add(new MazeGame());
         window.setVisible(true);
     }
+    
 
 }

@@ -5,9 +5,6 @@
  */
 package mazegame;
 
-import static java.awt.SystemColor.window;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 /**
  *
