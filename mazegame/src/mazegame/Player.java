@@ -22,6 +22,7 @@ public class Player{
     public static int setPositionOneTime;
     private int startCoordsX;
     private int startCoordsY;
+    public static int totalMoves;
     
     public Player(){
         direction = NORTH;
@@ -59,10 +60,14 @@ public class Player{
     }   
 
     public void move(char getDirection) {
+        
+        
+        
         switch (getDirection) {
             case 'n': //North
                 if(coordY > 1){
                     coordY--;
+                    totalMoves++;
                 }else{
                     System.out.println("You reached the border");
                 }
@@ -71,6 +76,7 @@ public class Player{
             case 'e': //East
                 if(coordX < 10){
                 coordX++;
+                totalMoves++;
                 }else{
                     System.out.println("You reached the border");
                 }
@@ -79,6 +85,7 @@ public class Player{
             case 's': //South
                 if(coordY < 10){
                     coordY++;
+                    totalMoves++;
                 }else{
                     System.out.println("You reached the border");
                     //continue
@@ -88,6 +95,7 @@ public class Player{
             case 'w': //West
                 if(coordX > 1){
                     coordX--;
+                    totalMoves++;
                 }else{
                     System.out.println("You reached the border");
                 }
@@ -95,7 +103,7 @@ public class Player{
                 System.out.println("Left");
                 break;
         }
-        
+        MazeGame.label1.setText("Total Moves: " + totalMoves);
         System.out.println("coordX: " + coordX + " coordY: " + coordY);
         
     }
