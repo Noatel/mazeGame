@@ -39,11 +39,10 @@ public class MazeGame extends JComponent {
     private int dimX;
     private int dimY;
 
-    //Because you want to spawn the "fly" random you need to declare the random function
-    static Random rand = new Random();
+    //Create a grid to get the map that you load in
     static Grid grid = new Grid();
 
-    //Create the Spider with a standard postion of x = 2 and y 2
+    //Create the player
     static Player player = new Player();
     boolean startPosition = false;
 
@@ -103,7 +102,6 @@ public class MazeGame extends JComponent {
                     //And goest to the next tile
                     j++;
                 }
-
                 switch (map.get(i)[j]) {
                     case 0:
                         Field.setField(g, x, y);
@@ -125,17 +123,16 @@ public class MazeGame extends JComponent {
                         }
                         break;
                     case 3:
-                        // dit maakt een nieuw deur object waardoor ik de pin aan het object kan toevoegen
+                        //Create a door that add the pin to the door
                         Door.setDoor(g, x, y, 100, 4);
-                        
-                        if (Door.isClosed() != true && Bag.getBag() == 100) {
+                        if (Door.isClosed(100) != true && Bag.getBag() == 100) {
                             g.setColor(new Color(255, 255, 255));
                             g.fillRect(x, y, 30, 30);
                             g.drawRect(x, y, 30, 30);
                         }
                         break;
                     case 4:
-                        // dit maakt een nieuw sleutel object waardoor ik de pin aan het object kan toevoegen
+                        //Create a door that add the pin to the door
                         if (!Bag.collected(100)) {
                             Key.setKey(g, x, y, 100, 4);
                         }
@@ -149,8 +146,7 @@ public class MazeGame extends JComponent {
                         break;
                     case 5:
                         Door.setDoor(g, x, y, 200, 7);
-                        
-                        if (Door.isClosed() != true && Bag.getBag() == 200) {
+                        if (Door.isClosed(200) != true && Bag.getBag() == 200) {
                             g.setColor(new Color(255, 255, 255));
                             g.fillRect(x, y, 30, 30);
                             g.drawRect(x, y, 30, 30);
@@ -169,8 +165,8 @@ public class MazeGame extends JComponent {
                         break;
                     case 7:
                         Door.setDoor(g, x, y, 300, 8);
-                        
-                        if (Door.isClosed() != true && Bag.getBag() == 300) {
+
+                        if (Door.isClosed(300) != true && Bag.getBag() == 300) {
                             g.setColor(new Color(255, 255, 255));
                             g.fillRect(x, y, 30, 30);
                             g.drawRect(x, y, 30, 30);
@@ -378,6 +374,15 @@ public class MazeGame extends JComponent {
                         Level.currentLevel++;
                         Player.totalMoves = 0; // set the total moves back to 0
                         label1.setText("Total Moves: " + Player.totalMoves); //rewrite the text to the total moves
+                        Bag.alreadyCollected.clear();
+                        Bag.bag = 0;
+
+                        for (Key key : Field.keys) {
+                            key.setCollected(false);
+                        }
+                        for (Door door : Field.doors) {
+                            door.setClosed(true);
+                        }
                     }
 
                     Level.loadLevel(Level.currentLevel);
@@ -386,8 +391,6 @@ public class MazeGame extends JComponent {
                     Player.setPositionOneTime = 0;
                     Player.setPosition(0, 0);
                 }
-
-                
 
                 for (Key key : Field.keys) {
                     if (player.getXPosition() == key.coordX && player.getYPosition() == key.coordY) {
@@ -408,15 +411,11 @@ public class MazeGame extends JComponent {
             //Override the button click function
             @Override
             public void actionPerformed(ActionEvent e) {
-                Level.loadLevel(Level.currentLevel);
-                Player.setPositionOneTime = 0;
-                Player.setPosition(0, 0);
-                window.repaint();
+                Level.restart(window);
+                label1.setText("Total Moves: " + Player.totalMoves); //rewrite the total moves to the screen
+
                 window.setFocusable(true);
                 window.requestFocusInWindow();
-                Player.totalMoves = 0; // reset the total moves
-                label1.setText("Total Moves: " + Player.totalMoves); //rewrite the total moves to the screen
-                Level.restart(window);
             }
         });
 

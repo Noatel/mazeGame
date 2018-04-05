@@ -37,7 +37,6 @@ public class Player{
             coordX = x + 1;
             coordY = y + 1;
             setPositionOneTime = 1;
-            System.out.println("x = " + x + " y = " + y);
         }
     }
 
@@ -104,8 +103,6 @@ public class Player{
                 break;
         }
         MazeGame.label1.setText("Total Moves: " + totalMoves);
-        System.out.println("coordX: " + coordX + " coordY: " + coordY);
-        
     }
 
     //get the direction of the bug

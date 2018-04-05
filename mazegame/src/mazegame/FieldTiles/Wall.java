@@ -14,7 +14,6 @@ import java.util.ArrayList;
  * @author Jordie
  */
 public class Wall extends Field {
-
     public Wall(int coordX, int coordY, int type) {
         super(coordX, coordY, type);
     }
