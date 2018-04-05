@@ -128,13 +128,11 @@ public class MazeGame extends JComponent {
                         // dit maakt een nieuw deur object waardoor ik de pin aan het object kan toevoegen
                         Door.setDoor(g, x, y, 100, 4);
 
-//                        if (Bag.getBag() != 0) {
-//                            if (Door.openDoor(Bag.getBag().get(0).getNonStaticPin())) {
-//                                g.setColor(Color.WHITE);
-//                                g.fillRect(x, y, 30, 30);
-//                                g.drawRect(x, y, 30, 30);
-//                            }
-//                        }
+                            if (Door.openDoor(Bag.getBag().get(0).getNonStaticPin())) {
+                                g.setColor(Color.WHITE);
+                                g.fillRect(x, y, 30, 30);
+                                g.drawRect(x, y, 30, 30);
+                            }
                         break;
                     case 4:
                         // dit maakt een nieuw sleutel object waardoor ik de pin aan het object kan toevoegen
@@ -270,7 +268,7 @@ public class MazeGame extends JComponent {
                                     if ((player.getXPosition() + 1) == doors.coordX && player.getYPosition() == doors.coordY) {
                                         if (Bag.getBag() == doors.getPin()) {
                                             checkObstacle = true;
-                                             doors.setClosed(false);
+                                            doors.setClosed(false);
                                             break;
                                         } else {
                                             checkObstacle = false; //set checkobstacle to false to stop the player from moving
