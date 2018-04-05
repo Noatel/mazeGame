@@ -17,10 +17,17 @@ import java.util.ArrayList;
  */
 public class Key extends Field {
 
-    static int id;
-    static boolean collected; // dit kijkt of de key is opgepakt of niet
-    static int pin;
-
+   public static int id;
+   public static boolean collected; // dit kijkt of de key is opgepakt of niet
+   public static int pin;
+    /**
+     * Constructs a end point that needs the position of the x coordinate, y coordinate and the type
+     * @param coordX coordinate of a field
+     * @param coordY coordinate of a field
+     * @param type type of the end point 
+     * @param id id of the key 
+     * @param pin the pin of the key that is connected to a door 
+     */
     public Key(int coordX, int coordY, int type, int id, int pin) {
         super(coordX, coordY, type);
         
@@ -46,9 +53,15 @@ public class Key extends Field {
      * @param y coordinate of a field
     */
     public static void setKey(Graphics g, int x, int y,int pin, int id) {
-        Key.pin = pin;
-        Field.keys.add(new Key((x / 30), (y / 30), 1));
-
+//        System.out.println("create id : ");
+//        System.out.println(id);
+//        System.out.println("create pin : ");
+//        System.out.println(pin);
+        
+            if(!Field.keys.contains(id)){
+                    Field.keys.add(new Key((x / 30), (y / 30), 1, id, pin));
+                    System.out.println(id);
+        }
         g.setColor(Color.magenta);
         g.fillRect(x, y, 30, 30);
         g.drawRect(x, y, 30, 30);
@@ -96,16 +109,23 @@ public class Key extends Field {
     }
     
     /**
+     * 
     * @return Key.pin
     */
     public int getNonStaticPin(){
         return Key.pin;
     }
-
+    
+    /** Return the id of the key
+    * @return id return the id of the key 
+    */
     public static int getId() {
         return id;
     }
 
+     /** Set the id of the key
+    * @param id Set the id 
+    */
     public static void setId(int id) {
         Key.id = id;
     }
@@ -113,4 +133,6 @@ public class Key extends Field {
     public static void isPickedUp(){
         
     }
+    
+
 }

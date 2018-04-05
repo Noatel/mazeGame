@@ -17,7 +17,10 @@ import mazegame.FieldTiles.Wall;
  * @author Jordie
  */
 public class Level {
-    //Current level keeps track of what level you are 
+    /**
+     * Current level keeps track of what level you are 
+     * in the variable {@currentLevel}
+     */
     public static int currentLevel  = 1;
     
     /**

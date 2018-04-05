@@ -11,10 +11,22 @@ import java.text.AttributedString;
  */
 public class End extends Field{
     
+    /**
+     * Constructs a end point that needs the position of the x coordinate, y coordinate and the type
+     * @param coordX coordinate of a field
+     * @param coordY coordinate of a field
+     * @param type type of the end point 
+     */
     public End(int coordX, int coordY, int type) {
         super(coordX, coordY, type);
     }
     
+     /**
+     * Set the endPoint and draw it on the JFrame
+     * @param g use the Graphics g to draw the squares on the field
+     * @param x coordinate of a field
+     * @param y coordinate of a field
+    */
     public static void setEnd(Graphics g, int x, int y) {
         /*
         Sla de eindlocatie op

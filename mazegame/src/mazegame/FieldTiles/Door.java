@@ -19,10 +19,23 @@ public class Door extends Field {
     static int pin;
     static boolean closed;
 
+     /**
+     * Constructs a door that needs the position of the x coordinate, y coordinate and the type
+     * @param coordX coordinate of a field
+     * @param coordY coordinate of a field
+     * @param type type of the door 
+     */
     public Door(int coordX, int coordY, int type) {
         super(coordX, coordY, type);
     }
 
+     /**
+     * Set the door and Draw it on the JFrame
+     * @param g use the Graphics g to draw the squares on the field
+     * @param x coordinate of a field
+     * @param y coordinate of a field
+     * @param pin each door got a specific pin that is connected to a key
+    */
     public static void setDoor(Graphics g, int x, int y, int pin) {
 
         //zet de geven pin als de pin van het object
@@ -39,7 +52,11 @@ public class Door extends Field {
         g.drawString(as.getIterator(), x + 5, y + 20);
     }
 
-    //dit kijkt eerst of de key pin klopt met deze pin daarna zet hij de deur op false
+     /**
+     * Open the door and set {@closed} to open. If the key is wrong it doenst open the door
+     * @param pin Each door got a specific pin that is connected to a key
+     * @return if the door is opend or closed
+     */
     public static boolean openDoor(int pin) {
         if (pin == Door.pin) {
             closed = false;
@@ -50,10 +67,18 @@ public class Door extends Field {
         return true;
     }
 
+     /**
+     * See if the door is closed or open  (True / false)
+     * @return closed Check if the door is open or closed
+     */
     public static boolean isClosed() {
         return closed;
     }
 
+     /**
+     * Set the door closed 
+     * @param closed Check if the door is open or closed
+     */
     public static void setClosed(boolean closed) {
         Door.closed = closed;
     }

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mazegame;
 
 import mazegame.FieldTiles.Door;
@@ -19,11 +15,26 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- *
- * @author NoahTelussa
+ * MazeGame is used for loading the JFrame and Paint the components 
+ * <h1>Maze game</h1>
+ * An Application that load a maze that we created. In this game you can 
+ * <ul>
+ * <li>Move
+ * <li>Collect keys
+ * <li>Open doors
+ * <li>Complete levels
+ * <li>Restart the level
+ * </ul>
+ * 
+ * This game is made by : 
+ * <ul>
+ * <li>Tim Wapenaar (17030439)
+ * <li>Jordi verbakel (16057155)
+ * <li>Noah Telussa (17068193)
+ * </ul>
+ *  
  */
 public class MazeGame extends JComponent {
-
     //Set the variables, the x coords, y coords
     private int dimX;
     private int dimY;
@@ -36,11 +47,28 @@ public class MazeGame extends JComponent {
     static Player player = new Player();
     boolean startPosition = false;
 
-    public MazeGame() {
 
-    }
-
-    //With the paint classes we can draw the rectangles on the GUI
+    /**
+    * With the paint classes we can draw the rectangles on the JFrame that we create in the main
+    * We assign the basic values of the grid, Set the player x coordinates and y coordinates
+    * And load the level in with the method LoadLevel(); 
+    * 
+    * After we used the LoadLevel() Function we fill it in the arrayList what includes the layout of the level.
+    * We loop trough the map with the 2 for loop that we have.  
+    * For each value we got in the map (Like a 0 - 9) we print a different type of field
+    * <ul>
+    * <li>0 = Empty field </li>
+    * <li>1 = Wall </li>
+    * <li>2 = Player </li>
+    * <li>3 = Door 1 | 100 </li>
+    * <li>4 = Key 1 | 100 </li>
+    * <li>5 = Door 2 | 200 </li>
+    * <li>6 = Key 2 | 200 </li>
+    * <li>7 = Door 3 | 300 </li>
+    * <li>8 = Key 3 | 300 </li>
+    * </ul>
+    * @param g Graphics is used for painting the square objects in the JFrame
+    */
     public void paint(Graphics g) {
         super.paint(g);
 
@@ -122,6 +150,7 @@ public class MazeGame extends JComponent {
                         break;
                     case 6:
                         Key.setKey(g, x, y, 200, 6);
+                        
                         if (Key.isCollected() && Key.getId() == 6) {
                             g.setColor(Color.WHITE);
                             g.fillRect(x, y, 30, 30);
@@ -157,13 +186,15 @@ public class MazeGame extends JComponent {
                 g.setColor(Color.BLACK);
                 g.drawRect(x, y, 30, 30);
                 i++;
-
-                //check if the player is in the chosen square.
-                //if so paint the player
             }
         }
     }
 
+    /**
+     * Create a JFrame with buttons and a KeyListiner that listen to the arrows
+     * Also the functionality of ending a level is implemented in the main 
+     * @param a Java need String[] a to run
+     */    
     public static void main(String[] a) {
         //Create the GUI and set the Title "Maze game"
         JFrame window = new JFrame();
@@ -290,13 +321,16 @@ public class MazeGame extends JComponent {
             //Repaint the frame
              window.repaint();
 
-
-                for (Key key : Veld.keys) {
-                    if (player.getXPosition() == key.coordX && player.getYPosition() == key.coordY && key.getId() == Veld.keys.get(0).getId()) {
-                        Bag.addKey(key);
-                        key.setCollected(true);
-                        System.out.println("Key collected");
-                    }
+                for(Key key : Field.keys) {
+                    System.out.println("id is");
+                    System.out.println(key.id);
+                    System.out.println("pin is");
+                    System.out.println(key.pin);
+//                    if (player.getXPosition() == key.coordX && player.getYPosition() == key.coordY && key.getId() == Field.keys.get(0).getId()) {
+//                        Bag.addKey(key);
+//                        key.setCollected(true);
+//                        System.out.println("Key collected");
+//                    }
                 }
 
                 window.repaint();
