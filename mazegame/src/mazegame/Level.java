@@ -9,15 +9,27 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import mazegame.VeldTiles.Wall;
+import javax.swing.JFrame;
+import mazegame.FieldTiles.Wall;
 
 /**
  *
  * @author Jordie
  */
 public class Level {
+    //Current level keeps track of what level you are 
     public static int currentLevel  = 1;
+    
+    /**
+     * Load the file that you at assign level to and fill the Grid.map array 
+     * 
+     * @param level
+     * @return Grid.map 
+     */
+    
     public static ArrayList<int[]> loadLevel(int level){
+        
+        //Get the path of the level
         String readLevel = ".";
         String map = new File("src/mazegame/Levels").getAbsolutePath();
         
@@ -29,12 +41,15 @@ public class Level {
         //Because we got multiple levels
         switch(level){
             case 1:
+                //Level 1
                 readLevel = map + "/level1.txt";
                 break;
             case 2:
+                //Level 2
                 readLevel =  map + "/level2.txt";
                 break;
             case 3:
+                //Level 3
                 readLevel = map + "/level3.txt";
                 break;
         }
@@ -72,11 +87,26 @@ public class Level {
             //Close the scanner and 
             scanner.close();
         } catch (FileNotFoundException e) {
+            //Gives a error, file not found
             e.printStackTrace();
         }
-        
-
+       
+        //Return the array that you filled
         return Grid.map;
 }
+    
+    /**
+    * Restart the game, repaint the JFrame also set the JFrame on focusable again and set the player position on 0x0
+    *
+    * @param window
+    */
+    public static void restart(JFrame window){
+                Level.loadLevel(Level.currentLevel);
+                Player.setPositionOneTime = 0;
+                Player.setPosition(0,0);
+                window.repaint();
+                window.setFocusable(true);
+                window.requestFocusInWindow();
+    }
 }
     

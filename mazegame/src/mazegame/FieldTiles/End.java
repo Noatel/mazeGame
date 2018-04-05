@@ -1,4 +1,4 @@
-package mazegame.VeldTiles;
+package mazegame.FieldTiles;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,7 +9,7 @@ import java.text.AttributedString;
  *
  * @author timwa
  */
-public class End extends Veld{
+public class End extends Field{
     
     public End(int coordX, int coordY, int type) {
         super(coordX, coordY, type);
@@ -19,8 +19,8 @@ public class End extends Veld{
         /*
         Sla de eindlocatie op
         */
-        Veld.endLocation[0] = (x / 30);
-        Veld.endLocation[1] = (y / 30);
+        Field.endLocation[0] = (x / 30);
+        Field.endLocation[1] = (y / 30);
         
         /*
         geeft de kleur de positie en de groote aan van het blok

@@ -1,7 +1,7 @@
 package mazegame;
 
 import java.util.ArrayList;
-import mazegame.VeldTiles.Key;
+import mazegame.FieldTiles.Key;
 
 /**
  *

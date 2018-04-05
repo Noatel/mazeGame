@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mazegame.VeldTiles;
+package mazegame.FieldTiles;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -14,7 +14,7 @@ import java.text.AttributedString;
  *
  * @author Jordie
  */
-public class Door extends Veld {
+public class Door extends Field {
 
     static int pin;
     static boolean closed;
