@@ -53,8 +53,6 @@ public class MazeGame extends JComponent {
         int playerXPosition = player.getXPosition() * 30;
         int playerYPosition = player.getYPosition() * 30;
 
-        
-        //Set the player position
         player.setPosition(playerXPosition, playerYPosition);
 
         //Load the level and put it in the array map
@@ -110,8 +108,10 @@ public class MazeGame extends JComponent {
                         break;
                     case 4:
                         // dit maakt een nieuw sleutel object waardoor ik de pin aan het object kan toevoegen
-                        Key.setKey(g, x, y, 100);
-                        if (Key.isCollected()) {
+                        Key.setKey(g, x, y, 100, 4);
+
+                        // when the key is picked up the color changes to white
+                        if (Key.isCollected() && Key.getId() == 4) {
                             g.setColor(Color.WHITE);
                             g.fillRect(x, y, 30, 30);
                             g.drawRect(x, y, 30, 30);
@@ -121,8 +121,8 @@ public class MazeGame extends JComponent {
                         Door.setDoor(g, x, y, 200);
                         break;
                     case 6:
-                        Key.setKey(g, x, y, 200);
-                        if (Key.isCollected()) {
+                        Key.setKey(g, x, y, 200, 6);
+                        if (Key.isCollected() && Key.getId() == 6) {
                             g.setColor(Color.WHITE);
                             g.fillRect(x, y, 30, 30);
                             g.drawRect(x, y, 30, 30);
@@ -132,8 +132,8 @@ public class MazeGame extends JComponent {
                         Door.setDoor(g, x, y, 300);
                         break;
                     case 8:
-                        Key.setKey(g, x, y, 300);
-                        if (Key.isCollected()) {
+                        Key.setKey(g, x, y, 300, 8);
+                        if (Key.isCollected() && Key.getId() == 8) {
                             g.setColor(Color.WHITE);
                             g.fillRect(x, y, 30, 30);
                             g.drawRect(x, y, 30, 30);
@@ -223,11 +223,13 @@ public class MazeGame extends JComponent {
                                 checkObstacle = true;
                             }
                         }
+
                         if (checkObstacle) {
                             player.move('e');
                         } else {
                             System.out.println("You can't move");
                         }
+
                         break;
                     case KeyEvent.VK_DOWN:
                         for (Wall wall : Field.walls) {
@@ -239,6 +241,7 @@ public class MazeGame extends JComponent {
                                 checkObstacle = true;
                             }
                         }
+
                         if (checkObstacle) {
                             player.move('s');
                         } else {
@@ -255,6 +258,7 @@ public class MazeGame extends JComponent {
                                 checkObstacle = true;
                             }
                         }
+
                         if (checkObstacle) {
                             player.move('w');
                         } else {
@@ -286,6 +290,16 @@ public class MazeGame extends JComponent {
             //Repaint the frame
              window.repaint();
 
+
+                for (Key key : Veld.keys) {
+                    if (player.getXPosition() == key.coordX && player.getYPosition() == key.coordY && key.getId() == Veld.keys.get(0).getId()) {
+                        Bag.addKey(key);
+                        key.setCollected(true);
+                        System.out.println("Key collected");
+                    }
+                }
+
+                window.repaint();
             }
         });
         //Menu to restart the game

@@ -17,11 +17,15 @@ import java.util.ArrayList;
  */
 public class Key extends Field {
 
+    static int id;
     static boolean collected; // dit kijkt of de key is opgepakt of niet
     static int pin;
 
-    public Key(int coordX, int coordY, int type) {
+    public Key(int coordX, int coordY, int type, int id, int pin) {
         super(coordX, coordY, type);
+        
+        Key.id = id;
+        Key.pin = pin;
     }
 
 //    public void setKey(Graphics g, int x, int y, int pin) {
@@ -41,7 +45,7 @@ public class Key extends Field {
      * @param x coordinate of a field
      * @param y coordinate of a field
     */
-    public static void setKey(Graphics g, int x, int y,int pin) {
+    public static void setKey(Graphics g, int x, int y,int pin, int id) {
         Key.pin = pin;
         Field.keys.add(new Key((x / 30), (y / 30), 1));
 
@@ -96,5 +100,17 @@ public class Key extends Field {
     */
     public int getNonStaticPin(){
         return Key.pin;
+    }
+
+    public static int getId() {
+        return id;
+    }
+
+    public static void setId(int id) {
+        Key.id = id;
+    }
+    
+    public static void isPickedUp(){
+        
     }
 }
