@@ -319,12 +319,11 @@ public class MazeGame extends JComponent {
                                 Player.setPositionOneTime = 0;
                                 Player.setPosition(0,0);
                             }
-                                
-               }
+                                 //Repaint the frame
+                                    window.repaint();
+
                     
                      
-            //Repaint the frame
-             window.repaint();
 
                 for(Key key : Field.keys) {
                     System.out.println("id is");
@@ -336,10 +335,9 @@ public class MazeGame extends JComponent {
 //                        key.setCollected(true);
 //                        System.out.println("Key collected");
 //                    }
-                }
+                 }
+               }
 
-                window.repaint();
-            }
         });
         //Menu to restart the game
         //Create the button

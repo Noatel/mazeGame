@@ -7,6 +7,7 @@ package mazegame.FieldTiles;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 /**
  *
@@ -33,7 +34,7 @@ public class Wall extends Field {
     }
     
     public static void getWall(){
-        for(Wall wall: Veld.walls) {
+        for(Wall wall: Field.walls) {
         System.out.println("Coord x : ");  
         System.out.print(wall.coordX);  
         System.out.println("Coord y : ");  
@@ -45,6 +46,7 @@ public class Wall extends Field {
      *
      * @return Field.walls Array with all the wall locations
      */
+     
     public static ArrayList<Wall> getWall(){
        return Field.walls;
     }
