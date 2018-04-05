@@ -387,8 +387,7 @@ public class MazeGame extends JComponent {
                     Player.setPosition(0, 0);
                 }
 
-                //Repaint the frame
-                window.repaint();
+                
 
                 for (Key key : Field.keys) {
                     if (player.getXPosition() == key.coordX && player.getYPosition() == key.coordY) {
@@ -397,7 +396,8 @@ public class MazeGame extends JComponent {
                         Key.movePosition(key);
                     }
                 }
-
+                //Repaint the frame
+                window.repaint();
             }
 
         });

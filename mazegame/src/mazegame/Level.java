@@ -41,8 +41,7 @@ public class Level {
         //Clear the level before if there is one
         Grid.map.clear();
         Wall.walls.clear();
-        Bag.alreadyCollected.clear();
-        Key.keys.clear();
+        
         Field.doors.clear();
         
         //Because we got multiple levels
