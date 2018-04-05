@@ -94,18 +94,7 @@ public class KeyTest {
         instance.setPin(pin);
     }
 
-    /**
-     * Test of getNonStaticPin method, of class Key.
-     */
-    @Test
-    public void testGetNonStaticPin() {
-        System.out.println("getNonStaticPin");
-        Key instance = new Key(1, 1, 3, 100);
-        int expResult = 100;
-        int result = instance.getNonStaticPin();
-        assertEquals(expResult, result);
-
-    }
+   
 
     /**
      * Test of getId method, of class Key.
@@ -130,13 +119,5 @@ public class KeyTest {
         instance.setId(id);
     }
 
-    /**
-     * Test of isPickedUp method, of class Key.
-     */
-    @Test
-    public void testIsPickedUp() {
-        System.out.println("isPickedUp");
-        Key.isPickedUp();
-    }
 
 }

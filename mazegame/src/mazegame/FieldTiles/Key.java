@@ -35,17 +35,7 @@ public class Key extends Field {
         super(coordX, coordY, type);
         this.pin = pin;
     }
-
-//    public void setKey(Graphics g, int x, int y, int pin) {
-//        this.pin = pin;
-//        g.setColor(Color.magenta);
-//        g.fillRect(x, y, 30, 30);
-//        g.drawRect(x, y, 30, 30);
-//
-//        AttributedString as = new AttributedString(Integer.toString(pin));
-//        as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
-//        g.drawString(as.getIterator(), x + 5, y + 20);
-//    }
+    
     /**
      * Sets the x,y values of the key and draw it with the Graphics g
      *
@@ -110,14 +100,6 @@ public class Key extends Field {
     }
 
     /**
-     *
-     * @return Key.pin
-     */
-    public int getNonStaticPin() {
-        return pin;
-    }
-
-    /**
      * Return the id of the key
      *
      * @return id return the id of the key
@@ -135,8 +117,5 @@ public class Key extends Field {
         type = id;
     }
 
-    public static void isPickedUp() {
-
-    }
 
 }

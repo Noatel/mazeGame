@@ -14,8 +14,6 @@ public class Player {
     private static int coordX;
     private static int coordY;
     public static int setPositionOneTime;
-    private int startCoordsX;
-    private int startCoordsY;
     public static int totalMoves;
 
     public Player() {
