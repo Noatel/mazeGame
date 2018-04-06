@@ -52,9 +52,7 @@ public class Player {
                     coordY--;
                     totalMoves++;
                 } else {
-                    System.out.println("You reached the border");
                 }
-                System.out.println("Up");
                 break;
             case 'e': //East
 
@@ -62,29 +60,23 @@ public class Player {
                     coordX++;
                     totalMoves++;
                 } else {
-                    System.out.println("You reached the border");
                 }
-                System.out.println("Right");
                 break;
             case 's': //South
                 if (coordY < 10) {
                     coordY++;
                     totalMoves++;
                 } else {
-                    System.out.println("You reached the border");
                     //continue
                 }
-                System.out.println("Down");
                 break;
             case 'w': //West
                 if (coordX > 1) {
                     coordX--;
                     totalMoves++;
                 } else {
-                    System.out.println("You reached the border");
                 }
 
-                System.out.println("Left");
                 break;
         }
         MazeGame.label1.setText("Total Moves: " + totalMoves);

@@ -61,7 +61,6 @@ public class MazeGame extends JComponent {
             secondsPassed++;
             label2.setText("Time: " + secondsPassed);
         }
-
     };
 
     public void start() {
@@ -259,7 +258,6 @@ public class MazeGame extends JComponent {
                         for (Wall wall : Field.walls) { //Cycle through each and every wall
                             //check if the player input is going to be a wall or not
                             if (player.getXPosition() == wall.coordX && (player.getYPosition() - 1) == wall.coordY) {
-                                System.out.println("You cant move");
                                 checkObstacle = false; //set checkobstacle to false to stop the player from moving
                                 break; //break the forloop and continue on
                             } else {
@@ -284,14 +282,11 @@ public class MazeGame extends JComponent {
                         if (checkObstacle)//check if there is no obstacle
                         {
                             player.move('n'); // move the player
-                        } else {
-                            System.out.println("You can't move"); //you weren't able to move
-                        }
+                        } 
                         break;
                     case KeyEvent.VK_RIGHT:
                         for (Wall wall : Field.walls) {
                             if ((player.getXPosition() + 1) == wall.coordX && player.getYPosition() == wall.coordY) {
-                                System.out.println("You cant move"); // plz work
                                 checkObstacle = false;
                                 break;
                             } else {
@@ -315,15 +310,12 @@ public class MazeGame extends JComponent {
                         }
                         if (checkObstacle) {
                             player.move('e');
-                        } else {
-                            System.out.println("You can't move");
                         }
 
                         break;
                     case KeyEvent.VK_DOWN:
                         for (Wall wall : Field.walls) {
                             if (player.getXPosition() == wall.coordX && (player.getYPosition() + 1) == wall.coordY) {
-                                System.out.println("You cant move"); // plz work
                                 checkObstacle = false;
                                 break;
                             } else {
@@ -349,14 +341,11 @@ public class MazeGame extends JComponent {
 
                         if (checkObstacle) {
                             player.move('s');
-                        } else {
-                            System.out.println("You can't move");
                         }
                         break;
                     case KeyEvent.VK_LEFT:
                         for (Wall wall : Field.walls) {
                             if ((player.getXPosition() - 1) == wall.coordX && player.getYPosition() == wall.coordY) {
-                                System.out.println("You cant move"); // plz work
                                 checkObstacle = false;
                                 break;
                             } else {
@@ -381,16 +370,14 @@ public class MazeGame extends JComponent {
 
                         if (checkObstacle) {
                             player.move('w');
-                        } else {
-                            System.out.println("You can't move");
-                        }
+                        } 
                         break;
                 }
                 //Check if the player is at the end location
                 if (player.getXPosition() == Field.endLocation[0] && player.getYPosition() == Field.endLocation[1]) {
                     //If the player beats 3 levels, close the game
                     if (Level.currentLevel == 3) {
-                        JOptionPane.showMessageDialog(null, "You complete the game!");
+                        JOptionPane.showMessageDialog(null, "You completed the game!");
                         window.setVisible(false);
                         window.dispose();
                     } else {
@@ -417,7 +404,6 @@ public class MazeGame extends JComponent {
                     Player.setPositionOneTime = 0;
                     Player.setPosition(0, 0);
                 }
-
                 for (Key key : Field.keys) {
                     if (player.getXPosition() == key.coordX && player.getYPosition() == key.coordY) {
                         Bag.addKey(key);
