@@ -28,7 +28,6 @@ public class Key extends Field {
      * @param coordX coordinate of a field
      * @param coordY coordinate of a field
      * @param type type of the end point
-     * @param id id of the key
      * @param pin the pin of the key that is connected to a door
      */
     public Key(int coordX, int coordY, int type, int pin) {

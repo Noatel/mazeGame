@@ -51,21 +51,21 @@ public class MazeGame extends JComponent {
 
     static int secondsPassed = 0;
     private static boolean timerChecker = false;
-
+    
     public static JLabel label2 = new JLabel("Time: " + secondsPassed);
-
-    Timer timer = new Timer();
-    boolean timerStarted = false;
-    TimerTask task = new TimerTask() {
-        public void run() {
-            secondsPassed++;
-            label2.setText("Time: " + secondsPassed);
-        }
-    };
-
-    public void start() {
-        timer.scheduleAtFixedRate(task, 1000, 1000);
-    }
+//
+//    Timer timer = new Timer();
+//    boolean timerStarted = false;
+//    TimerTask task = new TimerTask() {
+//        public void run() {
+//            secondsPassed++;
+//            label2.setText("Time: " + secondsPassed);
+//        }
+//    };
+//
+//    public void start() {
+//        timer.scheduleAtFixedRate(task, 1000, 1000);
+//    }
 
     /**
      * With the paint classes we can draw the rectangles on the JFrame that we
@@ -94,10 +94,10 @@ public class MazeGame extends JComponent {
     public void paint(Graphics g) {
         super.paint(g);
 
-        if (!timerStarted) {
-            start();
-            timerStarted = true;
-        }
+//        if (!timerStarted) {
+//            start();
+//            timerStarted = true;
+//        }
         //First we assign how big the big the board needs to be
         dimX = 30;
         dimY = 30;
@@ -282,7 +282,7 @@ public class MazeGame extends JComponent {
                         if (checkObstacle)//check if there is no obstacle
                         {
                             player.move('n'); // move the player
-                        } 
+                        }
                         break;
                     case KeyEvent.VK_RIGHT:
                         for (Wall wall : Field.walls) {
@@ -370,7 +370,7 @@ public class MazeGame extends JComponent {
 
                         if (checkObstacle) {
                             player.move('w');
-                        } 
+                        }
                         break;
                 }
                 //Check if the player is at the end location
@@ -447,11 +447,16 @@ public class MazeGame extends JComponent {
         window.setVisible(true);
 
         JPanel panel = new JPanel();
+
         label1.setHorizontalTextPosition(0);
         label1.setVerticalTextPosition(0);
+//        label2.setHorizontalTextPosition(0);
+//        label2.setVerticalTextPosition(0);
         panel.add(label1);
-        panel.add(label2);
+//        panel.add(label2);
+
         window.add(panel);
+
     }
 
 }
