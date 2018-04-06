@@ -17,18 +17,18 @@ import static org.junit.Assert.*;
  * @author NoahTelussa
  */
 public class BagTest {
-
+    
     public BagTest() {
     }
-
+    
     @BeforeClass
     public static void setUpClass() {
     }
-
+    
     @AfterClass
     public static void tearDownClass() {
     }
-
+    
     /**
      * Test of addKey method, of class Bag.
      */

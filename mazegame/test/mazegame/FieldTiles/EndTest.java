@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mazegame;
+package mazegame.FieldTiles;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -14,9 +14,9 @@ import static org.junit.Assert.*;
  *
  * @author NoahTelussa
  */
-public class TimerTest {
+public class EndTest {
     
-    public TimerTest() {
+    public EndTest() {
     }
     
     @BeforeClass
@@ -25,12 +25,6 @@ public class TimerTest {
     
     @AfterClass
     public static void tearDownClass() {
-    }
-
-    @Test
-    public void testSomeMethod() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

@@ -15,6 +15,7 @@ import mazegame.FieldTiles.Door;
 import mazegame.FieldTiles.Field;
 import mazegame.FieldTiles.Key;
 import mazegame.FieldTiles.Wall;
+import static mazegame.MazeGame.secondsPassed;
 
 /**
  *
@@ -117,6 +118,7 @@ public class Level {
         Bag.alreadyCollected.clear();
         Bag.bag = 0;
         Player.totalMoves = 0; // reset the total moves
+        secondsPassed = 0;
 
         for (Door door : Field.doors) {
             door.setClosed(true);
