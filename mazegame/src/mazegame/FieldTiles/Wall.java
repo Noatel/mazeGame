@@ -8,15 +8,22 @@ package mazegame.FieldTiles;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Jordie
  */
 public class Wall extends Field {
+    
     public Wall(int coordX, int coordY, int type) {
         super(coordX, coordY, type);
     }
+    
+    public Wall() {
+    }
+    
+    public List<Wall> walls = new ArrayList<Wall>();
 
     /**
      *
@@ -26,20 +33,25 @@ public class Wall extends Field {
      * @param x coordinate of a field
      * @param y coordinate of a field
      */
-    public static void setWall(Graphics g, int x, int y) {
-        Field.walls.add(new Wall((x / 30), (y / 30), 1));
+    
+    @Override
+    public void paintField(Graphics g, int x, int y) {
 
         g.setColor(Color.GRAY);
         g.fillRect(x, y, 30, 30);
         g.drawRect(x, y, 30, 30);
+        
+        this.addWall(this);
+    }
+    
+    public List<Wall> returnWalls(){
+        return walls;
+    }
+    public void clearWalls(){
+        walls.clear();
     }
 
-    /**
-     * Return a arrayList with all the x and y of a wall
-     *
-     * @return Field.walls Array with all the wall locations
-     */
-    public static ArrayList<Wall> getWall() {
-        return Field.walls;
+    public void addWall(Wall wall) {
+        walls.add(wall);
     }
 }

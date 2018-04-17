@@ -10,12 +10,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JFrame;
-import static mazegame.Bag.alreadyCollected;
 import mazegame.FieldTiles.Door;
 import mazegame.FieldTiles.Field;
-import mazegame.FieldTiles.Key;
 import mazegame.FieldTiles.Wall;
-import static mazegame.MazeGame.secondsPassed;
 
 /**
  *
@@ -42,10 +39,11 @@ public class Level {
 
         //Clear the level before if there is one
         Grid.map.clear();
-        Wall.walls.clear();
-        Field.walls.clear();
-        Field.doors.clear();
-        Field.keys.clear();
+
+        Wall wall = new Wall();
+        wall.clearWalls();
+//        Field.doors.clear();
+//        Field.keys.clear();
 
         //Because we got multiple levels
         switch (level) {
@@ -84,6 +82,7 @@ public class Level {
                     // Read the number and add it to the current row:
                     row[i] = scanner.nextInt();
                 }
+                System.out.println("");
                 // Add the row to the results:
                 Grid.map.add(row);
 
@@ -112,15 +111,14 @@ public class Level {
      */
     public static void restart(JFrame window) {
         Player.setPositionOneTime = 0;
-        Player.setPosition(0, 0);
-        Bag.alreadyCollected.clear();
-        Bag.bag = 0;
+//        Player.setPosition(0, 0);
+//        Bag.alreadyCollected.clear();
+//        Bag.bag = 0;
         Player.totalMoves = 0; // reset the total moves
-        secondsPassed = 0;
 
-        for (Door door : Field.doors) {
-            door.setClosed(true);
-        }
+//        for (Door door : Field.doors) {
+//            door.setClosed(true);
+//        }
 
         Level.loadLevel(Level.currentLevel);
 

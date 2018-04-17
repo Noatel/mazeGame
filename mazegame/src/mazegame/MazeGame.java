@@ -1,18 +1,13 @@
 package mazegame;
 
-import mazegame.FieldTiles.Door;
-import mazegame.FieldTiles.Key;
-import mazegame.FieldTiles.End;
-import mazegame.FieldTiles.Wall;
-import mazegame.FieldTiles.Field;
+import mazegame.FieldTiles.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import java.util.ArrayList;
-import java.util.TimerTask;
-import java.util.Timer;
+import java.util.List;
 
 /**
  * MazeGame is used for loading the JFrame and Paint the components
@@ -49,7 +44,7 @@ public class MazeGame extends JComponent {
 
     public static JLabel label1 = new JLabel("Total Moves: " + Player.totalMoves);
 
- /**
+    /**
      * With the paint classes we can draw the rectangles on the JFrame that we
      * create in the main We assign the basic values of the grid, Set the player
      * x coordinates and y coordinates And load the level in with the method
@@ -67,7 +62,7 @@ public class MazeGame extends JComponent {
      * <li>4 = Key 1 | 100 </li>
      * <li>5 = Door 2 | 200 </li>
      * <li>6 = Key 2 | 200 </li>
-     * <li>7 = Door 3 | 300 </li>   
+     * <li>7 = Door 3 | 300 </li>
      * <li>8 = Key 3 | 300 </li>
      * </ul>
      *
@@ -103,13 +98,15 @@ public class MazeGame extends JComponent {
                     //And goest to the next tile
                     j++;
                 }
+
                 switch (map.get(i)[j]) {
                     case 0:
-                        Field.setField(g, x, y);
+                        Floor floor = new Floor(x, y, 0);
+                        floor.paintField(g, x, y);
                         break;
                     case 1:
-                        //If there is a 1, spawn a wall
-                        Wall.setWall(g, x, y);
+                        Wall currentWall = new Wall(x, y, 1);
+                        currentWall.paintField(g, x, y);
                         break;
                     case 2:
                         if (!startPosition) {
@@ -125,70 +122,66 @@ public class MazeGame extends JComponent {
                         break;
                     case 3:
                         //Create a door that add the pin to the door
-                        Door.setDoor(g, x, y, 100, 4);
-                        if (Door.isClosed(100) != true && Bag.getBag() == 100) {
-                            g.setColor(new Color(255, 255, 255));
-                            g.fillRect(x, y, 30, 30);
-                            g.drawRect(x, y, 30, 30);
-                        }
+                        Door door = new Door(x, y, Door.DOOR1, 4);
+                        door.paintField(g, x, y);
+
+                        door.openDoor(g);
                         break;
                     case 4:
                         //Create a door that add the pin to the door
-                        if (!Bag.collected(100)) {
-                            Key.setKey(g, x, y, 100, 4);
+                        Key key = new Key(x, y, 4, Door.DOOR1);
+
+                        if (player.checkKey() == Door.DOOR1) {
+                            key.paintField(g, x, y);
                         }
 
+//                        player.collectKey(g);
                         // when the key is picked up the color changes to white
-                        if (Key.isCollected() && Bag.getBag() == 100) {
-                            g.setColor(new Color(255, 255, 255));
-                            g.fillRect(x, y, 30, 30);
-                            g.drawRect(x, y, 30, 30);
-                        }
                         break;
-                    case 5:
-                        Door.setDoor(g, x, y, 200, 7);
-                        if (Door.isClosed(200) != true && Bag.getBag() == 200) {
-                            g.setColor(new Color(255, 255, 255));
-                            g.fillRect(x, y, 30, 30);
-                            g.drawRect(x, y, 30, 30);
-                        }
-                        break;
-                    case 6:
-                        if (!Bag.collected(200)) {
-                            Key.setKey(g, x, y, 200, 6);
-                        }
-
-                        if (Key.isCollected() && Bag.getBag() == 200) {
-                            g.setColor(new Color(255, 255, 255));
-                            g.fillRect(x, y, 30, 30);
-                            g.drawRect(x, y, 30, 30);
-                        }
-                        break;
-                    case 7:
-                        Door.setDoor(g, x, y, 300, 8);
-
-                        if (Door.isClosed(300) != true && Bag.getBag() == 300) {
-                            g.setColor(new Color(255, 255, 255));
-                            g.fillRect(x, y, 30, 30);
-                            g.drawRect(x, y, 30, 30);
-                        }
-                        break;
-                    case 8:
-                        if (!Bag.collected(300)) {
-                            Key.setKey(g, x, y, 300, 8);
-                        }
-                        if (Key.isCollected() && Bag.getBag() == 300) {
-                            g.setColor(new Color(255, 255, 255));
-                            g.fillRect(x, y, 30, 30);
-                            g.drawRect(x, y, 30, 30);
-                        }
-                        break;
-                    case 9:
-                        End.setEnd(g, x, y);
-                        break;
+//                    case 5:
+//                        Door.setDoor(g, x, y, 200, 7);
+//                        if (Door.isClosed(200) != true && Bag.getBag() == 200) {
+//                            g.setColor(new Color(255, 255, 255));
+//                            g.fillRect(x, y, 30, 30);
+//                            g.drawRect(x, y, 30, 30);
+//                        }
+//                        break;
+//                    case 6:
+//                        if (!Bag.collected(200)) {
+//                            Key.setKey(g, x, y, 200, 6);
+//                        }
+//
+//                        if (Key.isCollected() && Bag.getBag() == 200) {
+//                            g.setColor(new Color(255, 255, 255));
+//                            g.fillRect(x, y, 30, 30);
+//                            g.drawRect(x, y, 30, 30);
+//                        }
+//                        break;
+//                    case 7:
+//                        Door.setDoor(g, x, y, 300, 8);
+//
+//                        if (Door.isClosed(300) != true && Bag.getBag() == 300) {
+//                            g.setColor(new Color(255, 255, 255));
+//                            g.fillRect(x, y, 30, 30);
+//                            g.drawRect(x, y, 30, 30);
+//                        }
+//                        break;
+//                    case 8:
+//                        if (!Bag.collected(300)) {
+//                            Key.setKey(g, x, y, 300, 8);
+//                        }
+//                        if (Key.isCollected() && Bag.getBag() == 300) {
+//                            g.setColor(new Color(255, 255, 255));
+//                            g.fillRect(x, y, 30, 30);
+//                            g.drawRect(x, y, 30, 30);
+//                        }
+//                        break;
+//                    case 9:
+//                        End.setEnd(g, x, y);
+//                        break;
                     default:
-                        Wall.setWall(g, x, y);
-                        System.out.print("3");
+                        Wall defaultWall = new Wall(x, y, 1);
+                        defaultWall.paintField(g, x, y);
                         break;
                 }
 
@@ -222,6 +215,11 @@ public class MazeGame extends JComponent {
 
         //If you want to close the program, close it
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        //Load the walls
+          Wall wall = new Wall();
+          List<Wall> walls = wall.returnWalls();
+                         
 
         //Now the key part!
         window.addKeyListener(new KeyAdapter() {
@@ -233,116 +231,81 @@ public class MazeGame extends JComponent {
                 boolean checkObstacle = false;
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
-                        for (Wall wall : Field.walls) { //Cycle through each and every wall
+                        for (Wall wall : walls ) { //Cycle through each and every wall
+                            System.out.println(walls);
                             //check if the player input is going to be a wall or not
                             if (player.getXPosition() == wall.coordX && (player.getYPosition() - 1) == wall.coordY) {
+                                System.out.println("You cant move");
                                 checkObstacle = false; //set checkobstacle to false to stop the player from moving
                                 break; //break the forloop and continue on
                             } else {
-                                for (Door doors : Field.doors) { //Cycle through each and every wall
-                                    //check if the player input is going to be a wall or not
-                                    if (player.getXPosition() == doors.coordX && (player.getYPosition() - 1) == doors.coordY) {
-                                        if (Bag.getBag() == doors.getPin()) {
-                                            checkObstacle = true;
-                                            doors.changeLocation(doors);
-                                            doors.setClosed(false);
-                                            break;
-                                        } else {
-                                            checkObstacle = false; //set checkobstacle to false to stop the player from moving
-                                        }
-                                        break; //break the forloop and continue on
-                                    } else {
+//                                for (Door doors : Field.doors) { //Cycle through each and every wall
+//                                    //check if the player input is going to be a wall or not
+//                                    if (player.getXPosition() == doors.coordX && (player.getYPosition() - 1) == doors.coordY) {
+//                                        if (Bag.getBag() == doors.getPin()) {
+//                                            checkObstacle = true;
+//                                            doors.changeLocation(doors);
+//                                            doors.setClosed(false);
+//                                            break;
+//                                        } else {
+//                                            checkObstacle = false; //set checkobstacle to false to stop the player from moving
+//                                        }
+//                                        break; //break the forloop and continue on
+//                                    } else {
                                         checkObstacle = true; // set
-                                    }
-                                }
+//                                    }
+//                                }
                             }
                         }
                         if (checkObstacle)//check if there is no obstacle
                         {
                             player.move('n'); // move the player
+                        } else {
+                            System.out.println("You can't move"); //you weren't able to move
                         }
                         break;
                     case KeyEvent.VK_RIGHT:
-                        for (Wall wall : Field.walls) {
-                            if ((player.getXPosition() + 1) == wall.coordX && player.getYPosition() == wall.coordY) {
-                                checkObstacle = false;
-                                break;
-                            } else {
-                                for (Door doors : Field.doors) { //Cycle through each and every wall
-                                    //check if the player input is going to be a wall or not
-                                    if ((player.getXPosition() + 1) == doors.coordX && player.getYPosition() == doors.coordY) {
-                                        if (Bag.getBag() == doors.getPin()) {
-                                            checkObstacle = true;
-                                            doors.changeLocation(doors);
-                                            doors.setClosed(false);
-                                            break;
-                                        } else {
-                                            checkObstacle = false; //set checkobstacle to false to stop the player from moving
-                                        }
-                                        break; //break the forloop and continue on
-                                    } else {
-                                        checkObstacle = true; // set
-                                    }
-                                }
-                            }
-                        }
+                       
+                         checkObstacle = true; // set
+
+                          
                         if (checkObstacle) {
                             player.move('e');
                         }
 
                         break;
                     case KeyEvent.VK_DOWN:
-                        for (Wall wall : Field.walls) {
-                            if (player.getXPosition() == wall.coordX && (player.getYPosition() + 1) == wall.coordY) {
-                                checkObstacle = false;
-                                break;
-                            } else {
-                                for (Door doors : Field.doors) { //Cycle through each and every wall
-                                    //check if the player input is going to be a wall or not
+                                checkObstacle = true; // set
 
-                                    if (player.getXPosition() == doors.coordX && (player.getYPosition() + 1) == doors.coordY) {
-                                        if (Bag.getBag() == doors.getPin()) {
-                                            checkObstacle = true;
-                                            doors.changeLocation(doors);
-                                            doors.setClosed(false);
-                                            break;
-                                        } else {
-                                            checkObstacle = false; //set checkobstacle to false to stop the player from moving
-                                        }
-                                        break; //break the forloop and continue on
-                                    } else {
-                                        checkObstacle = true; // set
-                                    }
-                                }
-                            }
-                        }
 
                         if (checkObstacle) {
                             player.move('s');
                         }
                         break;
                     case KeyEvent.VK_LEFT:
-                        for (Wall wall : Field.walls) {
+                        for (Wall wall : walls) {
                             if ((player.getXPosition() - 1) == wall.coordX && player.getYPosition() == wall.coordY) {
                                 checkObstacle = false;
                                 break;
                             } else {
-                                for (Door doors : Field.doors) { //Cycle through each and every wall
-                                    //check if the player input is going to be a wall or not
-                                    if ((player.getXPosition() - 1) == doors.coordX && player.getYPosition() == doors.coordY) {
-                                        if (Bag.getBag() == doors.getPin()) {
-                                            checkObstacle = true;
-                                            doors.changeLocation(doors);
-                                            doors.setClosed(false);
-                                            break;
-                                        } else {
-                                            checkObstacle = false; //set checkobstacle to false to stop the player from moving
-                                        }
-                                        break; //break the forloop and continue on
-                                    } else {
-                                        checkObstacle = true; // set
-                                    }
-                                }
+//                                for (Door doors : Field.doors) { //Cycle through each and every wall
+//                                    //check if the player input is going to be a wall or not
+//                                    if ((player.getXPosition() - 1) == doors.coordX && player.getYPosition() == doors.coordY) {
+//                                        if (Bag.getBag() == doors.getPin()) {
+//                                            checkObstacle = true;
+//                                            doors.changeLocation(doors);
+//                                            doors.setClosed(false);
+//                                            break;
+//                                        } else {
+//                                            checkObstacle = false; //set checkobstacle to false to stop the player from moving
+//                                        }
+//                                        break; //break the forloop and continue on
+//                                    } else {
+//                                        checkObstacle = true; // set
+//                                    }
+//                                }
+                                checkObstacle = true; // set
+
                             }
                         }
 
@@ -363,30 +326,29 @@ public class MazeGame extends JComponent {
                         Level.currentLevel++;
                         Player.totalMoves = 0; // set the total moves back to 0
                         label1.setText("Total Moves: " + Player.totalMoves); //rewrite the text to the total moves
-                          Bag.alreadyCollected.clear();
-                        Bag.bag = 0;
+                        player.bag = null;
 
-                        for (Key key : Field.keys) {
-                            key.setCollected(false);
-                        }
-                        for (Door door : Field.doors) {
-                            door.setClosed(true);
-                        }
+//                        for (Key key : Field.keys) {
+//                            key.setCollected(false);
+//                        }
+//                        for (Door door : Field.doors) {
+//                            door.setClosed(true);
+//                        }
                     }
 
                     Level.loadLevel(Level.currentLevel);
 
                     //Set the player to x = 0 and y = 0 coords
                     Player.setPositionOneTime = 0;
-                    Player.setPosition(0, 0);
+//                    Player.setPosition(0, 0);
                 }
-                for (Key key : Field.keys) {
-                    if (player.getXPosition() == key.coordX && player.getYPosition() == key.coordY) {
-                        Bag.addKey(key);
-                        key.setCollected(true);
-                        Key.movePosition(key);
-                    }
-                }
+//                for (Key key : Field.keys) {
+//                    if (player.getXPosition() == key.coordX && player.getYPosition() == key.coordY) {
+//                        Bag.addKey(key);
+//                        key.setCollected(true);
+//                        Key.movePosition(key);
+//                    }
+//                }
                 //Repaint the frame
                 window.repaint();
             }

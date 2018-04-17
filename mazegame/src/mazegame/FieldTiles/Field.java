@@ -30,20 +30,7 @@ abstract public class Field {
      * A field exist out of a {@type}
      */
     public int type;
-    /*
-     * Create a array with the location of all the walls in {@walls}
-     */
-    public static ArrayList<Wall> walls = new ArrayList<Wall>();
-     /*
-     * Create a array with the location of all the Door in {@door}
-     */
-    public static ArrayList<Door> doors = new ArrayList<Door>();
-
-    /*
-     * Create a array with the location of all the keys in {@keys}
-     */
-    public static ArrayList<Key> keys = new ArrayList<Key>(3);
-
+    
     /*
     * Create a int array of length of 2 where the x and y coords are being saved in {@endLocation}
      */
@@ -64,19 +51,12 @@ abstract public class Field {
         this.coordY = coordY;
         this.type = type;
     }
-
-    /**
-     * Sets the x,y values and draw the square default color white
-     *
-     * @param g use the Graphics g to draw the squares on the field
-     * @param x coordinate of a field
-     * @param y coordinate of a field
-     */
-    public static void setField(Graphics g, int x, int y) {
-        g.setColor(new Color(255,255,255));
-        g.fillRect(x, y, 30, 30);
-        g.drawRect(x, y, 30, 30);
+    
+    public Field() {
     }
+
+    
+     abstract void paintField(Graphics g, int x, int y);
 
     /**
      * @return type of the field

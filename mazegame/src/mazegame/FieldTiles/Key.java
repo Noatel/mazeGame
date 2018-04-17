@@ -18,8 +18,7 @@ import java.util.ArrayList;
 public class Key extends Field {
 
     public static boolean collected; // dit kijkt of de key is opgepakt of niet
-    public int pin;
-    
+    public int pin;    
 
     /**
      * Constructs a end point that needs the position of the x coordinate, y
@@ -43,14 +42,13 @@ public class Key extends Field {
      * @param y coordinate of a field
      */
 
-    public static void setKey(Graphics g, int x, int y, int pin, int type) {
-        Field.keys.add(new Key((x / 30), (y / 30), type, pin));
-          
+    @Override
+    public void paintField(Graphics g, int x, int y) {
         g.setColor(Color.magenta);
         g.fillRect(x, y, 30, 30);
         g.drawRect(x, y, 30, 30);
 
-        AttributedString as = new AttributedString(Integer.toString(pin));
+        AttributedString as = new AttributedString(Integer.toString(this.pin)  );
         as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
         g.drawString(as.getIterator(), x + 5, y + 20);
     }
@@ -59,13 +57,7 @@ public class Key extends Field {
         key.coordX = Field.NEW_COORDS;
         key.coordY = Field.NEW_COORDS;
     }
-    /**
-     * @return Field.Keys that got all the locations of the keys inside
-     */
-    public static ArrayList<Key> getKey() {
-        return Field.keys;
-    }
-
+    
     /**
      * @return collected keys that have been collected
      */

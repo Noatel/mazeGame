@@ -27,7 +27,8 @@ public class End extends Field{
      * @param x coordinate of a field
      * @param y coordinate of a field
     */
-    public static void setEnd(Graphics g, int x, int y) {
+    @Override
+    public void paintField(Graphics g, int x, int y) {
         /*
         Sla de eindlocatie op
         */

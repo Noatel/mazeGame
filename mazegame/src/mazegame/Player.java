@@ -5,17 +5,23 @@
  */
 package mazegame;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import mazegame.FieldTiles.Key;
+
 /**
  *
  * @author Jordie
  */
 public class Player {
 
-    private static int coordX;
-    private static int coordY;
+    private  int coordX;
+    private  int coordY;
     public static int setPositionOneTime;
     public static int totalMoves;
+    public Key bag;
 
+   
     public Player() {
     }
 
@@ -23,10 +29,10 @@ public class Player {
         return "Coord x :" + coordX + " Coord y :" + coordY;
     }
 
-    public static void setPosition(int x, int y) {
+    public void setPosition(int x, int y) {
         if (setPositionOneTime == 0) {
-            coordX = x + 1;
-            coordY = y + 1;
+            this.coordX = x + 1;
+            this.coordY = y + 1;
             setPositionOneTime = 1;
         }
     }
@@ -39,40 +45,40 @@ public class Player {
         return coordX;
     }
 
-    public static void resetPlayer() {
-        coordX = 1;
-        coordY = 1;
+    public  void resetPlayer() {
+        this.coordX = 1;
+        this.coordY = 1;
         setPositionOneTime = 0;
     }
 
     public void move(char getDirection) {
         switch (getDirection) {
             case 'n': //North
-                if (coordY > 1) {
-                    coordY--;
+                if (this.coordY > 1) {
+                    this.coordY--;
                     totalMoves++;
                 } else {
                 }
                 break;
             case 'e': //East
 
-                if (coordX < 10) {
-                    coordX++;
+                if (this.coordX < 10) {
+                    this.coordX++;
                     totalMoves++;
                 } else {
                 }
                 break;
             case 's': //South
-                if (coordY < 10) {
-                    coordY++;
+                if (this.coordY < 10) {
+                    this.coordY++;
                     totalMoves++;
                 } else {
                     //continue
                 }
                 break;
             case 'w': //West
-                if (coordX > 1) {
-                    coordX--;
+                if (this.coordX > 1) {
+                    this.coordX--;
                     totalMoves++;
                 } else {
                 }
@@ -81,4 +87,22 @@ public class Player {
         }
         MazeGame.label1.setText("Total Moves: " + totalMoves);
     }
+    public void setKey(Key key){
+        this.bag = key;
+    }
+    
+    public int checkKey() {
+         return 100;
+    }
+
+    public void collectKey(Graphics g) {
+        Player player = new Player();
+        
+        if (player.checkKey() == bag.pin) {
+            g.setColor(new Color(255, 255, 255));
+            g.fillRect(this.coordX, this.coordY, 30, 30);
+            g.drawRect(this.coordX, this.coordY, 30, 30);
+      }
+    }
+
 }
