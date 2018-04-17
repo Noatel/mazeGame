@@ -25,6 +25,7 @@ public class Door extends Field {
      *
      * @param coordX coordinate of a field
      * @param coordY coordinate of a field
+     * @param pinCode code of the key
      * @param type type of the door
      */
     public Door(int coordX, int coordY, int pinCode, int type) {
@@ -40,7 +41,7 @@ public class Door extends Field {
      * @param g use the Graphics g to draw the squares on the field
      * @param x coordinate of a field
      * @param y coordinate of a field
-     * @param pin each door got a specific pin that is connected to a key
+     * @param pinCode each door got a specific pin that is connected to a key
      * @param type of a field
      */
     public static void setDoor(Graphics g, int x, int y, int pinCode, int type) {
@@ -58,10 +59,8 @@ public class Door extends Field {
     }
 
     /**
-     * Open the door and set {
-     *
-     * @closed} to open. If the key is wrong it doesn't open the door
-     * @param pin Each door got a specific pin that is connected to a key
+     * If the key is wrong it doesn't open the door
+     * @param pinCode Each door got a specific pin that is connected to a key
      * @return if the door is opened or closed
      */
     public boolean openDoor(int pinCode) {
@@ -77,6 +76,7 @@ public class Door extends Field {
     /**
      * See if the door is closed or open (True / false)
      *
+     * @param pinCode code of the key
      * @return closed Check if the door is open or closed
      */
     public static boolean isClosed(int pinCode) {

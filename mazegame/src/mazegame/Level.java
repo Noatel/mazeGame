@@ -24,9 +24,7 @@ import static mazegame.MazeGame.secondsPassed;
 public class Level {
 
     /**
-     * Current level keeps track of what level you are in the variable {
-     *
-     * @currentLevel}
+     * Current level keeps track of what level you are in the variable 
      */
     public static int currentLevel = 1;
 

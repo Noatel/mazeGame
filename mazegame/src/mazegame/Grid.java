@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Grid {
     /**
      * After the function loadLevel is used 
-     * Load the map in the {@map} array
+     * Load the map in the array
      */
     public static ArrayList<int[]> map = new ArrayList<int[]>();
 

@@ -16,12 +16,12 @@ import java.util.ArrayList;
 abstract public class Field {
 
     /**
-     * Create a {@coordX}
+     * Create a CoordX
      */
     public int coordX;
 
     /**
-     * Create a {@coordY}
+     * Create the coordY
      *
      */
     public int coordY;
