@@ -49,7 +49,7 @@ public class MazeGame extends JComponent {
 
     public static JLabel label1 = new JLabel("Total Moves: " + Player.totalMoves);
 
-    /**
+ /**
      * With the paint classes we can draw the rectangles on the JFrame that we
      * create in the main We assign the basic values of the grid, Set the player
      * x coordinates and y coordinates And load the level in with the method
@@ -75,11 +75,6 @@ public class MazeGame extends JComponent {
      */
     public void paint(Graphics g) {
         super.paint(g);
-
-//        if (!timerStarted) {
-//            start();
-//            timerStarted = true;
-//        }
 
         //First we assign how big the big the board needs to be
         dimX = 30;
@@ -431,10 +426,7 @@ public class MazeGame extends JComponent {
 
         label1.setHorizontalTextPosition(0);
         label1.setVerticalTextPosition(0);
-//        label2.setHorizontalTextPosition(0);
-//        label2.setVerticalTextPosition(0);
         panel.add(label1);
-//        panel.add(label2);
 
         window.add(panel);
 
