@@ -81,8 +81,8 @@ public class Level {
                 for (int i = 0; i < width; i++) {
                     // Read the number and add it to the current row:
                     row[i] = scanner.nextInt();
+                   
                 }
-                System.out.println("");
                 // Add the row to the results:
                 Grid.map.add(row);
 

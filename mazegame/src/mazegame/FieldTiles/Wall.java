@@ -15,6 +15,8 @@ import java.util.List;
  * @author Jordie
  */
 public class Wall extends Field {
+
+   
     
     public Wall(int coordX, int coordY, int type) {
         super(coordX, coordY, type);
@@ -23,7 +25,7 @@ public class Wall extends Field {
     public Wall() {
     }
     
-    public List<Wall> walls = new ArrayList<Wall>();
+    public static List<Wall> walls = new ArrayList<Wall>();
 
     /**
      *
@@ -36,7 +38,6 @@ public class Wall extends Field {
     
     @Override
     public void paintField(Graphics g, int x, int y) {
-
         g.setColor(Color.GRAY);
         g.fillRect(x, y, 30, 30);
         g.drawRect(x, y, 30, 30);
@@ -44,7 +45,7 @@ public class Wall extends Field {
         this.addWall(this);
     }
     
-    public List<Wall> returnWalls(){
+    public static List<Wall> returnWalls(){
         return walls;
     }
     public void clearWalls(){
