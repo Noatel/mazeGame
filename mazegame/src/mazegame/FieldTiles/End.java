@@ -34,21 +34,21 @@ public class End extends Field{
         /*
         Sla de eindlocatie op
         */
-        endLocation[0] = (this.coordX / 30);
-        endLocation[1] = (this.coordY / 30);
+        endLocation[0] = (this.getCoordX() / 30);
+        endLocation[1] = (this.getCoordY() / 30);
         
         /*
         geeft de kleur de positie en de groote aan van het blok
         */
         g.setColor(Color.GREEN);
-        g.fillRect(this.coordX, this.coordY, 30, 30);
-        g.drawRect(this.coordX, this.coordY, 30, 30);
+        g.fillRect(this.getCoordX(), this.getCoordY(), 30, 30);
+        g.drawRect(this.getCoordX(), this.getCoordY(), 30, 30);
         
         /*
         geeft attributes aan strings waardoor je de kleur kan veranderen
         */
         AttributedString as = new AttributedString("End");
         as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
-        g.drawString(as.getIterator(), this.coordX + 5, this.coordY + 20);
+        g.drawString(as.getIterator(), this.getCoordX() + 5, this.getCoordY() + 20);
     }
 }

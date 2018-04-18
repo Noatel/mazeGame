@@ -49,27 +49,24 @@ public class Key extends Field {
     public void paintField(Graphics g) {
 
         g.setColor(Color.magenta);
-        g.fillRect(this.coordX, this.coordY, 30, 30);
-        g.drawRect(this.coordX, this.coordY, 30, 30);
+        g.fillRect(this.getCoordX(), this.getCoordY(), 30, 30);
+        g.drawRect(this.getCoordX(), this.getCoordY(), 30, 30);
 
         AttributedString as = new AttributedString(Integer.toString(this.pin));
         as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
-        g.drawString(as.getIterator(), this.coordX + 5, this.coordY + 20);
+        g.drawString(as.getIterator(), this.getCoordX() + 5, this.getCoordY() + 20);
 
     }
 
     public void repaintKey(Graphics g, Player player) {
-        if (player.getXPosition() == player.bag.coordX && player.getYPosition() == player.bag.coordY) {
+        if (player.getXPosition() == player.bag.getCoordX() && player.getYPosition() == player.bag.getCoordY()) {
             g.setColor(new Color(255, 255, 255));
-            g.fillRect(player.bag.coordX, player.bag.coordY, 30, 30);
-            g.drawRect(player.bag.coordX, player.bag.coordY, 30, 30);
+            g.fillRect(player.bag.getCoordX(), player.bag.getCoordY(), 30, 30);
+            g.drawRect(player.bag.getCoordX(), player.bag.getCoordY(), 30, 30);
         }
     }
 
-    public static void movePosition(Key key) {
-        key.coordX = Field.NEW_COORDS;
-        key.coordY = Field.NEW_COORDS;
-    }
+  
 
     /**
      * @return collected keys that have been collected
@@ -101,24 +98,6 @@ public class Key extends Field {
      */
     public void setPin(int pin) {
         pin = pin;
-    }
-
-    /**
-     * Return the id of the key
-     *
-     * @return id return the id of the key
-     */
-    public int getId() {
-        return type;
-    }
-
-    /**
-     * Set the id of the key
-     *
-     * @param id Set the id
-     */
-    public void setId(int id) {
-        type = id;
     }
 
     public static List<Key> returnKey() {

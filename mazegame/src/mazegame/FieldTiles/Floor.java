@@ -26,7 +26,7 @@ public class Floor extends Field {
     @Override
     public void paintField(Graphics g) {
         g.setColor(new Color(255,255,255));
-        g.fillRect(this.coordX, this.coordY, 30, 30);
-        g.drawRect(this.coordX, this.coordY, 30, 30);
+        g.fillRect(this.getCoordX(), this.getCoordY(), 30, 30);
+        g.drawRect(this.getCoordX(), this.getCoordY(), 30, 30);
     }
 }

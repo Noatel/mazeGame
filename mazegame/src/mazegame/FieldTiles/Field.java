@@ -18,23 +18,18 @@ abstract public class Field {
     /**
      * Create a CoordX
      */
-    public int coordX;
+    private int coordX;
 
     /**
-     * Create the coordY
+     * Create the getCoordY
      *
      */
-    public int coordY;
+    private int getCoordY;
 
     /*
      * A field exist out of a {@type}
      */
-    public int type;
-    
-    /*
-    * Create a int array of length of 2 where the x and y coords are being saved in {@endLocation}
-     */
-    static final int NEW_COORDS = 100;
+    private int type;
 
     //Construct Field with the coord x, coord y and the type
     /**
@@ -47,15 +42,21 @@ abstract public class Field {
      */
     public Field(int coordX, int coordY, int type) {
         this.coordX = coordX;
-        this.coordY = coordY;
+        this.getCoordY = coordY;
         this.type = type;
     }
-    
+
     public Field() {
     }
 
-    
-     abstract void paintField(Graphics g);
+    public int getCoordX() {
+        return coordX;
+    }
+     public int getCoordY() {
+        return getCoordY;
+    }
+
+    abstract void paintField(Graphics g);
 
     /**
      * @return type of the field

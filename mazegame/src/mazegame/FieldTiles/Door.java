@@ -52,10 +52,6 @@ public class Door extends Field {
      * Set the door and Draw it on the JFrame
      *
      * @param g use the Graphics g to draw the squares on the field
-     * @param x coordinate of a field
-     * @param y coordinate of a field
-     * @param pinCode each door got a specific pin that is connected to a key
-     * @param type of a field
      */
     @Override
     public void paintField(Graphics g) {
@@ -63,19 +59,19 @@ public class Door extends Field {
         if (!this.closed) {
             //geeft de kleur de positie en de groote aan van het blok
             g.setColor(Color.ORANGE);
-            g.fillRect(this.coordX, this.coordY, 30, 30);
-            g.drawRect(this.coordX, this.coordY, 30, 30);
+            g.fillRect(this.getCoordX(), this.getCoordY(), 30, 30);
+            g.drawRect(this.getCoordX(), this.getCoordY(), 30, 30);
 
             //geeft attributes aan strings waardoor je de kleur kan veranderen 
             AttributedString as = new AttributedString(Integer.toString(this.pin));
             as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
-            g.drawString(as.getIterator(), this.coordX + 5, this.coordY + 20);
+            g.drawString(as.getIterator(), this.getCoordX() + 5, this.getCoordY() + 20);
         } else {
             System.out.println("OVERRIDE");
             g.setColor(new Color(255, 255, 255));
-            g.fillRect(this.coordX, this.coordY, 30, 30);
-            g.drawRect(this.coordX, this.coordY, 30, 30);
-            g.drawString("", this.coordX + 5, this.coordY + 20);
+            g.fillRect(this.getCoordX(), this.getCoordY(), 30, 30);
+            g.drawRect(this.getCoordX(), this.getCoordY(), 30, 30);
+            g.drawString("", this.getCoordX() + 5, this.getCoordY() + 20);
         }
     }
 
@@ -127,11 +123,6 @@ public class Door extends Field {
         return pin;
     }
 
-    public void changeLocation(Door doors) {
-        doors.coordX = Field.NEW_COORDS;
-        doors.coordY = Field.NEW_COORDS;
-
-    }
 
     public static List<Door> returnDoor() {
         return doors;
@@ -152,8 +143,8 @@ public class Door extends Field {
         if (!Door.openDoors.isEmpty()) {
             for (Door openDoor : Door.openDoors) {
                 System.out.println(!openDoor.equals(this));
-                System.out.println("added door = " + openDoor.coordX + " - " + openDoor.coordY);
-                if (!openDoor.equals(this)) {
+                System.out.println("added door = " + openDoor.getCoordX() + " - " + openDoor.getCoordY());
+                if (openDoor.equals(this)) {
                     System.out.println("not equal");
                     Door.openDoors.add(this);
                     break;
@@ -167,10 +158,10 @@ public class Door extends Field {
     }
 
     public void repaintDoor(Graphics g, Player player, Door door) {
-        if (player.getXPosition() == door.coordX && player.getYPosition() == door.coordY) {
+        if (player.getXPosition() == door.getCoordX() && player.getYPosition() == door.getCoordY()) {
             g.setColor(new Color(255, 255, 255));
-            g.fillRect(door.coordX, door.coordY, 30, 30);
-            g.drawRect(door.coordX, door.coordY, 30, 30);
+            g.fillRect(door.getCoordX(), door.getCoordY(), 30, 30);
+            g.drawRect(door.getCoordX(), door.getCoordY(), 30, 30);
 
         }
     }

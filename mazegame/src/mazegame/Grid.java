@@ -6,17 +6,25 @@
 package mazegame;
 
 import java.util.ArrayList;
+import mazegame.FieldTiles.Field;
 
 /**
- * After the map is loaded in the Class Level method LoadLevel it fills the array map.
- * The array map includes the layout of the level including walls, doors,keys and a endpoint
+ * After the map is loaded in the Class Level method LoadLevel it fills the
+ * array map. The array map includes the layout of the level including walls,
+ * doors,keys and a endpoint
+ *
  * @author Jordie
  */
 public class Grid {
+
     /**
-     * After the function loadLevel is used 
-     * Load the map in the array
+     * After the function loadLevel is used Load the map in the array
      */
     public static ArrayList<int[]> map = new ArrayList<int[]>();
 
+    public static Field[][] maze = new Field[10][10];
+
+    public static Field[][] getMaze() {
+        return maze;
+    }
 }

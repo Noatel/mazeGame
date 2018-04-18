@@ -38,8 +38,8 @@ public class Wall extends Field {
     @Override
     public void paintField(Graphics g) {
         g.setColor(Color.GRAY);
-        g.fillRect(this.coordX, this.coordY, 30, 30);
-        g.drawRect(this.coordX, this.coordY, 30, 30);
+        g.fillRect(this.getCoordX(), this.getCoordY(), 30, 30);
+        g.drawRect(this.getCoordX(), this.getCoordY(), 30, 30);
         
         this.addWall(this);
     }

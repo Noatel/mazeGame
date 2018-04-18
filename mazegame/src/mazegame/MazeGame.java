@@ -75,16 +75,18 @@ public class MazeGame extends JComponent {
                 boolean checkObstacle = false;
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
+                        Field[][] maze = Grid.getMaze();
+                        System.out.println(maze[9][9]);
                         for (Wall walls : arrayWalls) { //Cycle through each and every wall
                             //check if the player input is going to be a wall or not
-                            if (player.getXPosition() == (walls.coordX / 30) && (player.getYPosition() - 1) == (walls.coordY / 30)) {
+                            if (player.getXPosition() == (walls.getCoordX() / 30) && (player.getYPosition() - 1) == (walls.getCoordY() / 30)) {
                                 System.out.println("You cant move");
                                 checkObstacle = false; //set checkobstacle to false to stop the player from moving
                                 break; //break the forloop and continue on
                             } else {
                                 for (Door doors : Door.doors) { //Cycle through each and every wall
                                     //check if the player input is going to be a wall or not
-                                    if (player.getXPosition() == (doors.coordX / 30) && (player.getYPosition() - 1) == (doors.coordY / 30)) {
+                                    if (player.getXPosition() == (doors.getCoordX() / 30) && (player.getYPosition() - 1) == (doors.getCoordY() / 30)) {
                                         if (player.bag != null) {
                                             if (player.bag.pin == doors.getPin()) {
                                                 checkObstacle = true;
@@ -114,14 +116,14 @@ public class MazeGame extends JComponent {
                     case KeyEvent.VK_RIGHT:
                         for (Wall walls : arrayWalls) { //Cycle through each and every wall
                             //check if the player input is going to be a wall or not
-                            if ((player.getXPosition() + 1) == (walls.coordX / 30) && (player.getYPosition()) == (walls.coordY / 30)) {
+                            if ((player.getXPosition() + 1) == (walls.getCoordX() / 30) && (player.getYPosition()) == (walls.getCoordY() / 30)) {
                                 System.out.println("You cant move");
                                 checkObstacle = false; //set checkobstacle to false to stop the player from moving
                                 break; //break the forloop and continue on
                             } else {
                                 for (Door doors : Door.doors) { //Cycle through each and every wall
 //                                    //check if the player input is going to be a wall or not
-                                    if ((player.getXPosition() + 1) == (doors.coordX / 30) && player.getYPosition() == (doors.coordY / 30)) {;
+                                    if ((player.getXPosition() + 1) == (doors.getCoordX() / 30) && player.getYPosition() == (doors.getCoordY() / 30)) {;
                                         if (player.bag != null) {
                                             if (player.bag.pin == doors.getPin()) {
                                                 checkObstacle = true;
@@ -150,14 +152,14 @@ public class MazeGame extends JComponent {
                     case KeyEvent.VK_DOWN:
                         for (Wall walls : arrayWalls) { //Cycle through each and every wall
                             //check if the player input is going to be a wall or not
-                            if (player.getXPosition() == (walls.coordX / 30) && (player.getYPosition() + 1) == (walls.coordY / 30)) {
+                            if (player.getXPosition() == (walls.getCoordX() / 30) && (player.getYPosition() + 1) == (walls.getCoordY() / 30)) {
                                 System.out.println("You cant move");
                                 checkObstacle = false; //set checkobstacle to false to stop the player from moving
                                 break; //break the forloop and continue on
                             } else {
                                 for (Door doors : Door.doors) { //Cycle through each and every wall
 //                                    //check if the player input is going to be a wall or not
-                                    if (player.getXPosition() == (doors.coordX / 30) && (player.getYPosition() + 1) == (doors.coordY / 30)) {
+                                    if (player.getXPosition() == (doors.getCoordX() / 30) && (player.getYPosition() + 1) == (doors.getCoordY() / 30)) {
                                         if (player.bag != null) {
                                             if (player.bag.pin == doors.getPin()) {
                                                 checkObstacle = true;
@@ -185,13 +187,13 @@ public class MazeGame extends JComponent {
                     case KeyEvent.VK_LEFT:
                         for (Wall walls : arrayWalls) { //Cycle through each and every wall
                             //check if the player input is going to be a wall or not
-                            if ((player.getXPosition() - 1) == (walls.coordX / 30) && player.getYPosition() == (walls.coordY / 30)) {
+                            if ((player.getXPosition() - 1) == (walls.getCoordX() / 30) && player.getYPosition() == (walls.getCoordY() / 30)) {
                                 checkObstacle = false; //set checkobstacle to false to stop the player from moving
                                 break; //break the forloop and continue on
                             } else {
                                 for (Door doors : Door.doors) { //Cycle through each and every wall
                                     //check if the player input is going to be a wall or not
-                                    if ((player.getXPosition() - 1) == (doors.coordX / 30) && player.getYPosition() == (doors.coordY / 30)) {
+                                    if ((player.getXPosition() - 1) == (doors.getCoordX() / 30) && player.getYPosition() == (doors.getCoordY() / 30)) {
                                         if (player.bag != null) {
                                             if (player.bag.pin == doors.getPin()) {
                                                 checkObstacle = true;
@@ -382,7 +384,11 @@ public class MazeGame extends JComponent {
                         System.out.println("open doors = " + Door.openDoors);
                         if (!Door.openDoors.isEmpty()) {
                             for (Door openDoors : Door.openDoors) {
-                                if (openDoors.coordX != x && openDoors.coordY != y) {
+                                System.out.println("x = "+ openDoors.closed);
+                                System.out.println("y = "+ openDoors.closed);
+                                System.out.println("door status = "+ openDoors.closed);
+                                if (openDoors.getCoordX() != x && openDoors.getCoordY() != y || !openDoors.closed) {
+                                    System.out.println("count");
                                     firstDoor.paintField(g);
                                 }
                             }
@@ -397,7 +403,7 @@ public class MazeGame extends JComponent {
                         Key firstKey = new Key(x, y, 4, Door.DOOR1);
                         firstKey.addKey(firstKey);
 
-                        if (player.bag == null || player.bag.coordX != x && player.bag.coordY != y) {
+                        if (player.bag == null || player.bag.getCoordX() != x && player.bag.getCoordY() != y) {
                             firstKey.paintField(g);
                         }
 
@@ -417,7 +423,7 @@ public class MazeGame extends JComponent {
                         Key secondKey = new Key(x, y, 4, Door.DOOR2);
                         secondKey.addKey(secondKey);
 
-                        if (player.bag == null || player.bag.coordX != x && player.bag.coordY != y) {
+                        if (player.bag == null || player.bag.getCoordX() != x && player.bag.getCoordY() != y) {
                             secondKey.paintField(g);
                         }
 
@@ -436,10 +442,10 @@ public class MazeGame extends JComponent {
                         thirdKey.addKey(thirdKey);
 
                         if (player.bag != null) {
-                            System.out.println(player.bag.coordX);
+                            System.out.println(player.bag.getCoordX());
 
                         }
-                        if (player.bag == null || player.bag.coordX != x && player.bag.coordY != y) {
+                        if (player.bag == null || player.bag.getCoordX() != x && player.bag.getCoordY() != y) {
                             thirdKey.paintField(g);
                         }
 
@@ -473,7 +479,7 @@ public class MazeGame extends JComponent {
 
     public static void checkKeys(Graphics g) {
         for (Key currentKey : Key.keys) {
-            if (player.getXPosition() == (currentKey.coordX / 30) && player.getYPosition() == (currentKey.coordY / 30) && !currentKey.isCollected()) {
+            if (player.getXPosition() == (currentKey.getCoordX() / 30) && player.getYPosition() == (currentKey.getCoordY() / 30) && !currentKey.isCollected()) {
                 player.setKey(currentKey);
                 currentKey.setCollected(true);
                 currentKey.repaintKey(g, player);
@@ -481,16 +487,12 @@ public class MazeGame extends JComponent {
             }
         }
     }
-
-    ;
     
     public static void checkDoors(Graphics g) {
         for (Door openDoor : Door.doors) {
-            if (player.getXPosition() == (openDoor.coordX / 30) && player.getYPosition() == (openDoor.coordY / 30)) {
-
-                System.out.println(openDoor.coordX);
-                System.out.println(openDoor.coordY);
-
+            if (player.getXPosition() == (openDoor.getCoordX() / 30) && player.getYPosition() == (openDoor.getCoordY() / 30)) {
+                System.out.println(openDoor.getCoordX());
+                System.out.println(openDoor.getCoordX());
                 openDoor.addOpenDoor();
             }
         }
