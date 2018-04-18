@@ -34,17 +34,14 @@ public class Level {
      * @param level
      * @return Grid.map
      */
-    public static void loadLevel(/*int level*/) {
+    public static void loadLevel(int level) {
         Level newLevel = new Level();
-        int level = 1;
 
         //Get the path of the level
         String readLevel = ".";
         String map = new File("src/mazegame/Levels").getAbsolutePath();
 
         //Clear the level before if there is one
-        
-
         Wall wall = new Wall();
         wall.clearWalls();
         Door.doors.clear();
@@ -111,9 +108,7 @@ public class Level {
                             break;
                         case 3:
                             Grid.maze[newLevel.getNewRow()][i] = new Door(i, newLevel.getNewRow(), Door.DOOR1, row[i]);
-
                             break;
-
                         case 4:
                             //Create a key
                             Grid.maze[newLevel.getNewRow()][i] = new Key(i, newLevel.getNewRow(), row[i], Door.DOOR1);
@@ -145,22 +140,19 @@ public class Level {
                             break;
                         default:
                             Grid.maze[newLevel.getNewRow()][i] = new Wall(i, newLevel.getNewRow(), row[i]);
-                            
+
                             break;
                     }
-                    
-                    
                 }
                 newLevel.setNewRow();
                 countRows++;
                 // Add the row to the results:
-                
 
                 // Go to the next line (optional, but helps deal with erroneous input files):
                 if (scanner.hasNextLine()) {
                     // Go to the next line:
                     scanner.nextLine();
-                    
+
                 }
             }
             //Close the scanner and 
@@ -197,7 +189,7 @@ public class Level {
 //        for (Door door : Field.doors) {
 //            door.setClosed(true);
 //        }
-        Level.loadLevel();
+        Level.loadLevel(currentLevel);
 
         window.repaint();
         window.setFocusable(true);

@@ -56,23 +56,16 @@ public class Door extends Field {
     @Override
     public void paintField(Graphics g) {
 
-        if (!this.closed) {
-            //geeft de kleur de positie en de groote aan van het blok
-            g.setColor(Color.ORANGE);
-            g.fillRect(this.getCoordX(), this.getCoordY(), 30, 30);
-            g.drawRect(this.getCoordX(), this.getCoordY(), 30, 30);
+        //geeft de kleur de positie en de groote aan van het blok
+        g.setColor(Color.ORANGE);
+        g.fillRect(((this.getCoordX() + 1) * 30), ((this.getCoordY() + 1) * 30), 30, 30);
+        g.drawRect(((this.getCoordX() + 1) * 30), ((this.getCoordY() + 1) * 30), 30, 30);
 
-            //geeft attributes aan strings waardoor je de kleur kan veranderen 
-            AttributedString as = new AttributedString(Integer.toString(this.pin));
-            as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
-            g.drawString(as.getIterator(), this.getCoordX() + 5, this.getCoordY() + 20);
-        } else {
-            System.out.println("OVERRIDE");
-            g.setColor(new Color(255, 255, 255));
-            g.fillRect(this.getCoordX(), this.getCoordY(), 30, 30);
-            g.drawRect(this.getCoordX(), this.getCoordY(), 30, 30);
-            g.drawString("", this.getCoordX() + 5, this.getCoordY() + 20);
-        }
+        //geeft attributes aan strings waardoor je de kleur kan veranderen 
+        AttributedString as = new AttributedString(Integer.toString(this.pin));
+        as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
+        g.drawString(as.getIterator(), (((this.getCoordX() + 1) * 30)) + 5, ((this.getCoordY() + 1) * 30) + 20);
+
     }
 
     /**
@@ -122,7 +115,6 @@ public class Door extends Field {
     public int getPin() {
         return pin;
     }
-
 
     public static List<Door> returnDoor() {
         return doors;

@@ -31,6 +31,11 @@ abstract public class Field {
      */
     private int type;
 
+    /*
+     * A field exist out of a {@type}
+     */
+    private boolean hidden;
+
     //Construct Field with the coord x, coord y and the type
     /**
      * Constructs a field that needs the position of the x coordinate, y
@@ -44,6 +49,7 @@ abstract public class Field {
         this.coordX = coordX;
         this.getCoordY = coordY;
         this.type = type;
+        this.hidden = false;
     }
 
     public Field() {
@@ -52,11 +58,24 @@ abstract public class Field {
     public int getCoordX() {
         return coordX;
     }
-     public int getCoordY() {
+
+    public int getCoordY() {
         return getCoordY;
     }
 
-    abstract void paintField(Graphics g);
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
+    public boolean getHidden() {
+        return this.hidden;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public abstract void paintField(Graphics g);
 
     /**
      * @return type of the field

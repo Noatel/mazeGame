@@ -44,6 +44,7 @@ public class MazeGame extends JComponent {
 
     public static JLabel label1 = new JLabel("Total Moves: " + player.getTotalMoves());
 
+    //player.setPosition(playerXPosition, playerYPosition);
     /**
      * Create a JFrame with buttons and a KeyListiner that listen to the arrows
      * Also the functionality of ending a level is implemented in the main
@@ -55,6 +56,9 @@ public class MazeGame extends JComponent {
         JFrame window = new JFrame();
         window.setTitle("Maze game");
         Field[][] maze = Grid.getMaze();
+
+        //Load the level and put it in the array map
+        Level.loadLevel(Level.currentLevel);
 
         //Because you want to play with the arrows you need to focus it
         window.setFocusable(true);
@@ -199,10 +203,6 @@ public class MazeGame extends JComponent {
         int playerXPosition = (player.getXPosition() + 1) * 30;
         int playerYPosition = (player.getYPosition() + 1) * 30;
 
-        //player.setPosition(playerXPosition, playerYPosition);
-        //Load the level and put it in the array map
-        Level.loadLevel();
-
         Field[][] maze = Grid.getMaze();
 
         int i = 0;
@@ -245,79 +245,72 @@ public class MazeGame extends JComponent {
                         }
                         break;
                     case 3:
-                        //Create a door that add the pin to the door
-                        Door firstDoor = new Door(x, y, Door.DOOR1, 4);
-                        firstDoor.addDoor(firstDoor);
-
-                        //System.out.println("open doors = " + Door.openDoors);
-                        if (!Door.openDoors.isEmpty()) {
-                            for (Door openDoors : Door.openDoors) {
-//                                System.out.println("x = "+ openDoors.closed);
-//                                System.out.println("y = "+ openDoors.closed);
-//                                System.out.println("door status = "+ openDoors.closed);
-                                if (openDoors.getCoordX() != x && openDoors.getCoordY() != y || !openDoors.closed) {
-//                                    System.out.println("count");
-                                    firstDoor.paintField(g);
+                        Door door = (Door) maze[i][j];
+                        if (maze[i][j] instanceof Door) {
+                            if (!door.getHidden()) {
+                                door.paintField(g);
+                            }
+                        }
+                        break;
+                    case 4:
+                        Key firstKey = (Key) maze[i][j];
+                        if (maze[i][j] instanceof Key) {
+                            if (player.bag == null) {
+                                    firstKey.paintField(g);
+                            } else {
+                                //player collects key
+                               if (firstKey.getCoordX() == player.bag.getCoordX() && firstKey.getCoordY() == player.bag.getCoordY()) {
+                                } else if (!firstKey.getHidden()) {
+                                    firstKey.paintField(g);
                                 }
                             }
-                        } else {
-                            firstDoor.paintField(g);
                         }
-//                      door.openDoor(g);
-                        break;
-
-                    case 4:
-                        //Create a key
-                        Key firstKey = new Key(x, y, 4, Door.DOOR1);
-                        firstKey.addKey(firstKey);
-
-                        if (player.bag == null || player.bag.getCoordX() != x && player.bag.getCoordY() != y) {
-                            firstKey.paintField(g);
-                        }
-
-//                        player.collectKey(g);
-                        // when the key is picked up the color changes to white
                         break;
                     case 5:
-                        //Create a door that add the pin to the door
-                        Door secondDoor = new Door(x, y, Door.DOOR2, 4);
-                        secondDoor.addDoor(secondDoor);
-
-                        secondDoor.paintField(g);
-//                      door.openDoor(g);
+                        Door secondDoor = (Door) maze[i][j];
+                        if (maze[i][j] instanceof Door) {
+                            if (!secondDoor.getHidden()) {
+                                secondDoor.paintField(g);
+                            }
+                        }
                         break;
                     case 6:
-                        //Create a key
-                        Key secondKey = new Key(x, y, 4, Door.DOOR2);
-                        secondKey.addKey(secondKey);
-
-                        if (player.bag == null || player.bag.getCoordX() != x && player.bag.getCoordY() != y) {
-                            secondKey.paintField(g);
+                        Key secondKey = (Key) maze[i][j];
+                        if (maze[i][j] instanceof Key) {
+                            if (player.bag == null) {
+                                    secondKey.paintField(g);
+                            } else {
+                                //player collects key
+                               if (secondKey.getCoordX() == player.bag.getCoordX() && secondKey.getCoordY() == player.bag.getCoordY()) {
+                                } else if (!secondKey.getHidden()) {
+                                    secondKey.paintField(g);
+                                }
+                            }
                         }
-
                         break;
                     case 7:
-                        //Create a door that add the pin to the door
-                        Door thirdDoor = new Door(x, y, Door.DOOR3, 4);
-                        thirdDoor.addDoor(thirdDoor);
-
-                        thirdDoor.paintField(g);
-
+                        Door thirdDoor = (Door) maze[i][j];
+                        if (maze[i][j] instanceof Door) {
+                            if (!thirdDoor.getHidden()) {
+                                thirdDoor.paintField(g);
+                            }
+                        }
                         break;
                     case 8:
-                        //Create a key
-                        Key thirdKey = new Key(x, y, 4, Door.DOOR3);
-                        thirdKey.addKey(thirdKey);
-
-                        if (player.bag != null) {
-                            System.out.println(player.bag.getCoordX());
-
+                        Key thirdKey = (Key) maze[i][j];
+                        if (maze[i][j] instanceof Key) {
+                            if (player.bag == null) {
+                                    thirdKey.paintField(g);
+                            } else {
+                                //player collects key
+                               if (thirdKey.getCoordX() == player.bag.getCoordX() && thirdKey.getCoordY() == player.bag.getCoordY()) {
+                                } else if (!thirdKey.getHidden()) {
+                                    thirdKey.paintField(g);
+                                }
+                            }
                         }
-                        if (player.bag == null || player.bag.getCoordX() != x && player.bag.getCoordY() != y) {
-                            thirdKey.paintField(g);
-                        }
-
                         break;
+
                     case 9:
                         End end = new End(x, y, 9);
                         end.paintField(g);
@@ -338,30 +331,6 @@ public class MazeGame extends JComponent {
                 g.setColor(Color.BLACK);
                 g.drawRect(x, y, 30, 30);
                 i++;
-            }
-        }
-
-        MazeGame.checkKeys(g);
-        MazeGame.checkDoors(g);
-    }
-
-    public static void checkKeys(Graphics g) {
-        for (Key currentKey : Key.keys) {
-            if (player.getXPosition() == (currentKey.getCoordX() / 30) && player.getYPosition() == (currentKey.getCoordY() / 30) && !currentKey.isCollected()) {
-                player.setKey(currentKey);
-                currentKey.setCollected(true);
-                currentKey.repaintKey(g, player);
-                break;
-            }
-        }
-    }
-
-    public static void checkDoors(Graphics g) {
-        for (Door openDoor : Door.doors) {
-            if (player.getXPosition() == (openDoor.getCoordX() / 30) && player.getYPosition() == (openDoor.getCoordY() / 30)) {
-//                System.out.println(openDoor.getCoordX());
-//                System.out.println(openDoor.getCoordX());
-                openDoor.addOpenDoor();
             }
         }
 

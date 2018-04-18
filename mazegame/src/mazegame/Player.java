@@ -7,6 +7,7 @@ package mazegame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import mazegame.FieldTiles.Door;
 import mazegame.FieldTiles.Field;
 import mazegame.FieldTiles.Key;
 
@@ -67,8 +68,38 @@ public class Player {
                     if (maze[this.coordY - 1][this.coordX].returnType() == 1) {
                         checkObstacle = true;
                     } else {
+                        //Type 4 = Key 1
+                        //Type 6 = Key 2
+                        //Type 8 = Key 3
+                        if (maze[this.coordY - 1][this.coordX].returnType() == 4 || maze[this.coordY - 1][this.coordX].returnType() == 6 || maze[this.coordY - 1][this.coordX].returnType() == 8) {
+                            if (maze[this.coordY - 1][this.coordX] instanceof Key) {
+                                Key key = (Key) maze[this.coordY - 1][this.coordX];
+                                key.setCollected(true);
+                                key.setHidden(true);
+                                this.setKey(key);
+                            }
+                            checkObstacle = false;
+                        } else {
+                            //Type 3 = Door 1
+                            //Type 5 = Door 2
+                            //Type 7 = Door 3
+                            if (maze[this.coordY - 1][this.coordX].returnType() == 3 || maze[this.coordY - 1][this.coordX].returnType() == 5 || maze[this.coordY - 1][this.coordX].returnType() == 7) {
+                                if (maze[this.coordY - 1][this.coordX] instanceof Door) {
+                                    Door door = (Door) maze[this.coordY - 1][this.coordX];
+                                    if (this.bag != null && this.bag.pin == door.pin) {
+                                        door.setHidden(true);
+                                        checkObstacle = false;
+                                    }else if (door.getHidden()) {
+                                      checkObstacle = false;
+                                    } else {
+                                        checkObstacle = true;
+                                    }
+                                }
 
-                        checkObstacle = false;
+                            } else {
+                                checkObstacle = false;
+                            }
+                        }
                     }
 
                     if (!checkObstacle) {
@@ -78,12 +109,46 @@ public class Player {
                 }
 
                 break;
+
             case 'e': //East
                 if (this.coordX < 9) {
                     if (maze[this.coordY][this.coordX + 1].returnType() == 1) {
                         checkObstacle = true;
                     } else {
-                        checkObstacle = false;
+                        //Type 4 = Key 1
+                        //Type 6 = Key 2
+                        //Type 8 = Key 3
+                        if (maze[this.coordY][this.coordX + 1].returnType() == 4 || maze[this.coordY][this.coordX + 1].returnType() == 6 || maze[this.coordY][this.coordX + 1].returnType() == 8) {
+                            if (maze[this.coordY][this.coordX + 1] instanceof Key) {
+                                Key key = (Key) maze[this.coordY][this.coordX + 1];
+                                key.setCollected(true);
+                                key.setHidden(true);
+                                this.setKey(key);
+                            }
+                            checkObstacle = false;
+                        } else {
+                            //Type 3 = Door 1
+                            //Type 5 = Door 2
+                            //Type 7 = Door 3
+
+                            if (maze[this.coordY][this.coordX + 1].returnType() == 3 || maze[this.coordY][this.coordX + 1].returnType() == 5 || maze[this.coordY][this.coordX + 1].returnType() == 7) {
+
+                                if (maze[this.coordY][this.coordX + 1] instanceof Door) {
+                                    Door door = (Door) maze[this.coordY][this.coordX + 1];
+                                    if (this.bag != null && this.bag.pin == door.pin) {
+                                        door.setHidden(true);
+                                        checkObstacle = false;
+                                    } else if (door.getHidden()) {
+                                      checkObstacle = false;
+                                    }else {
+                                        checkObstacle = true;
+                                    }
+                                }
+
+                            } else {
+                                checkObstacle = false;
+                            }
+                        }
                     }
 
                     if (!checkObstacle) {
@@ -98,7 +163,40 @@ public class Player {
                     if (maze[this.coordY + 1][this.coordX].returnType() == 1) {
                         checkObstacle = true;
                     } else {
-                        checkObstacle = false;
+                        //Type 4 = Key 1
+                        //Type 6 = Key 2
+                        //Type 8 = Key 3
+                        if (maze[this.coordY + 1][this.coordX].returnType() == 4 || maze[this.coordY + 1][this.coordX].returnType() == 6 || maze[this.coordY + 1][this.coordX].returnType() == 8) {
+                            if (maze[this.coordY + 1][this.coordX] instanceof Key) {
+                                Key key = (Key) maze[this.coordY + 1][this.coordX];
+                                key.setCollected(true);
+                                key.setHidden(true);
+                                this.setKey(key);
+                            }
+                            checkObstacle = false;
+                        } else {
+                            //Type 3 = Door 1
+                            //Type 5 = Door 2
+                            //Type 7 = Door 3
+
+                            if (maze[this.coordY + 1][this.coordX].returnType() == 3 || maze[this.coordY + 1][this.coordX].returnType() == 5 || maze[this.coordY + 1][this.coordX].returnType() == 7) {
+
+                                if (maze[this.coordY + 1][this.coordX] instanceof Door) {
+                                    Door door = (Door) maze[this.coordY + 1][this.coordX];
+                                    if (this.bag != null && this.bag.pin == door.pin) {
+                                        door.setHidden(true);
+                                        checkObstacle = false;
+                                    } else if (door.getHidden()) {
+                                      checkObstacle = false;
+                                    }else {
+                                        checkObstacle = true;
+                                    }
+                                }
+
+                            } else {
+                                checkObstacle = false;
+                            }
+                        }
                     }
 
                     if (!checkObstacle) {
@@ -112,7 +210,38 @@ public class Player {
                     if (maze[this.coordY][this.coordX - 1].returnType() == 1) {
                         checkObstacle = true;
                     } else {
-                        checkObstacle = false;
+                        //Type 4 = Key 1
+                        //Type 6 = Key 2
+                        //Type 8 = Key 3
+                        if (maze[this.coordY][this.coordX - 1].returnType() == 4 || maze[this.coordY][this.coordX - 1].returnType() == 6 || maze[this.coordY][this.coordX - 1].returnType() == 8) {
+                            if (maze[this.coordY][this.coordX - 1] instanceof Key) {
+                                Key key = (Key) maze[this.coordY][this.coordX - 1];
+                                key.setCollected(true);
+                                key.setHidden(true);
+                                this.setKey(key);
+                            }
+                            checkObstacle = false;
+                        } else {
+                            //Type 3 = Door 1
+                            //Type 5 = Door 2
+                            //Type 7 = Door 3
+                            if (maze[this.coordY][this.coordX - 1].returnType() == 3 || maze[this.coordY][this.coordX - 1].returnType() == 5 || maze[this.coordY][this.coordX - 1].returnType() == 7) {
+                                if (maze[this.coordY][this.coordX - 1] instanceof Door) {
+                                    Door door = (Door) maze[this.coordY][this.coordX - 1];
+                                    if (this.bag != null && this.bag.pin == door.pin) {
+                                        door.setHidden(true);
+                                        checkObstacle = false;
+                                    } else if (door.getHidden()) {
+                                      checkObstacle = false;
+                                    } else {
+                                        checkObstacle = true;
+                                    }
+                                }
+
+                            } else {
+                                checkObstacle = false;
+                            }
+                        }
                     }
 
                     if (!checkObstacle) {

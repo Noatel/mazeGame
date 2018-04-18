@@ -47,14 +47,13 @@ public class Key extends Field {
      */
     @Override
     public void paintField(Graphics g) {
-
         g.setColor(Color.magenta);
-        g.fillRect(this.getCoordX(), this.getCoordY(), 30, 30);
-        g.drawRect(this.getCoordX(), this.getCoordY(), 30, 30);
+        g.fillRect(((this.getCoordX() + 1) * 30), ((this.getCoordY() + 1) * 30), 30, 30);
+        g.drawRect(((this.getCoordX() + 1) * 30), ((this.getCoordY() + 1) * 30), 30, 30);
 
         AttributedString as = new AttributedString(Integer.toString(this.pin));
         as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
-        g.drawString(as.getIterator(), this.getCoordX() + 5, this.getCoordY() + 20);
+        g.drawString(as.getIterator(), (((this.getCoordX() + 1) * 30)) + 5, ((this.getCoordY() + 1) * 30) + 20);
 
     }
 
@@ -65,8 +64,6 @@ public class Key extends Field {
             g.drawRect(player.bag.getCoordX(), player.bag.getCoordY(), 30, 30);
         }
     }
-
-  
 
     /**
      * @return collected keys that have been collected
@@ -100,14 +97,5 @@ public class Key extends Field {
         pin = pin;
     }
 
-    public static List<Key> returnKey() {
-        return keys;
-    }
-
-    public void addKey(Key key) {
-        if (keys.size() <= countKeys) {
-            keys.add(key);
-        }
-    }
 
 }
