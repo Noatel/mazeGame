@@ -333,8 +333,8 @@ public class MazeGame extends JComponent {
 
         //Because the board is 60 * every time you need to multiple the position
         //Need to look in more why this is happening
-        int playerXPosition = player.getXPosition()* 30;
-        int playerYPosition = player.getYPosition()* 30;
+        int playerXPosition = (player.getXPosition()+ 1) * 30;
+        int playerYPosition = (player.getYPosition()+ 1) * 30;
 
         //player.setPosition(playerXPosition, playerYPosition);
 

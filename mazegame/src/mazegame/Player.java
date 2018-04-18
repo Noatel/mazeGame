@@ -33,8 +33,8 @@ public class Player {
 
     public void setPosition(int x, int y) {
         if (setPositionOneTime == 0) {
-            this.coordX = x;
-            this.coordY = y;
+            this.coordX = x - 1;
+            this.coordY = y - 1;
             setPositionOneTime = 1;
         }
     }
@@ -62,7 +62,7 @@ public class Player {
                 Field[][] maze = Grid.getMaze();
                 System.out.println("type: " + maze[this.coordY][this.coordX].returnType() + " | CoordX: " + maze[this.coordY][this.coordX].getCoordX() + " | CoordY: " + maze[this.coordY][this.coordX].getCoordY() + " | Player X: " + this.coordX + " | Player Y: " + this.coordY);
                 //check if the player want's to go out of bounds
-                if (this.coordY > 1) {
+                if (this.coordY > 0) {
                     this.coordY--;
                     totalMoves++;
                 } else {
@@ -72,14 +72,14 @@ public class Player {
                 break;
             case 'e': //East
 
-                if (this.coordX < 10) {
+                if (this.coordX < 9) {
                     this.coordX++;
                     totalMoves++;
                 } else {
                 }
                 break;
             case 's': //South
-                if (this.coordY < 10) {
+                if (this.coordY < 9) {
                     this.coordY++;
                     totalMoves++;
                 } else {
@@ -87,7 +87,7 @@ public class Player {
                 }
                 break;
             case 'w': //West
-                if (this.coordX > 1) {
+                if (this.coordX > 0) {
                     this.coordX--;
                     totalMoves++;
                 } else {
