@@ -57,17 +57,28 @@ public class Player {
     }
 
     public void move(char getDirection) {
+        boolean checkObstacle = false;
         switch (getDirection) {
             case 'n': //North
                 Field[][] maze = Grid.getMaze();
                 System.out.println("type: " + maze[this.coordY][this.coordX].returnType() + " | CoordX: " + maze[this.coordY][this.coordX].getCoordX() + " | CoordY: " + maze[this.coordY][this.coordX].getCoordY() + " | Player X: " + this.coordX + " | Player Y: " + this.coordY);
                 //check if the player want's to go out of bounds
-                if (this.coordY > 0) {
-                    this.coordY--;
-                    totalMoves++;
-                } else {
+                System.out.println("tye: " + maze[this.coordY - 1][this.coordX].getCoordY());
+                if(this.coordX == maze[this.coordY - 1][this.coordX].getCoordX() && this.coordY == maze[this.coordY - 1][this.coordX].getCoordY() && maze[this.coordY - 1][this.coordX].returnType() == 1 ){
+                    checkObstacle = true;
+                }else{
+                    checkObstacle = false;
                 }
                 
+                if(!checkObstacle){
+                    if (this.coordY > 0) {
+                    this.coordY--;
+                    totalMoves++;
+                    } else {
+                        System.out.println("wupperz");
+                    }
+                }
+                System.out.println("obstacle" + checkObstacle);
                 
                 break;
             case 'e': //East
