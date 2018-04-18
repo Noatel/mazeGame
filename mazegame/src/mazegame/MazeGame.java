@@ -76,152 +76,15 @@ public class MazeGame extends JComponent {
                 boolean checkObstacle = false;
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
-                        Field[][] maze = Grid.getMaze();
-                        //System.out.println(maze[9][9]);
-                        
                         player.move('n');
-                        
-                        /*for (Wall walls : arrayWalls) { //Cycle through each and every wall
-                            //check if the player input is going to be a wall or not
-                            if (player.getXPosition() == (walls.getCoordX() / 30) && (player.getYPosition() - 1) == (walls.getCoordY() / 30)) {
-                                System.out.println("You cant move");
-                                checkObstacle = false; //set checkobstacle to false to stop the player from moving
-                                break; //break the forloop and continue on
-                            } else {
-                                for (Door doors : Door.doors) { //Cycle through each and every wall
-                                    //check if the player input is going to be a wall or not
-                                    if (player.getXPosition() == (doors.getCoordX() / 30) && (player.getYPosition() - 1) == (doors.getCoordY() / 30)) {
-                                        if (player.bag != null) {
-                                            if (player.bag.pin == doors.getPin()) {
-                                                checkObstacle = true;
-                                                doors.setClosed(false);
-//                                                doors.addOpenDoor();
-                                                break;
-                                            } else {
-                                                checkObstacle = false; //set checkobstacle to false to stop the player from moving
-                                            }
-                                        } else {
-                                            checkObstacle = false; //set checkobstacle to false to stop the player from moving
-                                        }
-                                        break; //break the forloop and continue on
-                                    } else {
-                                        checkObstacle = true; // set
-                                    }
-                                }
-                            }
-                        }
-                        if (checkObstacle)//check if there is no obstacle
-                        {
-                            player.move('n'); // move the player
-                        } else {
-                            System.out.println("You can't move"); //you weren't able to move
-                        }*/
                         break;
                     case KeyEvent.VK_RIGHT:
-                        /*for (Wall walls : arrayWalls) { //Cycle through each and every wall
-                            //check if the player input is going to be a wall or not
-                            if ((player.getXPosition() + 1) == (walls.getCoordX() / 30) && (player.getYPosition()) == (walls.getCoordY() / 30)) {
-                                System.out.println("You cant move");
-                                checkObstacle = false; //set checkobstacle to false to stop the player from moving
-                                break; //break the forloop and continue on
-                            } else {
-                                for (Door doors : Door.doors) { //Cycle through each and every wall
-//                                    //check if the player input is going to be a wall or not
-                                    if ((player.getXPosition() + 1) == (doors.getCoordX() / 30) && player.getYPosition() == (doors.getCoordY() / 30)) {;
-                                        if (player.bag != null) {
-                                            if (player.bag.pin == doors.getPin()) {
-                                                checkObstacle = true;
-                                                doors.setClosed(false);
-//                                                doors.addOpenDoor();
-
-                                                break;
-                                            } else {
-                                                checkObstacle = false; //set checkobstacle to false to stop the player from moving
-                                            }
-                                        } else {
-                                            checkObstacle = false; //set checkobstacle to false to stop the player from moving
-                                        }
-                                        break; //break the forloop and continue on
-                                    } else {
-                                        checkObstacle = true; // set
-                                    }
-                                }
-                            }
-                        }
-                        if (checkObstacle) {
-                            player.move('e');
-                        }*/
                         player.move('e');
                         break;
                     case KeyEvent.VK_DOWN:
-                        /*for (Wall walls : arrayWalls) { //Cycle through each and every wall
-                            //check if the player input is going to be a wall or not
-                            if (player.getXPosition() == (walls.getCoordX() / 30) && (player.getYPosition() + 1) == (walls.getCoordY() / 30)) {
-                                System.out.println("You cant move");
-                                checkObstacle = false; //set checkobstacle to false to stop the player from moving
-                                break; //break the forloop and continue on
-                            } else {
-                                for (Door doors : Door.doors) { //Cycle through each and every wall
-//                                    //check if the player input is going to be a wall or not
-                                    if (player.getXPosition() == (doors.getCoordX() / 30) && (player.getYPosition() + 1) == (doors.getCoordY() / 30)) {
-                                        if (player.bag != null) {
-                                            if (player.bag.pin == doors.getPin()) {
-                                                checkObstacle = true;
-                                                doors.setClosed(false);
-//                                                doors.addOpenDoor();
-                                                break;
-                                            } else {
-                                                checkObstacle = false; //set checkobstacle to false to stop the player from moving
-                                            }
-                                        } else {
-                                            checkObstacle = false; //set checkobstacle to false to stop the player from moving
-                                        }
-                                        break; //break the forloop and continue on
-                                    } else {
-                                        checkObstacle = true; // set
-                                    }
-                                }
-                            }
-                        }
-
-                        if (checkObstacle) {
-                            player.move('s');
-                        }*/
                         player.move('s');
                         break;
                     case KeyEvent.VK_LEFT:
-                        /*for (Wall walls : arrayWalls) { //Cycle through each and every wall
-                            //check if the player input is going to be a wall or not
-                            if ((player.getXPosition() - 1) == (walls.getCoordX() / 30) && player.getYPosition() == (walls.getCoordY() / 30)) {
-                                checkObstacle = false; //set checkobstacle to false to stop the player from moving
-                                break; //break the forloop and continue on
-                            } else {
-                                for (Door doors : Door.doors) { //Cycle through each and every wall
-                                    //check if the player input is going to be a wall or not
-                                    if ((player.getXPosition() - 1) == (doors.getCoordX() / 30) && player.getYPosition() == (doors.getCoordY() / 30)) {
-                                        if (player.bag != null) {
-                                            if (player.bag.pin == doors.getPin()) {
-                                                checkObstacle = true;
-                                                doors.setClosed(false);
-//                                                doors.addOpenDoor();
-                                                break;
-                                            } else {
-                                                checkObstacle = false; //set checkobstacle to false to stop the player from moving
-                                            }
-                                        } else {
-                                            checkObstacle = false; //set checkobstacle to false to stop the player from moving
-                                        }
-                                        break; //break the forloop and continue on
-                                    } else {
-                                        checkObstacle = true; // set
-                                    }
-                                }
-                            }
-                        }
-
-                        if (checkObstacle) {
-                            player.move('w');
-                        }*/
                         player.move('w');
                         break;
                 }
@@ -333,12 +196,10 @@ public class MazeGame extends JComponent {
 
         //Because the board is 60 * every time you need to multiple the position
         //Need to look in more why this is happening
-        int playerXPosition = (player.getXPosition()+ 1) * 30;
-        int playerYPosition = (player.getYPosition()+ 1) * 30;
+        int playerXPosition = (player.getXPosition() + 1) * 30;
+        int playerYPosition = (player.getYPosition() + 1) * 30;
 
         //player.setPosition(playerXPosition, playerYPosition);
-
-        
         //Load the level and put it in the array map
         Level.loadLevel();
 
@@ -494,7 +355,7 @@ public class MazeGame extends JComponent {
             }
         }
     }
-    
+
     public static void checkDoors(Graphics g) {
         for (Door openDoor : Door.doors) {
             if (player.getXPosition() == (openDoor.getCoordX() / 30) && player.getYPosition() == (openDoor.getCoordY() / 30)) {

@@ -23,6 +23,7 @@ public class Player {
 
     public int totalMoves;
     public Key bag;
+    Field[][] maze = Grid.getMaze();
 
     public Player() {
     }
@@ -38,7 +39,8 @@ public class Player {
             setPositionOneTime = 1;
         }
     }
-    public void resetSetPosition(){
+
+    public void resetSetPosition() {
         setPositionOneTime = 0;
     }
 
@@ -60,48 +62,62 @@ public class Player {
         boolean checkObstacle = false;
         switch (getDirection) {
             case 'n': //North
-                Field[][] maze = Grid.getMaze();
-                System.out.println("type: " + maze[this.coordY][this.coordX].returnType() + " | CoordX: " + maze[this.coordY][this.coordX].getCoordX() + " | CoordY: " + maze[this.coordY][this.coordX].getCoordY() + " | Player X: " + this.coordX + " | Player Y: " + this.coordY);
                 //check if the player want's to go out of bounds
-                System.out.println("tye: " + maze[this.coordY - 1][this.coordX].getCoordY());
-                if(this.coordX == maze[this.coordY - 1][this.coordX].getCoordX() && this.coordY == maze[this.coordY - 1][this.coordX].getCoordY() && maze[this.coordY - 1][this.coordX].returnType() == 1 ){
+                if (maze[this.coordY - 1][this.coordX].returnType() == 1) {
                     checkObstacle = true;
-                }else{
+                } else {
                     checkObstacle = false;
                 }
-                
-                if(!checkObstacle){
+
+                if (!checkObstacle) {
                     if (this.coordY > 0) {
-                    this.coordY--;
-                    totalMoves++;
-                    } else {
-                        System.out.println("wupperz");
+                        this.coordY--;
+                        totalMoves++;
                     }
                 }
                 System.out.println("obstacle" + checkObstacle);
-                
+
                 break;
             case 'e': //East
-
-                if (this.coordX < 9) {
-                    this.coordX++;
-                    totalMoves++;
+                if (maze[this.coordY][this.coordX + 1].returnType() == 1) {
+                    checkObstacle = true;
                 } else {
+                    checkObstacle = false;
+                }
+
+                if (!checkObstacle) {
+                    if (this.coordX < 9) {
+                        this.coordX++;
+                        totalMoves++;
+                    }
                 }
                 break;
             case 's': //South
-                if (this.coordY < 9) {
-                    this.coordY++;
-                    totalMoves++;
+                if (maze[this.coordY + 1][this.coordX].returnType() == 1) {
+                    checkObstacle = true;
                 } else {
-                    //continue
+                    checkObstacle = false;
+                }
+
+                if (!checkObstacle) {
+                    if (this.coordY < 9) {
+                        this.coordY++;
+                        totalMoves++;
+                    }
                 }
                 break;
             case 'w': //West
-                if (this.coordX > 0) {
-                    this.coordX--;
-                    totalMoves++;
+                if (maze[this.coordY][this.coordX - 1].returnType() == 1) {
+                    checkObstacle = true;
                 } else {
+                    checkObstacle = false;
+                }
+
+                if (!checkObstacle) {
+                    if (this.coordX > 0) {
+                        this.coordX--;
+                        totalMoves++;
+                    }
                 }
 
                 break;
@@ -121,7 +137,6 @@ public class Player {
         return this.bag.pin;
     }
 
-
     public void paintPlayer(Graphics g) {
         if (!startPosition) {
             g.setColor(Color.RED);
@@ -134,6 +149,5 @@ public class Player {
             g.drawRect(this.coordX, this.coordY, 30, 30);
         }
     }
-    
 
 }
