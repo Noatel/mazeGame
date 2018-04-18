@@ -63,58 +63,59 @@ public class Player {
         switch (getDirection) {
             case 'n': //North
                 //check if the player want's to go out of bounds
-                if (maze[this.coordY - 1][this.coordX].returnType() == 1) {
-                    checkObstacle = true;
-                } else {
-                    checkObstacle = false;
-                }
+                if (this.coordY > 0) {
+                    if (maze[this.coordY - 1][this.coordX].returnType() == 1) {
+                        checkObstacle = true;
+                    } else {
 
-                if (!checkObstacle) {
-                    if (this.coordY > 0) {
+                        checkObstacle = false;
+                    }
+
+                    if (!checkObstacle) {
                         this.coordY--;
                         totalMoves++;
                     }
                 }
-                System.out.println("obstacle" + checkObstacle);
 
                 break;
             case 'e': //East
-                if (maze[this.coordY][this.coordX + 1].returnType() == 1) {
-                    checkObstacle = true;
-                } else {
-                    checkObstacle = false;
-                }
+                if (this.coordX < 9) {
+                    if (maze[this.coordY][this.coordX + 1].returnType() == 1) {
+                        checkObstacle = true;
+                    } else {
+                        checkObstacle = false;
+                    }
 
-                if (!checkObstacle) {
-                    if (this.coordX < 9) {
+                    if (!checkObstacle) {
+
                         this.coordX++;
                         totalMoves++;
                     }
                 }
                 break;
             case 's': //South
-                if (maze[this.coordY + 1][this.coordX].returnType() == 1) {
-                    checkObstacle = true;
-                } else {
-                    checkObstacle = false;
-                }
+                if (this.coordY < 9) {
+                    if (maze[this.coordY + 1][this.coordX].returnType() == 1) {
+                        checkObstacle = true;
+                    } else {
+                        checkObstacle = false;
+                    }
 
-                if (!checkObstacle) {
-                    if (this.coordY < 9) {
+                    if (!checkObstacle) {
                         this.coordY++;
                         totalMoves++;
                     }
                 }
                 break;
             case 'w': //West
-                if (maze[this.coordY][this.coordX - 1].returnType() == 1) {
-                    checkObstacle = true;
-                } else {
-                    checkObstacle = false;
-                }
+                if (this.coordX > 0) {
+                    if (maze[this.coordY][this.coordX - 1].returnType() == 1) {
+                        checkObstacle = true;
+                    } else {
+                        checkObstacle = false;
+                    }
 
-                if (!checkObstacle) {
-                    if (this.coordX > 0) {
+                    if (!checkObstacle) {
                         this.coordX--;
                         totalMoves++;
                     }
