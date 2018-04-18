@@ -7,6 +7,7 @@ package mazegame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import mazegame.FieldTiles.Field;
 import mazegame.FieldTiles.Key;
 
 /**
@@ -58,11 +59,16 @@ public class Player {
     public void move(char getDirection) {
         switch (getDirection) {
             case 'n': //North
+                Field[][] maze = Grid.getMaze();
+                System.out.println(maze[this.coordY][this.coordX].returnType());
+                //check if the player want's to go out of bounds
                 if (this.coordY > 1) {
                     this.coordY--;
                     totalMoves++;
                 } else {
                 }
+                
+                
                 break;
             case 'e': //East
 

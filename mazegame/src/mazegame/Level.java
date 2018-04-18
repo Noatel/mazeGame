@@ -78,16 +78,17 @@ public class Level {
 
             //Standard 20x20 field
             int width = 10;
+            int countRows = 0;
 
             //While it got a next line on the file
             while (scanner.hasNextLine()) {
                 // create a new current row:
                 int[] row = new int[width];
-                // enter a number into the row 1 throught 20 each row
+                // enter a number into the row 1 throught 10 each row
                 for (int i = 0; i < width; i++) {
                     // Read the number and add it to the current row:
                     row[i] = scanner.nextInt();
-
+                    System.out.println(row[i] + "("+countRows+","+i+")");
                     //Constante maken?
                     if (row[i] == 3 || row[i] == 5 || row[i] == 7) {
                         Door.countDoors++;
@@ -105,6 +106,7 @@ public class Level {
                             break;
                         case 2:
                             //player
+                            Grid.maze[newLevel.getNewRow()][i] = new Floor(i, newLevel.getNewRow(), row[i]);
                             break;
                         case 3:
                             Grid.maze[newLevel.getNewRow()][i] = new Door(i, newLevel.getNewRow(), Door.DOOR1, row[i]);
@@ -144,8 +146,10 @@ public class Level {
                             Grid.maze[newLevel.getNewRow()][i] = new Wall(i, newLevel.getNewRow(), row[i]);
                             break;
                     }
-
+                    
                 }
+                newLevel.setNewRow();
+                countRows++;
                 // Add the row to the results:
                 Grid.map.add(row);
 
@@ -153,7 +157,7 @@ public class Level {
                 if (scanner.hasNextLine()) {
                     // Go to the next line:
                     scanner.nextLine();
-                    newLevel.setNewRow();
+                    
                 }
             }
             //Close the scanner and 

@@ -54,6 +54,7 @@ public class MazeGame extends JComponent {
         //Create the GUI and set the Title "Maze game"
         JFrame window = new JFrame();
         window.setTitle("Maze game");
+        Field[][] maze = Grid.getMaze();
 
         //Because you want to play with the arrows you need to focus it
         window.setFocusable(true);
@@ -76,8 +77,11 @@ public class MazeGame extends JComponent {
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
                         Field[][] maze = Grid.getMaze();
-                        System.out.println(maze[9][9]);
-                        for (Wall walls : arrayWalls) { //Cycle through each and every wall
+                        //System.out.println(maze[9][9]);
+                        
+                        player.move('n');
+                        
+                        /*for (Wall walls : arrayWalls) { //Cycle through each and every wall
                             //check if the player input is going to be a wall or not
                             if (player.getXPosition() == (walls.getCoordX() / 30) && (player.getYPosition() - 1) == (walls.getCoordY() / 30)) {
                                 System.out.println("You cant move");
@@ -111,10 +115,10 @@ public class MazeGame extends JComponent {
                             player.move('n'); // move the player
                         } else {
                             System.out.println("You can't move"); //you weren't able to move
-                        }
+                        }*/
                         break;
                     case KeyEvent.VK_RIGHT:
-                        for (Wall walls : arrayWalls) { //Cycle through each and every wall
+                        /*for (Wall walls : arrayWalls) { //Cycle through each and every wall
                             //check if the player input is going to be a wall or not
                             if ((player.getXPosition() + 1) == (walls.getCoordX() / 30) && (player.getYPosition()) == (walls.getCoordY() / 30)) {
                                 System.out.println("You cant move");
@@ -146,11 +150,11 @@ public class MazeGame extends JComponent {
                         }
                         if (checkObstacle) {
                             player.move('e');
-                        }
-
+                        }*/
+                        player.move('e');
                         break;
                     case KeyEvent.VK_DOWN:
-                        for (Wall walls : arrayWalls) { //Cycle through each and every wall
+                        /*for (Wall walls : arrayWalls) { //Cycle through each and every wall
                             //check if the player input is going to be a wall or not
                             if (player.getXPosition() == (walls.getCoordX() / 30) && (player.getYPosition() + 1) == (walls.getCoordY() / 30)) {
                                 System.out.println("You cant move");
@@ -182,10 +186,11 @@ public class MazeGame extends JComponent {
 
                         if (checkObstacle) {
                             player.move('s');
-                        }
+                        }*/
+                        player.move('s');
                         break;
                     case KeyEvent.VK_LEFT:
-                        for (Wall walls : arrayWalls) { //Cycle through each and every wall
+                        /*for (Wall walls : arrayWalls) { //Cycle through each and every wall
                             //check if the player input is going to be a wall or not
                             if ((player.getXPosition() - 1) == (walls.getCoordX() / 30) && player.getYPosition() == (walls.getCoordY() / 30)) {
                                 checkObstacle = false; //set checkobstacle to false to stop the player from moving
@@ -216,7 +221,8 @@ public class MazeGame extends JComponent {
 
                         if (checkObstacle) {
                             player.move('w');
-                        }
+                        }*/
+                        player.move('w');
                         break;
                 }
                 //Repaint the frame
@@ -332,10 +338,11 @@ public class MazeGame extends JComponent {
 
         player.setPosition(playerXPosition, playerYPosition);
 
+        
         //Load the level and put it in the array map
         Level.loadLevel(Level.currentLevel);
 
-        ArrayList<int[]> map = Grid.map;
+        Field[][] maze = Grid.getMaze();
 
         int i = 0;
         int j = 0;
@@ -351,7 +358,7 @@ public class MazeGame extends JComponent {
                     j++;
                 }
 
-                switch (map.get(i)[j]) {
+                switch (maze[i][j].returnType()) {
                     case 0:
                         Floor floor = new Floor(x, y, 0);
                         floor.paintField(g);
@@ -381,14 +388,14 @@ public class MazeGame extends JComponent {
                         Door firstDoor = new Door(x, y, Door.DOOR1, 4);
                         firstDoor.addDoor(firstDoor);
 
-                        System.out.println("open doors = " + Door.openDoors);
+                        //System.out.println("open doors = " + Door.openDoors);
                         if (!Door.openDoors.isEmpty()) {
                             for (Door openDoors : Door.openDoors) {
-                                System.out.println("x = "+ openDoors.closed);
-                                System.out.println("y = "+ openDoors.closed);
-                                System.out.println("door status = "+ openDoors.closed);
+//                                System.out.println("x = "+ openDoors.closed);
+//                                System.out.println("y = "+ openDoors.closed);
+//                                System.out.println("door status = "+ openDoors.closed);
                                 if (openDoors.getCoordX() != x && openDoors.getCoordY() != y || !openDoors.closed) {
-                                    System.out.println("count");
+//                                    System.out.println("count");
                                     firstDoor.paintField(g);
                                 }
                             }
@@ -491,8 +498,8 @@ public class MazeGame extends JComponent {
     public static void checkDoors(Graphics g) {
         for (Door openDoor : Door.doors) {
             if (player.getXPosition() == (openDoor.getCoordX() / 30) && player.getYPosition() == (openDoor.getCoordY() / 30)) {
-                System.out.println(openDoor.getCoordX());
-                System.out.println(openDoor.getCoordX());
+//                System.out.println(openDoor.getCoordX());
+//                System.out.println(openDoor.getCoordX());
                 openDoor.addOpenDoor();
             }
         }
