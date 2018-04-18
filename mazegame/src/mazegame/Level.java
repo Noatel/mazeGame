@@ -34,15 +34,16 @@ public class Level {
      * @param level
      * @return Grid.map
      */
-    public static ArrayList<int[]> loadLevel(int level) {
+    public static void loadLevel(/*int level*/) {
         Level newLevel = new Level();
+        int level = 1;
 
         //Get the path of the level
         String readLevel = ".";
         String map = new File("src/mazegame/Levels").getAbsolutePath();
 
         //Clear the level before if there is one
-        Grid.map.clear();
+        
 
         Wall wall = new Wall();
         wall.clearWalls();
@@ -80,7 +81,7 @@ public class Level {
             int width = 10;
             int countRows = 0;
 
-            //While it got a next line on the file
+            //While it got a next line one the file
             while (scanner.hasNextLine()) {
                 // create a new current row:
                 int[] row = new int[width];
@@ -88,7 +89,7 @@ public class Level {
                 for (int i = 0; i < width; i++) {
                     // Read the number and add it to the current row:
                     row[i] = scanner.nextInt();
-                    System.out.println(row[i] + "("+countRows+","+i+")");
+                    //System.out.println(row[i] + "("+countRows+","+i+")");
                     //Constante maken?
                     if (row[i] == 3 || row[i] == 5 || row[i] == 7) {
                         Door.countDoors++;
@@ -144,14 +145,16 @@ public class Level {
                             break;
                         default:
                             Grid.maze[newLevel.getNewRow()][i] = new Wall(i, newLevel.getNewRow(), row[i]);
+                            
                             break;
                     }
+                    
                     
                 }
                 newLevel.setNewRow();
                 countRows++;
                 // Add the row to the results:
-                Grid.map.add(row);
+                
 
                 // Go to the next line (optional, but helps deal with erroneous input files):
                 if (scanner.hasNextLine()) {
@@ -168,7 +171,6 @@ public class Level {
         }
 
         //Return the array that you filled
-        return Grid.map;
     }
 
     private int getNewRow() {
@@ -195,7 +197,7 @@ public class Level {
 //        for (Door door : Field.doors) {
 //            door.setClosed(true);
 //        }
-        Level.loadLevel(Level.currentLevel);
+        Level.loadLevel();
 
         window.repaint();
         window.setFocusable(true);

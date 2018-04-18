@@ -16,8 +16,8 @@ import mazegame.FieldTiles.Key;
  */
 public class Player {
 
-    private int coordX;
-    private int coordY;
+    private int coordX = 0;
+    private int coordY = 0;
     public boolean startPosition = false;
     private int setPositionOneTime;
 
@@ -33,8 +33,8 @@ public class Player {
 
     public void setPosition(int x, int y) {
         if (setPositionOneTime == 0) {
-            this.coordX = x + 1;
-            this.coordY = y + 1;
+            this.coordX = x;
+            this.coordY = y;
             setPositionOneTime = 1;
         }
     }
@@ -60,7 +60,7 @@ public class Player {
         switch (getDirection) {
             case 'n': //North
                 Field[][] maze = Grid.getMaze();
-                System.out.println(maze[this.coordY][this.coordX].returnType());
+                System.out.println("type: " + maze[this.coordY][this.coordX].returnType() + " | CoordX: " + maze[this.coordY][this.coordX].getCoordX() + " | CoordY: " + maze[this.coordY][this.coordX].getCoordY() + " | Player X: " + this.coordX + " | Player Y: " + this.coordY);
                 //check if the player want's to go out of bounds
                 if (this.coordY > 1) {
                     this.coordY--;

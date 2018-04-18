@@ -20,7 +20,6 @@ public class Grid {
     /**
      * After the function loadLevel is used Load the map in the array
      */
-    public static ArrayList<int[]> map = new ArrayList<int[]>();
 
     public static Field[][] maze = new Field[10][10];
 
