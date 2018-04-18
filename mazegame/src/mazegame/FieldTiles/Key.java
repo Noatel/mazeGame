@@ -10,6 +10,8 @@ import java.awt.Graphics;
 import java.awt.font.TextAttribute;
 import java.text.AttributedString;
 import java.util.ArrayList;
+import java.util.List;
+import mazegame.Player;
 
 /**
  *
@@ -18,7 +20,11 @@ import java.util.ArrayList;
 public class Key extends Field {
 
     public static boolean collected; // dit kijkt of de key is opgepakt of niet
-    public int pin;    
+    public int pin;
+    public static int countKeys;
+
+    //Create an empty door array 
+    public static List<Key> keys = new ArrayList<Key>();
 
     /**
      * Constructs a end point that needs the position of the x coordinate, y
@@ -33,35 +39,42 @@ public class Key extends Field {
         super(coordX, coordY, type);
         this.pin = pin;
     }
-    
+
     /**
      * Sets the x,y values of the key and draw it with the Graphics g
      *
      * @param g use the Graphics g to draw the squares on the field
-     * @param x coordinate of a field
-     * @param y coordinate of a field
      */
-
     @Override
-    public void paintField(Graphics g, int x, int y) {
-        g.setColor(Color.magenta);
-        g.fillRect(x, y, 30, 30);
-        g.drawRect(x, y, 30, 30);
+    public void paintField(Graphics g) {
 
-        AttributedString as = new AttributedString(Integer.toString(this.pin)  );
+        g.setColor(Color.magenta);
+        g.fillRect(this.coordX, this.coordY, 30, 30);
+        g.drawRect(this.coordX, this.coordY, 30, 30);
+
+        AttributedString as = new AttributedString(Integer.toString(this.pin));
         as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
-        g.drawString(as.getIterator(), x + 5, y + 20);
+        g.drawString(as.getIterator(), this.coordX + 5, this.coordY + 20);
+
     }
 
-    public static void movePosition(Key key){
+    public void repaintKey(Graphics g, Player player) {
+        if (player.getXPosition() == player.bag.coordX && player.getYPosition() == player.bag.coordY) {
+            g.setColor(new Color(255, 255, 255));
+            g.fillRect(player.bag.coordX, player.bag.coordY, 30, 30);
+            g.drawRect(player.bag.coordX, player.bag.coordY, 30, 30);
+        }
+    }
+
+    public static void movePosition(Key key) {
         key.coordX = Field.NEW_COORDS;
         key.coordY = Field.NEW_COORDS;
     }
-    
+
     /**
      * @return collected keys that have been collected
      */
-    public static boolean isCollected() {
+    public boolean isCollected() {
         return collected;
     }
 
@@ -86,7 +99,7 @@ public class Key extends Field {
      *
      * @param pin define the value of the pin
      */
-    public  void setPin(int pin) {
+    public void setPin(int pin) {
         pin = pin;
     }
 
@@ -95,7 +108,7 @@ public class Key extends Field {
      *
      * @return id return the id of the key
      */
-    public  int getId() {
+    public int getId() {
         return type;
     }
 
@@ -108,5 +121,14 @@ public class Key extends Field {
         type = id;
     }
 
+    public static List<Key> returnKey() {
+        return keys;
+    }
+
+    public void addKey(Key key) {
+        if (keys.size() <= countKeys) {
+            keys.add(key);
+        }
+    }
 
 }

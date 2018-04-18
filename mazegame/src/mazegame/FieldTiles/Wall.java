@@ -25,6 +25,7 @@ public class Wall extends Field {
     public Wall() {
     }
     
+    //Create an emptywall array 
     public static List<Wall> walls = new ArrayList<Wall>();
 
     /**
@@ -32,15 +33,13 @@ public class Wall extends Field {
      * Sets the tool tip text.
      *
      * @param g use the Graphics g to draw the squares on the field
-     * @param x coordinate of a field
-     * @param y coordinate of a field
      */
     
     @Override
-    public void paintField(Graphics g, int x, int y) {
+    public void paintField(Graphics g) {
         g.setColor(Color.GRAY);
-        g.fillRect(x, y, 30, 30);
-        g.drawRect(x, y, 30, 30);
+        g.fillRect(this.coordX, this.coordY, 30, 30);
+        g.drawRect(this.coordX, this.coordY, 30, 30);
         
         this.addWall(this);
     }

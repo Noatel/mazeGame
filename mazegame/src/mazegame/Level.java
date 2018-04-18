@@ -10,9 +10,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JFrame;
-import mazegame.FieldTiles.Door;
-import mazegame.FieldTiles.Field;
-import mazegame.FieldTiles.Wall;
+import mazegame.FieldTiles.*;
 
 /**
  *
@@ -42,8 +40,10 @@ public class Level {
 
         Wall wall = new Wall();
         wall.clearWalls();
-//        Field.doors.clear();
-//        Field.keys.clear();
+        Door.doors.clear();
+        Key.keys.clear();
+        Door.countDoors = 0;
+        Key.countKeys = 0;
 
         //Because we got multiple levels
         switch (level) {
@@ -81,6 +81,14 @@ public class Level {
                 for (int i = 0; i < width; i++) {
                     // Read the number and add it to the current row:
                     row[i] = scanner.nextInt();
+                    
+                    //Constante maken?
+                    if(row[i] == 3 || row[i] == 5 || row[i] == 7){
+                       Door.countDoors++;
+                    }
+                     if(row[i] == 4 || row[i] == 6 || row[i] == 8){
+                       Key.countKeys++;
+                    }
                    
                 }
                 // Add the row to the results:
@@ -109,12 +117,12 @@ public class Level {
      *
      * @param window
      */
-    public static void restart(JFrame window) {
-        Player.setPositionOneTime = 0;
-//        Player.setPosition(0, 0);
+    public static void restart(JFrame window, Player player) {
+        player.resetSetPosition();
+        player.setPosition(0, 0);
 //        Bag.alreadyCollected.clear();
 //        Bag.bag = 0;
-        Player.totalMoves = 0; // reset the total moves
+        player.totalMoves = 0; // reset the total moves
 
 //        for (Door door : Field.doors) {
 //            door.setClosed(true);

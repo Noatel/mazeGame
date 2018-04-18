@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.font.TextAttribute;
 import java.text.AttributedString;
+import java.util.ArrayList;
+import java.util.List;
 import mazegame.Player;
 
 /**
@@ -22,8 +24,13 @@ public class Door extends Field {
     public static final int DOOR1 = 100;
     public static final int DOOR2 = 200;
     public static final int DOOR3 = 300;
-    
-    
+    public static int countDoors;
+
+    //Create an empty door array for all door 
+    public static List<Door> doors = new ArrayList<Door>();
+
+    //Create an empty door array for open doors
+    public static List<Door> openDoors = new ArrayList<Door>();
 
     /**
      * Constructs a door that needs the position of the x coordinate, y
@@ -51,17 +58,25 @@ public class Door extends Field {
      * @param type of a field
      */
     @Override
-    public void paintField(Graphics g, int x, int y) {
+    public void paintField(Graphics g) {
 
-        //geeft de kleur de positie en de groote aan van het blok
-        g.setColor(Color.ORANGE);
-        g.fillRect(x, y, 30, 30);
-        g.drawRect(x, y, 30, 30);
+        if (!this.closed) {
+            //geeft de kleur de positie en de groote aan van het blok
+            g.setColor(Color.ORANGE);
+            g.fillRect(this.coordX, this.coordY, 30, 30);
+            g.drawRect(this.coordX, this.coordY, 30, 30);
 
-        //geeft attributes aan strings waardoor je de kleur kan veranderen 
-        AttributedString as = new AttributedString(Integer.toString(this.pin));
-        as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
-        g.drawString(as.getIterator(), x + 5, y + 20);
+            //geeft attributes aan strings waardoor je de kleur kan veranderen 
+            AttributedString as = new AttributedString(Integer.toString(this.pin));
+            as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
+            g.drawString(as.getIterator(), this.coordX + 5, this.coordY + 20);
+        } else {
+            System.out.println("OVERRIDE");
+            g.setColor(new Color(255, 255, 255));
+            g.fillRect(this.coordX, this.coordY, 30, 30);
+            g.drawRect(this.coordX, this.coordY, 30, 30);
+            g.drawString("", this.coordX + 5, this.coordY + 20);
+        }
     }
 
     /**
@@ -99,7 +114,8 @@ public class Door extends Field {
     }
 
     /**
-     * Set the door closed
+     * Set the door closed When its false, the door isnt closed so you can walk
+     * through it When its true, the door is closed so you cant walk though it
      *
      * @param closed Check if the door is open or closed
      */
@@ -117,14 +133,45 @@ public class Door extends Field {
 
     }
 
-    public void openDoor(Graphics g) {
-        Player player = new Player();
-        
-     if (Door.isClosed(this.pin) != true && player.checkKey() == this.pin) {
-                            g.setColor(new Color(255, 255, 255));
-                            g.fillRect(this.coordX, this.coordY, 30, 30);
-                            g.drawRect(this.coordX, this.coordY, 30, 30);
-     }
+    public static List<Door> returnDoor() {
+        return doors;
     }
 
+    public void clearDoor() {
+        doors.clear();
+    }
+
+    public void addDoor(Door door) {
+        if (Door.doors.size() <= Door.countDoors) {
+            doors.add(door);
+        }
+    }
+
+    public void addOpenDoor() {
+
+        if (!Door.openDoors.isEmpty()) {
+            for (Door openDoor : Door.openDoors) {
+                System.out.println(!openDoor.equals(this));
+                System.out.println("added door = " + openDoor.coordX + " - " + openDoor.coordY);
+                if (!openDoor.equals(this)) {
+                    System.out.println("not equal");
+                    Door.openDoors.add(this);
+                    break;
+                }
+            }
+        } else {
+            System.out.println("none");
+            Door.openDoors.add(this);
+        }
+
+    }
+
+    public void repaintDoor(Graphics g, Player player, Door door) {
+        if (player.getXPosition() == door.coordX && player.getYPosition() == door.coordY) {
+            g.setColor(new Color(255, 255, 255));
+            g.fillRect(door.coordX, door.coordY, 30, 30);
+            g.drawRect(door.coordX, door.coordY, 30, 30);
+
+        }
+    }
 }

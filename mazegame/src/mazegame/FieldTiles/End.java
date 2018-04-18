@@ -11,6 +11,8 @@ import java.text.AttributedString;
  */
 public class End extends Field{
     
+    public static int[] endLocation = new int[2];
+
     /**
      * Constructs a end point that needs the position of the x coordinate, y coordinate and the type
      * @param coordX coordinate of a field
@@ -28,25 +30,25 @@ public class End extends Field{
      * @param y coordinate of a field
     */
     @Override
-    public void paintField(Graphics g, int x, int y) {
+    public void paintField(Graphics g) {
         /*
         Sla de eindlocatie op
         */
-        Field.endLocation[0] = (x / 30);
-        Field.endLocation[1] = (y / 30);
+        endLocation[0] = (this.coordX / 30);
+        endLocation[1] = (this.coordY / 30);
         
         /*
         geeft de kleur de positie en de groote aan van het blok
         */
         g.setColor(Color.GREEN);
-        g.fillRect(x, y, 30, 30);
-        g.drawRect(x, y, 30, 30);
+        g.fillRect(this.coordX, this.coordY, 30, 30);
+        g.drawRect(this.coordX, this.coordY, 30, 30);
         
         /*
         geeft attributes aan strings waardoor je de kleur kan veranderen
         */
         AttributedString as = new AttributedString("End");
         as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
-        g.drawString(as.getIterator(), x + 5, y + 20);
+        g.drawString(as.getIterator(), this.coordX + 5, this.coordY + 20);
     }
 }

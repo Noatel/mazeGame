@@ -15,13 +15,14 @@ import mazegame.FieldTiles.Key;
  */
 public class Player {
 
-    private  int coordX;
-    private  int coordY;
-    public static int setPositionOneTime;
-    public static int totalMoves;
+    private int coordX;
+    private int coordY;
+    public boolean startPosition = false;
+    private int setPositionOneTime;
+
+    public int totalMoves;
     public Key bag;
 
-   
     public Player() {
     }
 
@@ -36,6 +37,9 @@ public class Player {
             setPositionOneTime = 1;
         }
     }
+    public void resetSetPosition(){
+        setPositionOneTime = 0;
+    }
 
     public int getYPosition() {
         return coordY;
@@ -45,7 +49,7 @@ public class Player {
         return coordX;
     }
 
-    public  void resetPlayer() {
+    public void resetPlayer() {
         this.coordX = 1;
         this.coordY = 1;
         setPositionOneTime = 0;
@@ -87,22 +91,32 @@ public class Player {
         }
         MazeGame.label1.setText("Total Moves: " + totalMoves);
     }
-    public void setKey(Key key){
-        this.bag = key;
-    }
-    
-    public int checkKey() {
-         return 100;
+
+    int getTotalMoves() {
+        return totalMoves;
     }
 
-    public void collectKey(Graphics g) {
-        Player player = new Player();
-        
-        if (player.checkKey() == bag.pin) {
+    public void setKey(Key key) {
+        this.bag = key;
+    }
+
+    public int checkKey() {
+        return this.bag.pin;
+    }
+
+
+    public void paintPlayer(Graphics g) {
+        if (!startPosition) {
+            g.setColor(Color.RED);
+            g.fillRect(this.coordX, this.coordY, 30, 30);
+            g.drawRect(this.coordX, this.coordY, 30, 30);
+            startPosition = true;
+        } else {
             g.setColor(new Color(255, 255, 255));
             g.fillRect(this.coordX, this.coordY, 30, 30);
             g.drawRect(this.coordX, this.coordY, 30, 30);
-      }
+        }
     }
+    
 
 }
