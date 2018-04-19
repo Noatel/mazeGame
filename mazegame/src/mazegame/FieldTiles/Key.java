@@ -23,7 +23,7 @@ public class Key extends Field {
     /**
      * A key got a pin that fits the door ${pin}.
      */
-    public int pin;
+    private int pin;
 
     /**
      * Constructs a end point that needs the position of the x coordinate, y

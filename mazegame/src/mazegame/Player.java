@@ -94,6 +94,7 @@ public class Player {
 
     /**
      * Move the player
+     *
      * @param getDirection Char for the movement of the player
      */
     public void move(char getDirection) {
@@ -204,7 +205,7 @@ public class Player {
                 if (maze[coordY][coordX].returnType() == 3 || maze[coordY][coordX].returnType() == 5 || maze[coordY][coordX].returnType() == 7) {
                     if (maze[coordY][coordX] instanceof Door) {
                         Door door = (Door) maze[coordY][coordX];
-                        if (this.bag != null && this.bag.pin == door.pin) {
+                        if (this.bag != null && this.bag.getPin() == door.pin) {
                             door.setHidden(true);
                             checkObstacle = false;
                             return checkObstacle;
@@ -230,8 +231,6 @@ public class Player {
         return checkObstacle;
     }
 
-    
-
     /**
      * @return totalMoves the moves the player made
      */
@@ -250,7 +249,7 @@ public class Player {
      * @return this.bag.pin Returns the key pin of the player
      */
     public int checkKey() {
-        return this.bag.pin;
+        return this.bag.getPin();
     }
 
     /**
@@ -266,14 +265,13 @@ public class Player {
         if (maze[this.coordY][this.coordX].returnType() == 9) {
             if (Level.currentLevel < 3) {
                 Level.currentLevel++;
-                System.out.println("you made it!");
                 //Clear the level before if there is one
                 this.clearBag();
 
                 Level.loadLevel(Level.currentLevel);
                 resetPlayer();
             } else {
-                System.exit(0);
+                MazeGame.exitWindow();
             }
 
         }
