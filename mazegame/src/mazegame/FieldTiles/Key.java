@@ -9,9 +9,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.font.TextAttribute;
 import java.text.AttributedString;
-import java.util.ArrayList;
-import java.util.List;
-import mazegame.Player;
 
 /**
  *
@@ -19,12 +16,14 @@ import mazegame.Player;
  */
 public class Key extends Field {
 
-    public static boolean collected; // dit kijkt of de key is opgepakt of niet
+    /**
+     * Check if the key is collected ${collected}.
+     */
+    public static boolean collected;
+    /**
+     * A key got a pin that fits the door ${pin}.
+     */
     public int pin;
-    public static int countKeys;
-
-    //Create an empty door array 
-    public static List<Key> keys = new ArrayList<Key>();
 
     /**
      * Constructs a end point that needs the position of the x coordinate, y
@@ -42,27 +41,21 @@ public class Key extends Field {
 
     /**
      * Sets the x,y values of the key and draw it with the Graphics g
-     *
      * @param g use the Graphics g to draw the squares on the field
      */
     @Override
     public void paintField(Graphics g) {
+        
+        //Paint the square
         g.setColor(Color.magenta);
         g.fillRect(((this.getCoordX() + 1) * 30), ((this.getCoordY() + 1) * 30), 30, 30);
         g.drawRect(((this.getCoordX() + 1) * 30), ((this.getCoordY() + 1) * 30), 30, 30);
 
+        //Paint the pincode insde the square
         AttributedString as = new AttributedString(Integer.toString(this.pin));
         as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
         g.drawString(as.getIterator(), (((this.getCoordX() + 1) * 30)) + 5, ((this.getCoordY() + 1) * 30) + 20);
 
-    }
-
-    public void repaintKey(Graphics g, Player player) {
-        if (player.getXPosition() == player.bag.getCoordX() && player.getYPosition() == player.bag.getCoordY()) {
-            g.setColor(new Color(255, 255, 255));
-            g.fillRect(player.bag.getCoordX(), player.bag.getCoordY(), 30, 30);
-            g.drawRect(player.bag.getCoordX(), player.bag.getCoordY(), 30, 30);
-        }
     }
 
     /**
@@ -74,7 +67,6 @@ public class Key extends Field {
 
     /**
      * Set the collected key status to collected (True or false)
-     *
      * @param collected see if the key is collected or not
      */
     public static void setCollected(boolean collected) {
@@ -90,12 +82,10 @@ public class Key extends Field {
 
     /**
      * Set key to a value
-     *
      * @param pin define the value of the pin
      */
     public void setPin(int pin) {
         pin = pin;
     }
-
 
 }

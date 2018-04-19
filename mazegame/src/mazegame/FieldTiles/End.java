@@ -26,8 +26,6 @@ public class End extends Field{
      /**
      * Set the endPoint and draw it on the JFrame
      * @param g use the Graphics g to draw the squares on the field
-     * @param x coordinate of a field
-     * @param y coordinate of a field
     */
     @Override
     public void paintField(Graphics g) {

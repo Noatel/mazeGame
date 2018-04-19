@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import mazegame.FieldTiles.Door;
 import mazegame.FieldTiles.Field;
 import mazegame.FieldTiles.Key;
+import static mazegame.Grid.maze;
 
 /**
  *
@@ -17,22 +18,42 @@ import mazegame.FieldTiles.Key;
  */
 public class Player {
 
+    /**
+     * Create the coordX of the player ${coordX}.
+     */
     private int coordX = 0;
+    /**
+     * Create the coordY of the player ${coordY}.
+     */
     private int coordY = 0;
+
+    /**
+     * Create the startPosition ${startPosition}.
+     */
     public boolean startPosition = false;
+    /**
+     * create the setPositionOneTime variable to draw it one time ${collected}.
+     */
     private int setPositionOneTime;
 
+    /**
+     * keep track of the total moves per level ${totalMoves}.
+     */
     public int totalMoves;
+    /**
+     * Keep track of the key that the player has collected ${bag}.
+     */
     public Key bag;
-    Field[][] maze = Grid.getMaze();
 
     public Player() {
     }
 
-    public String toString() {
-        return "Coord x :" + coordX + " Coord y :" + coordY;
-    }
-
+    /**
+     * Set the position of the player
+     *
+     * @param x Set the x position of the player
+     * @param y Set the y position of the player
+     */
     public void setPosition(int x, int y) {
         if (setPositionOneTime == 0) {
             this.coordX = x - 1;
@@ -41,24 +62,41 @@ public class Player {
         }
     }
 
+    /**
+     * Set the bag to null
+     *
+     */
     public void clearBag() {
         this.bag = null;
     }
 
+    /**
+     * @return coordY returns the coordY position of the player
+     */
     public int getYPosition() {
         return coordY;
     }
 
+    /**
+     * @return coordX returns the coordY position of the player
+     */
     public int getXPosition() {
         return coordX;
     }
 
+    /**
+     * Reset the player
+     */
     public void resetPlayer() {
         this.coordX = 0;
         this.coordY = 0;
         setPositionOneTime = 0;
     }
 
+    /**
+     * Move the player
+     * @param getDirection Char for the movement of the player
+     */
     public void move(char getDirection) {
         boolean checkObstacle = false;
         switch (getDirection) {
@@ -108,6 +146,10 @@ public class Player {
         MazeGame.label1.setText("Total Moves: " + totalMoves);
     }
 
+    /**
+     * @param coord check if the coordinate is a x or y
+     * @param sign check if the sign is a - or +
+     */
     private boolean canWalk(String coord, String sign) {
         boolean checkObstacle = false;
         int coordY = this.coordY;
@@ -140,7 +182,6 @@ public class Player {
         if (maze[coordY][coordX].returnType() == 1) {
             checkObstacle = true;
             return checkObstacle;
-
         } else {
             //Type 4 = Key 1
             //Type 6 = Key 2
@@ -190,18 +231,32 @@ public class Player {
         return checkObstacle;
     }
 
+    
+
+    /**
+     * @return totalMoves the moves the player made
+     */
     int getTotalMoves() {
         return totalMoves;
     }
 
+    /**
+     * @param key set the key into the players bag
+     */
     public void setKey(Key key) {
         this.bag = key;
     }
 
+    /**
+     * @return this.bag.pin Returns the key pin of the player
+     */
     public int checkKey() {
         return this.bag.pin;
     }
 
+    /**
+     * @param g Paint the player
+     */
     public void paintPlayer(Graphics g) {
         if (!startPosition) {
             g.setColor(Color.RED);

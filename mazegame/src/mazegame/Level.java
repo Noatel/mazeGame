@@ -31,8 +31,7 @@ public class Level {
     /**
      * Load the file that you at assign level to and fill the Grid.map array
      *
-     * @param level
-     * @return Grid.map
+     * @param level Level is the current level you at
      */
     public static void loadLevel(int level) {
         Level newLevel = new Level();
@@ -79,14 +78,7 @@ public class Level {
                     // Read the number and add it to the current row:
                     row[i] = scanner.nextInt();
                     //System.out.println(row[i] + "("+countRows+","+i+")");
-                    //Constante maken?
-                    if (row[i] == 3 || row[i] == 5 || row[i] == 7) {
-                        Door.countDoors++;
-                    }
-                    if (row[i] == 4 || row[i] == 6 || row[i] == 8) {
-                        Key.countKeys++;
-                    }
-
+                   
                     switch (row[i]) {
                         case 0:
                             Grid.maze[newLevel.getNewRow()][i] = new Floor(i, newLevel.getNewRow(), row[i]);
@@ -169,17 +161,13 @@ public class Level {
      * Restart the game, repaint the JFrame also set the JFrame on focusable
      * again and set the player position on 0x0
      *
-     * @param window
+     * @param window reset the JFrame
+     * @param player reset the player totalmoves, set the player and clear the bag
      */
     public static void restart(JFrame window, Player player) {
         player.setPosition(1, 1);
-//        Bag.alreadyCollected.clear();
-//        Bag.bag = 0;
         player.totalMoves = 0; // reset the total moves
-
-//        for (Door door : Field.doors) {
-//            door.setClosed(true);
-//        }
+        player.clearBag();
         Level.loadLevel(currentLevel);
 
         window.repaint();
