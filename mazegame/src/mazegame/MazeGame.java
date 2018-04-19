@@ -109,7 +109,7 @@ public class MazeGame extends JComponent {
         //place the restart button on the bottom of the window
         window.add(button, BorderLayout.SOUTH);
         //set the starting bounds for the window
-        window.setBounds(0, 0, 360, 390);
+        window.setBounds(0, 0, 375, 420);
         
         //after we have set the window and it's bounds
         //get the correct screen size and store it in dim
