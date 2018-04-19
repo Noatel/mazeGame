@@ -8,31 +8,51 @@ package mazegame;
 import java.awt.Color;
 import java.awt.Graphics;
 import mazegame.FieldTiles.Door;
-import mazegame.FieldTiles.Field;
 import mazegame.FieldTiles.Key;
+import static mazegame.Grid.maze;
 
 /**
  *
  * @author Jordie
  */
 public class Player {
-    
+
+    /**
+     * Create the coordX of the player ${coordX}.
+     */
     private int coordX = 0;
+    /**
+     * Create the coordY of the player ${coordY}.
+     */
     private int coordY = 0;
+
+    /**
+     * Create the startPosition ${startPosition}.
+     */
     public boolean startPosition = false;
+    /**
+     * create the setPositionOneTime variable to draw it one time ${collected}.
+     */
     private int setPositionOneTime;
-    
+
+    /**
+     * keep track of the total moves per level ${totalMoves}.
+     */
     public int totalMoves;
+    /**
+     * Keep track of the key that the player has collected ${bag}.
+     */
     public Key bag;
-    Field[][] maze = Grid.getMaze();
-    
+
     public Player() {
     }
-    
-    public String toString() {
-        return "Coord x :" + coordX + " Coord y :" + coordY;
-    }
-    
+
+    /**
+     * Set the position of the player
+     *
+     * @param x Set the x position of the player
+     * @param y Set the y position of the player
+     */
     public void setPosition(int x, int y) {
         if (setPositionOneTime == 0) {
             this.coordX = x - 1;
@@ -40,119 +60,59 @@ public class Player {
             setPositionOneTime = 1;
         }
     }
-    
-    public void resetSetPosition() {
-        setPositionOneTime = 0;
+
+    /**
+     * Set the bag to null
+     *
+     */
+    public void clearBag() {
+        this.bag = null;
     }
-    
+
+    /**
+     * @return coordY returns the coordY position of the player
+     */
     public int getYPosition() {
         return coordY;
     }
-    
+
+    /**
+     * @return coordX returns the coordY position of the player
+     */
     public int getXPosition() {
         return coordX;
     }
-    
+
+    /**
+     * Reset the player
+     */
     public void resetPlayer() {
-        this.coordX = 0 - 1;
-        this.coordY = 0 - 1;
+        this.coordX = 0;
+        this.coordY = 0;
         setPositionOneTime = 0;
     }
-    
+
+    /**
+     * Move the player
+     * @param getDirection Char for the movement of the player
+     */
     public void move(char getDirection) {
         boolean checkObstacle = false;
         switch (getDirection) {
             case 'n': //North
                 //check if the player want's to go out of bounds
                 if (this.coordY > 0) {
-                    if (maze[this.coordY - 1][this.coordX].returnType() == 1) {
-                        checkObstacle = true;
-                    } else {
-                        //Type 4 = Key 1
-                        //Type 6 = Key 2
-                        //Type 8 = Key 3
-                        if (maze[this.coordY - 1][this.coordX].returnType() == 4 || maze[this.coordY - 1][this.coordX].returnType() == 6 || maze[this.coordY - 1][this.coordX].returnType() == 8) {
-                            if (maze[this.coordY - 1][this.coordX] instanceof Key) {
-                                Key key = (Key) maze[this.coordY - 1][this.coordX];
-                                key.setCollected(true);
-                                key.setHidden(true);
-                                this.setKey(key);
-                            }
-                            checkObstacle = false;
-                        } else {
-                            //Type 3 = Door 1
-                            //Type 5 = Door 2
-                            //Type 7 = Door 3
-                            if (maze[this.coordY - 1][this.coordX].returnType() == 3 || maze[this.coordY - 1][this.coordX].returnType() == 5 || maze[this.coordY - 1][this.coordX].returnType() == 7) {
-                                if (maze[this.coordY - 1][this.coordX] instanceof Door) {
-                                    Door door = (Door) maze[this.coordY - 1][this.coordX];
-                                    if (this.bag != null && this.bag.pin == door.pin) {
-                                        door.setHidden(true);
-                                        checkObstacle = false;
-                                    } else if (door.getHidden()) {
-                                        checkObstacle = false;
-                                    } else {
-                                        checkObstacle = true;
-                                    }
-                                }
-                                
-                            } else {
-                                checkObstacle = false;
-                            }
-                        }
-                    }
-                    
+                    checkObstacle = this.canWalk("y", "-");
                     if (!checkObstacle) {
                         this.coordY--;
                         totalMoves++;
                     }
                 }
-                
                 break;
-            
             case 'e': //East
                 if (this.coordX < 9) {
-                    if (maze[this.coordY][this.coordX + 1].returnType() == 1) {
-                        checkObstacle = true;
-                    } else {
-                        //Type 4 = Key 1
-                        //Type 6 = Key 2
-                        //Type 8 = Key 3
-                        if (maze[this.coordY][this.coordX + 1].returnType() == 4 || maze[this.coordY][this.coordX + 1].returnType() == 6 || maze[this.coordY][this.coordX + 1].returnType() == 8) {
-                            if (maze[this.coordY][this.coordX + 1] instanceof Key) {
-                                Key key = (Key) maze[this.coordY][this.coordX + 1];
-                                key.setCollected(true);
-                                key.setHidden(true);
-                                this.setKey(key);
-                            }
-                            checkObstacle = false;
-                        } else {
-                            //Type 3 = Door 1
-                            //Type 5 = Door 2
-                            //Type 7 = Door 3
-
-                            if (maze[this.coordY][this.coordX + 1].returnType() == 3 || maze[this.coordY][this.coordX + 1].returnType() == 5 || maze[this.coordY][this.coordX + 1].returnType() == 7) {
-                                
-                                if (maze[this.coordY][this.coordX + 1] instanceof Door) {
-                                    Door door = (Door) maze[this.coordY][this.coordX + 1];
-                                    if (this.bag != null && this.bag.pin == door.pin) {
-                                        door.setHidden(true);
-                                        checkObstacle = false;
-                                    } else if (door.getHidden()) {
-                                        checkObstacle = false;
-                                    } else {
-                                        checkObstacle = true;
-                                    }
-                                }
-                                
-                            } else {
-                                checkObstacle = false;
-                            }
-                        }
-                    }
-                    
+                    checkObstacle = this.canWalk("x", "+");
                     if (!checkObstacle) {
-                        
                         this.coordX++;
                         totalMoves++;
                     }
@@ -160,45 +120,7 @@ public class Player {
                 break;
             case 's': //South
                 if (this.coordY < 9) {
-                    if (maze[this.coordY + 1][this.coordX].returnType() == 1) {
-                        checkObstacle = true;
-                    } else {
-                        //Type 4 = Key 1
-                        //Type 6 = Key 2
-                        //Type 8 = Key 3
-                        if (maze[this.coordY + 1][this.coordX].returnType() == 4 || maze[this.coordY + 1][this.coordX].returnType() == 6 || maze[this.coordY + 1][this.coordX].returnType() == 8) {
-                            if (maze[this.coordY + 1][this.coordX] instanceof Key) {
-                                Key key = (Key) maze[this.coordY + 1][this.coordX];
-                                key.setCollected(true);
-                                key.setHidden(true);
-                                this.setKey(key);
-                            }
-                            checkObstacle = false;
-                        } else {
-                            //Type 3 = Door 1
-                            //Type 5 = Door 2
-                            //Type 7 = Door 3
-
-                            if (maze[this.coordY + 1][this.coordX].returnType() == 3 || maze[this.coordY + 1][this.coordX].returnType() == 5 || maze[this.coordY + 1][this.coordX].returnType() == 7) {
-                                
-                                if (maze[this.coordY + 1][this.coordX] instanceof Door) {
-                                    Door door = (Door) maze[this.coordY + 1][this.coordX];
-                                    if (this.bag != null && this.bag.pin == door.pin) {
-                                        door.setHidden(true);
-                                        checkObstacle = false;
-                                    } else if (door.getHidden()) {
-                                        checkObstacle = false;
-                                    } else {
-                                        checkObstacle = true;
-                                    }
-                                }
-                                
-                            } else {
-                                checkObstacle = false;
-                            }
-                        }
-                    }
-                    
+                    checkObstacle = this.canWalk("y", "+");
                     if (!checkObstacle) {
                         this.coordY++;
                         totalMoves++;
@@ -207,70 +129,154 @@ public class Player {
                 break;
             case 'w': //West
                 if (this.coordX > 0) {
-                    if (maze[this.coordY][this.coordX - 1].returnType() == 1) {
-                        checkObstacle = true;
-                    } else {
-                        //Type 4 = Key 1
-                        //Type 6 = Key 2
-                        //Type 8 = Key 3
-                        if (maze[this.coordY][this.coordX - 1].returnType() == 4 || maze[this.coordY][this.coordX - 1].returnType() == 6 || maze[this.coordY][this.coordX - 1].returnType() == 8) {
-                            if (maze[this.coordY][this.coordX - 1] instanceof Key) {
-                                Key key = (Key) maze[this.coordY][this.coordX - 1];
-                                key.setCollected(true);
-                                key.setHidden(true);
-                                this.setKey(key);
-                            }
-                            checkObstacle = false;
-                        } else {
-                            //Type 3 = Door 1
-                            //Type 5 = Door 2
-                            //Type 7 = Door 3
-                            if (maze[this.coordY][this.coordX - 1].returnType() == 3 || maze[this.coordY][this.coordX - 1].returnType() == 5 || maze[this.coordY][this.coordX - 1].returnType() == 7) {
-                                if (maze[this.coordY][this.coordX - 1] instanceof Door) {
-                                    Door door = (Door) maze[this.coordY][this.coordX - 1];
-                                    if (this.bag != null && this.bag.pin == door.pin) {
-                                        door.setHidden(true);
-                                        checkObstacle = false;
-                                    } else if (door.getHidden()) {
-                                        checkObstacle = false;
-                                    } else {
-                                        checkObstacle = true;
-                                    }
-                                }
-                                
-                            } else {
-                                checkObstacle = false;
-                            }
-                        }
-                    }
-                    
+                    checkObstacle = this.canWalk("x", "-");
                     if (!checkObstacle) {
                         this.coordX--;
                         totalMoves++;
                     }
                 }
-                
                 break;
         }
+
+        //Check if the player finished the level
+        this.checkFinish();
+
+        //Set the text of the moves
         MazeGame.label1.setText("Total Moves: " + totalMoves);
     }
+
+    /**
+     * @param coord check if the coordinate is a x or y
+     * @param sign check if the sign is a - or +
+     */
+    private boolean canWalk(String coord, String sign) {
+        boolean checkObstacle = false;
+        int coordY = this.coordY;
+        int coordX = this.coordX;
+
+        if (coord.equals("y")) {
+            //See if you need to increase or decrease the y
+            if (sign.equals("-")) {
+                //Decrease
+                coordY = this.coordY - 1;
+                coordX = this.coordX;
+            } else if (sign.equals("+")) {
+                //Increase
+                coordY = this.coordY + 1;
+                coordX = this.coordX;
+            }
+        } else if (coord.equals("x")) {
+            if (sign.equals("-")) {
+                //Decrease
+                coordY = this.coordY;
+                coordX = this.coordX - 1;
+            } else if (sign.equals("+")) {
+                //Increase
+                coordY = this.coordY;
+                coordX = this.coordX + 1;
+            }
+        }
+
+        //If the type is a wall
+        if (maze[coordY][coordX].returnType() == 1) {
+            checkObstacle = true;
+            return checkObstacle;
+        } else {
+            //Type 4 = Key 1
+            //Type 6 = Key 2
+            //Type 8 = Key 3
+            if (maze[coordY][coordX].returnType() == 4 || maze[coordY][coordX].returnType() == 6 || maze[coordY][coordX].returnType() == 8) {
+                if (maze[coordY][coordX] instanceof Key) {
+                    Key key = (Key) maze[coordY][coordX];
+                    if (!key.getHidden()) {
+                        key.setCollected(true);
+                        key.setHidden(true);
+                        this.setKey(key);
+                    }
+                }
+                checkObstacle = false;
+                return checkObstacle;
+
+            } else {
+                //Type 3 = Door 1
+                //Type 5 = Door 2
+                //Type 7 = Door 3
+                if (maze[coordY][coordX].returnType() == 3 || maze[coordY][coordX].returnType() == 5 || maze[coordY][coordX].returnType() == 7) {
+                    if (maze[coordY][coordX] instanceof Door) {
+                        Door door = (Door) maze[coordY][coordX];
+                        if (this.bag != null && this.bag.pin == door.pin) {
+                            door.setHidden(true);
+                            checkObstacle = false;
+                            return checkObstacle;
+
+                        } else if (door.getHidden()) {
+                            checkObstacle = false;
+                            return checkObstacle;
+
+                        } else {
+                            checkObstacle = true;
+                            return checkObstacle;
+
+                        }
+                    }
+
+                } else {
+                    checkObstacle = false;
+                    return checkObstacle;
+
+                }
+            }
+        }
+        return checkObstacle;
+    }
+
     
+
+    /**
+     * @return totalMoves the moves the player made
+     */
     int getTotalMoves() {
         return totalMoves;
     }
-    
+
+    /**
+     * @param key set the key into the players bag
+     */
     public void setKey(Key key) {
         this.bag = key;
     }
-    
+
+    /**
+     * @return this.bag.pin Returns the key pin of the player
+     */
     public int checkKey() {
         return this.bag.pin;
     }
-    
+
+    /**
+     * @param g Paint the player
+     */
     public void paintPlayer(Graphics g) {
         g.setColor(Color.red);
         g.fillRect(((this.coordX + 1) * 30), ((this.coordY + 1) * 30), 30, 30);
         g.drawRect(((this.coordX + 1) * 30), ((this.coordY + 1) * 30), 30, 30);
     }
-    
+
+    private void checkFinish() {
+        if (maze[this.coordY][this.coordX].returnType() == 9) {
+            if (Level.currentLevel < 3) {
+                Level.currentLevel++;
+                System.out.println("you made it!");
+                //Clear the level before if there is one
+                this.clearBag();
+
+                Level.loadLevel(Level.currentLevel);
+                resetPlayer();
+            } else {
+                System.exit(0);
+            }
+
+        }
+    }
+
 }

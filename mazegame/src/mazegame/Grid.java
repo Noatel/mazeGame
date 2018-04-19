@@ -5,7 +5,6 @@
  */
 package mazegame;
 
-import java.util.ArrayList;
 import mazegame.FieldTiles.Field;
 
 /**

@@ -6,8 +6,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * MazeGame is used for loading the JFrame and Paint the components
@@ -130,6 +128,25 @@ public class MazeGame extends JComponent {
         panel.add(label1);
         window.add(panel);
 
+    }
+
+    public static void exitWindow() {
+        JFrame window = new JFrame();
+        window.setTitle("Maze game");
+        window.setFocusable(true);
+        window.requestFocusInWindow();
+        window.setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        window.setLocation(dim.width / 2 - window.getSize().width / 2, dim.height / 2 - window.getSize().height / 2);
+        window.setBounds(0, 0, 300, 100);
+        
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("You made it");
+
+        label1.setHorizontalTextPosition(0);
+        label1.setVerticalTextPosition(0);
+        panel.add(label);
+        window.add(panel);
     }
 
     /**
@@ -285,7 +302,7 @@ public class MazeGame extends JComponent {
                                 thirdKey.paintField(g);
                             } else {
                                 //player collects key
-                               if (thirdKey.getCoordX() == player.bag.getCoordX() && thirdKey.getCoordY() == player.bag.getCoordY()) {
+                                if (thirdKey.getCoordX() == player.bag.getCoordX() && thirdKey.getCoordY() == player.bag.getCoordY()) {
                                 } else if (!thirdKey.getHidden()) {
                                     thirdKey.paintField(g);
                                 }

@@ -7,7 +7,6 @@ package mazegame;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JFrame;
 import mazegame.FieldTiles.*;
@@ -31,8 +30,7 @@ public class Level {
     /**
      * Load the level that you have want to play
      *
-     * @param level
-     * @return Grid.map
+     * @param level Level is the current level you at
      */
     public static void loadLevel(int level) {
         Level newLevel = new Level();
@@ -40,8 +38,8 @@ public class Level {
         //Get the path of the level
         String readLevel = ".";
         String map = new File("src/mazegame/Levels").getAbsolutePath();
-        
-        //select which level you want to load
+
+        //Because we got multiple levels
         switch (level) {
             case 1:
                 //Level 1
@@ -162,13 +160,15 @@ public class Level {
      * Restart the game, repaint the JFrame also set the JFrame on focusable
      * again and set the player position on 0x0
      *
-     * @param window
+     * @param window reset the JFrame
+     * @param player reset the player totalmoves, set the player and clear the
+     * bag
      */
     public static void restart(JFrame window, Player player) {
-        player.resetSetPosition(); //reset the player position
-        player.setPosition(1, 1); //reset the player position back to the beginning
+        player.resetPlayer();
         player.totalMoves = 0; // reset the total moves
-        //reload the new level
+        player.setKey(null);
+        
         Level.loadLevel(currentLevel);
         
         window.repaint(); //repaint the failed

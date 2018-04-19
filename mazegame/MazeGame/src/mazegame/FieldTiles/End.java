@@ -7,7 +7,7 @@ import java.text.AttributedString;
 
 /**
  *
- * @author tim Wapenaar
+ * @author timwa
  */
 public class End extends Field{
     
@@ -26,27 +26,29 @@ public class End extends Field{
      /**
      * Set the endPoint and draw it on the JFrame
      * @param g use the Graphics g to draw the squares on the field
+     * @param x coordinate of a field
+     * @param y coordinate of a field
     */
     @Override
     public void paintField(Graphics g) {
         /*
-        * Save the coordinates of the end tile
+        Sla de eindlocatie op
         */
         endLocation[0] = (this.getCoordX() / 30);
         endLocation[1] = (this.getCoordY() / 30);
         
         /*
-        * set the color of the end tile green
+        geeft de kleur de positie en de groote aan van het blok
         */
         g.setColor(Color.GREEN);
-        g.fillRect(((this.getCoordX() + 1) * 30), ((this.getCoordY() + 1) * 30), 30, 30);
-        g.drawRect(((this.getCoordX() + 1) * 30), ((this.getCoordY() + 1) * 30), 30, 30);
+        g.fillRect(this.getCoordX(), this.getCoordY(), 30, 30);
+        g.drawRect(this.getCoordX(), this.getCoordY(), 30, 30);
         
         /*
-        * Set the text for the end tile
+        geeft attributes aan strings waardoor je de kleur kan veranderen
         */
         AttributedString as = new AttributedString("End");
         as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
-        g.drawString(as.getIterator(), (((this.getCoordX() + 1) * 30)) + 5, ((this.getCoordY() + 1) * 30) + 20);
+        g.drawString(as.getIterator(), this.getCoordX() + 5, this.getCoordY() + 20);
     }
 }
