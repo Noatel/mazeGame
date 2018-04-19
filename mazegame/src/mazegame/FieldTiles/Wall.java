@@ -24,9 +24,7 @@ public class Wall extends Field {
     
     public Wall() {
     }
-    
-    //Create an emptywall array 
-    public static List<Wall> walls = new ArrayList<Wall>();
+
 
     /**
      *
@@ -38,20 +36,8 @@ public class Wall extends Field {
     @Override
     public void paintField(Graphics g) {
         g.setColor(Color.GRAY);
-        g.fillRect(this.getCoordX(), this.getCoordY(), 30, 30);
-        g.drawRect(this.getCoordX(), this.getCoordY(), 30, 30);
-        
-        this.addWall(this);
-    }
-    
-    public static List<Wall> returnWalls(){
-        return walls;
-    }
-    public void clearWalls(){
-        walls.clear();
-    }
+        g.fillRect(((this.getCoordX() + 1) * 30), ((this.getCoordY() + 1) * 30), 30, 30);
+        g.drawRect(((this.getCoordX() + 1) * 30), ((this.getCoordY() + 1) * 30), 30, 30);
 
-    public void addWall(Wall wall) {
-        walls.add(wall);
     }
 }
