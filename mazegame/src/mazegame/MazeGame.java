@@ -31,17 +31,18 @@ import java.util.List;
  */
 public class MazeGame extends JComponent {
 
-    //Set the variables, the x coords, y coords
+    //Set the dimensionalX and dimensionalY values for the grid
     private int dimX;
     private int dimY;
 
-    //Create a grid to get the map that you load in
+    //load a new Grid
     static Grid grid = new Grid();
 
-    //Create the player
+    //Create the player and set new boolean startPosition false
     static Player player = new Player();
-    public boolean startPosition = false;
+    public boolean startPosition = true;
 
+    //create a JLabel for totalMoves
     public static JLabel label1 = new JLabel("Total Moves: " + player.getTotalMoves());
 
     //player.setPosition(playerXPosition, playerYPosition);
@@ -55,111 +56,75 @@ public class MazeGame extends JComponent {
         //Create the GUI and set the Title "Maze game"
         JFrame window = new JFrame();
         window.setTitle("Maze game");
-        Field[][] maze = Grid.getMaze();
 
         //Load the level and put it in the array map
         Level.loadLevel(Level.currentLevel);
 
-        //Because you want to play with the arrows you need to focus it
+        //focus the window for automatic keyboard control
         window.setFocusable(true);
         window.requestFocusInWindow();
 
-        //If you want to close the program, close it
+        //Make sure you can close the window
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //Load the walls
-        List<Wall> arrayWalls = Wall.returnWalls();
-
-        //Now the key part!
+        //add an eventlistener to the window
         window.addKeyListener(new KeyAdapter() {
-            //If a key is pressed
+            //check if the player has pressed a key
             public void keyPressed(KeyEvent e) {
-                //Get the keycode of the key (like the left arrow)
+                //get the keyCode from the pressed key
                 int keyCode = e.getKeyCode();
-                //If the user press one of the arrow keys
-                boolean checkObstacle = false;
+                //check if the player has pressed any of the arrow keys
                 switch (keyCode) {
-                    case KeyEvent.VK_UP:
-                        player.move('n');
+                    case KeyEvent.VK_UP: //up arrow key
+                        player.move('n'); //go to move function in player class with the parameter 'n'
                         break;
-                    case KeyEvent.VK_RIGHT:
-                        player.move('e');
+                    case KeyEvent.VK_RIGHT: //right arrow key
+                        player.move('e'); //go to move function in player class with the parameter 'e'
                         break;
-                    case KeyEvent.VK_DOWN:
-                        player.move('s');
+                    case KeyEvent.VK_DOWN: //down arrow key
+                        player.move('s'); //go to move function in player class with the parameter 's'
                         break;
-                    case KeyEvent.VK_LEFT:
-                        player.move('w');
+                    case KeyEvent.VK_LEFT: //left arrow key
+                        player.move('w'); //go to move function in player class with the parameter 'w'
                         break;
                 }
-                //Repaint the frame
+                //Repaint the window
                 window.repaint();
             }
-            //Check if the player is at the end location
-//                if (player.getXPosition() == Field.endLocation[0] && player.getYPosition() == Field.endLocation[1]) {
-//                    //If the player beats 3 levels, close the game
-//                    if (Level.currentLevel == 3) {
-//                        JOptionPane.showMessageDialog(null, "You completed the game!");
-//                        window.setVisible(false);
-//                        window.dispose();
-//                    } else {
-//                        //Level finished +1
-//                        Level.currentLevel++;
-//                        Player.totalMoves = 0; // set the total moves back to 0
-//                        label1.setText("Total Moves: " + Player.totalMoves); //rewrite the text to the total moves
-//                        player.bag = null;
-//
-////                        for (Key key : Field.keys) {
-////                            key.setCollected(false);
-////                        }
-////                        for (Door door : Field.doors) {
-////                            door.setClosed(true);
-////                        }
-//                    }
-//
-//                    Level.loadLevel(Level.currentLevel);
-//
-//                    //Set the player to x = 0 and y = 0 coords
-//                    Player.setPositionOneTime = 0;
-////                    Player.setPosition(0, 0);
-
         });
 
         //Menu to restart the game
-        //Create the button
+        //create a new button to restart the game
         JButton button = new JButton("Restart");
-
+        //add an actionListener to the button
         button.addActionListener(new ActionListener() {
-            //Override the button click function
+            //Override actionPerformed with our code
             @Override
             public void actionPerformed(ActionEvent e) {
-                Level.restart(window, player);
+                Level.restart(window, player); //go to the restart method in Level
                 label1.setText("Total Moves: " + player.totalMoves); //rewrite the total moves to the screen
-
-                window.setFocusable(true);
-                window.requestFocusInWindow();
+                window.setFocusable(true); //set the window focusable
+                window.requestFocusInWindow(); //focus the window
             }
         });
-
+        
+        //place the restart button on the bottom of the window
         window.add(button, BorderLayout.SOUTH);
-        //Set how big the program needs to be
-        //For looks i got a width of 360 and 390
-
+        //set the starting bounds for the window
         window.setBounds(0, 0, 360, 390);
-
-        //After we set the width and height
-        //Center it to the middle of your screen
-        //Searched it on stackoverflow how to do this
+        
+        //after we have set the window and it's bounds
+        //get the correct screen size and store it in dim
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-
+        //place the window in the middle of your screen
         window.setLocation(dim.width / 2 - window.getSize().width / 2, dim.height / 2 - window.getSize().height / 2);
 
         //Add the MazeGame() and set the window to visible to show it
         window.getContentPane().add(new MazeGame());
         window.setVisible(true);
-
+        //create a new panel
         JPanel panel = new JPanel();
-
+        //set panel location and add label1 to the panel and add that label to the window
         label1.setHorizontalTextPosition(0);
         label1.setVerticalTextPosition(0);
         panel.add(label1);
@@ -169,14 +134,10 @@ public class MazeGame extends JComponent {
 
     /**
      * With the paint classes we can draw the rectangles on the JFrame that we
-     * create in the main We assign the basic values of the grid, Set the player
+     * create in the main. We assign the basic values of the grid, Set the player
      * x coordinates and y coordinates And load the level in with the method
      * LoadLevel();
      *
-     * After we used the LoadLevel() Function we fill it in the arrayList what
-     * includes the layout of the level. We loop trough the map with the 2 for
-     * loop that we have. For each value we got in the map (Like a 0 - 9) we
-     * print a different type of field
      * <ul>
      * <li>0 = Empty field </li>
      * <li>1 = Wall </li>
@@ -194,71 +155,82 @@ public class MazeGame extends JComponent {
     public void paint(Graphics g) {
         super.paint(g);
 
-        //First we assign how big the big the board needs to be
+        //set the size of each and every fieldTile
         dimX = 30;
         dimY = 30;
 
-        //Because the board is 60 * every time you need to multiple the position
-        //Need to look in more why this is happening
+        //store the player X and Y position 
+        //first we increase the value of player with 1 because the first tile in the game
+        //is placed at 0 and 0 * 30 = 0, if we didn't do this you wouldn't see the player
         int playerXPosition = (player.getXPosition() + 1) * 30;
         int playerYPosition = (player.getYPosition() + 1) * 30;
-
+        
+        //load the maze
         Field[][] maze = Grid.getMaze();
 
-        int i = 0;
-        int j = 0;
-        //Print the grid out with the player on it
-        //Draw all the rectangles in the screen
-        for (int x = dimX; x <= 315; x += 30) {
-            for (int y = dimY; y <= 315; y += 30) {
-                //If the bord got max;
+        int i = 0; //I == X on the grid
+        int j = 0; //J == Y on the grid
+        
+        //get X and loop through it untill it is done
+        //the for loop uses x <= 300 ; x += 30 with the following reason
+        //the 300 is the width of the field and 30 is the width of each field
+        //let's say we used x <= 100; x += 10 the game would be too small for the field
+        for (int x = dimX; x <= 300; x += 30) {
+            for (int y = dimY; y <= 300; y += 30) {
+                //if i has reached the last in the row set i to 0 and load the next row
                 if (i == 10) {
                     //Reset it to the first tile
                     i = 0;
-                    //And goest to the next tile
+                    //go to the next row
                     j++;
                 }
-
+                //paint each tile with the corresponding fieldType
                 switch (maze[i][j].returnType()) {
-                    case 0:
-                        Floor floor = new Floor(x, y, 0);
+                    case 0: //case == (walkable) floor
+                        //paint a floor
+                        Floor floor = (Floor) maze[i][j];
                         floor.paintField(g);
                         break;
-                    case 1:
-                        Wall currentWall = new Wall(x, y, 1);
-                        currentWall.addWall(currentWall);
+                    case 1: // case == (impassable) wall
+                        //paint a wall
+                        Wall currentWall = (Wall) maze[i][j];
                         currentWall.paintField(g);
                         break;
-                    case 2:
-                        //DELETE  THIS ---
-                        //When you put this in the player class, position of the player is weird DELETE THIS 
-                        //DELETE THIS --- 
-                        if (!startPosition) {
+                    case 2: // case == player starting position
+                        Floor playerFloor = (Floor) maze[i][j];
+                        //check if the player hasn't moved yet
+                        if(startPosition){
                             g.setColor(Color.RED);
                             g.fillRect(x, y, 30, 30);
                             g.drawRect(x, y, 30, 30);
-                            startPosition = true;
+                            startPosition = false;
                         } else {
-                            g.setColor(new Color(255, 255, 255));
-                            g.fillRect(x, y, 30, 30);
-                            g.drawRect(x, y, 30, 30);
+                            playerFloor.paintField(g); //player has moved, therefor reset position to floor
                         }
                         break;
-                    case 3:
+                    case 3: // case == door with pin 100
+                        //paint new door
                         Door door = (Door) maze[i][j];
+                        //check if this specific tile is an instace of a door
                         if (maze[i][j] instanceof Door) {
+                            //check if the door should be hidden
                             if (!door.getHidden()) {
+                                //paint door
                                 door.paintField(g);
                             }
                         }
                         break;
-                    case 4:
+                    case 4: // case == key with pin 100
+                        //get new Key
                         Key firstKey = (Key) maze[i][j];
+                        //check if this specific tile is an instance of a key
                         if (maze[i][j] instanceof Key) {
+                            //check if bag in player is empty
                             if (player.bag == null) {
+                                    //paint the key to the game
                                     firstKey.paintField(g);
                             } else {
-                                //player collects key
+                                //check if the player collects a key
                                if (firstKey.getCoordX() == player.bag.getCoordX() && firstKey.getCoordY() == player.bag.getCoordY()) {
                                 } else if (!firstKey.getHidden()) {
                                     firstKey.paintField(g);
@@ -266,21 +238,26 @@ public class MazeGame extends JComponent {
                             }
                         }
                         break;
-                    case 5:
+                    case 5: // case == door with 200 pin
                         Door secondDoor = (Door) maze[i][j];
+                        //check if the specific tile is an instance of door
                         if (maze[i][j] instanceof Door) {
+                            //should the door be hidden?
                             if (!secondDoor.getHidden()) {
                                 secondDoor.paintField(g);
                             }
                         }
                         break;
-                    case 6:
+                    case 6: // case == key with pin 200
                         Key secondKey = (Key) maze[i][j];
+                        //check if the specific tile is an instance of Key
                         if (maze[i][j] instanceof Key) {
+                            //check if the bag in player is empty
                             if (player.bag == null) {
-                                    secondKey.paintField(g);
+                                //paint the key into the game
+                                secondKey.paintField(g);
                             } else {
-                                //player collects key
+                                //check if the player collects a Key
                                if (secondKey.getCoordX() == player.bag.getCoordX() && secondKey.getCoordY() == player.bag.getCoordY()) {
                                 } else if (!secondKey.getHidden()) {
                                     secondKey.paintField(g);
@@ -288,19 +265,24 @@ public class MazeGame extends JComponent {
                             }
                         }
                         break;
-                    case 7:
+                    case 7:// case == door with pin 300
                         Door thirdDoor = (Door) maze[i][j];
+                        //check if this specific tile is an instance of Door
                         if (maze[i][j] instanceof Door) {
+                            //check if the door should be hidden
                             if (!thirdDoor.getHidden()) {
                                 thirdDoor.paintField(g);
                             }
                         }
                         break;
-                    case 8:
+                    case 8:// case == key with pin 300
                         Key thirdKey = (Key) maze[i][j];
+                        //check if this specific tile is an instance of Key
                         if (maze[i][j] instanceof Key) {
+                            //check if the bag in player is empty
                             if (player.bag == null) {
-                                    thirdKey.paintField(g);
+                                //paint the key to the game
+                                thirdKey.paintField(g);
                             } else {
                                 //player collects key
                                if (thirdKey.getCoordX() == player.bag.getCoordX() && thirdKey.getCoordY() == player.bag.getCoordY()) {
@@ -311,25 +293,23 @@ public class MazeGame extends JComponent {
                         }
                         break;
 
-                    case 9:
-                        End end = new End(x, y, 9);
+                    case 9:// case == end tile
+                        End end = (End) maze[i][j];
                         end.paintField(g);
-
                         break;
-                    default:
-                        Wall defaultWall = new Wall(x, y, 1);
+                    default:// default (there wasn't an recognizable int found therefor place a wall) wall
+                        Wall defaultWall = (Wall) maze[i][j];
                         defaultWall.paintField(g);
                         break;
                 }
-
+                //paint the player to the corresponding location
                 if (x == playerXPosition && y == playerYPosition) {
-                    g.setColor(Color.RED);
-                    g.fillRect(playerXPosition, playerYPosition, 30, 30);
-                    g.drawRect(playerXPosition, playerYPosition, 30, 30);
+                    player.paintPlayer(g);
                 }
-
+                //create a black border to each tile
                 g.setColor(Color.BLACK);
                 g.drawRect(x, y, 30, 30);
+                //increase i
                 i++;
             }
         }

@@ -17,12 +17,10 @@ import mazegame.FieldTiles.Field;
  */
 public class Grid {
 
-    /**
-     * After the function loadLevel is used Load the map in the array
-     */
-
+    //create new object array with size 10*10
     public static Field[][] maze = new Field[10][10];
-
+    
+    //return maze
     public static Field[][] getMaze() {
         return maze;
     }

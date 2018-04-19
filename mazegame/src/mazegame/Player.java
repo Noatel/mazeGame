@@ -16,23 +16,23 @@ import mazegame.FieldTiles.Key;
  * @author Jordie
  */
 public class Player {
-
+    
     private int coordX = 0;
     private int coordY = 0;
     public boolean startPosition = false;
     private int setPositionOneTime;
-
+    
     public int totalMoves;
     public Key bag;
     Field[][] maze = Grid.getMaze();
-
+    
     public Player() {
     }
-
+    
     public String toString() {
         return "Coord x :" + coordX + " Coord y :" + coordY;
     }
-
+    
     public void setPosition(int x, int y) {
         if (setPositionOneTime == 0) {
             this.coordX = x - 1;
@@ -40,25 +40,25 @@ public class Player {
             setPositionOneTime = 1;
         }
     }
-
+    
     public void resetSetPosition() {
         setPositionOneTime = 0;
     }
-
+    
     public int getYPosition() {
         return coordY;
     }
-
+    
     public int getXPosition() {
         return coordX;
     }
-
+    
     public void resetPlayer() {
-        this.coordX = 1;
-        this.coordY = 1;
+        this.coordX = 0 - 1;
+        this.coordY = 0 - 1;
         setPositionOneTime = 0;
     }
-
+    
     public void move(char getDirection) {
         boolean checkObstacle = false;
         switch (getDirection) {
@@ -89,27 +89,27 @@ public class Player {
                                     if (this.bag != null && this.bag.pin == door.pin) {
                                         door.setHidden(true);
                                         checkObstacle = false;
-                                    }else if (door.getHidden()) {
-                                      checkObstacle = false;
+                                    } else if (door.getHidden()) {
+                                        checkObstacle = false;
                                     } else {
                                         checkObstacle = true;
                                     }
                                 }
-
+                                
                             } else {
                                 checkObstacle = false;
                             }
                         }
                     }
-
+                    
                     if (!checkObstacle) {
                         this.coordY--;
                         totalMoves++;
                     }
                 }
-
+                
                 break;
-
+            
             case 'e': //East
                 if (this.coordX < 9) {
                     if (maze[this.coordY][this.coordX + 1].returnType() == 1) {
@@ -132,27 +132,27 @@ public class Player {
                             //Type 7 = Door 3
 
                             if (maze[this.coordY][this.coordX + 1].returnType() == 3 || maze[this.coordY][this.coordX + 1].returnType() == 5 || maze[this.coordY][this.coordX + 1].returnType() == 7) {
-
+                                
                                 if (maze[this.coordY][this.coordX + 1] instanceof Door) {
                                     Door door = (Door) maze[this.coordY][this.coordX + 1];
                                     if (this.bag != null && this.bag.pin == door.pin) {
                                         door.setHidden(true);
                                         checkObstacle = false;
                                     } else if (door.getHidden()) {
-                                      checkObstacle = false;
-                                    }else {
+                                        checkObstacle = false;
+                                    } else {
                                         checkObstacle = true;
                                     }
                                 }
-
+                                
                             } else {
                                 checkObstacle = false;
                             }
                         }
                     }
-
+                    
                     if (!checkObstacle) {
-
+                        
                         this.coordX++;
                         totalMoves++;
                     }
@@ -180,25 +180,25 @@ public class Player {
                             //Type 7 = Door 3
 
                             if (maze[this.coordY + 1][this.coordX].returnType() == 3 || maze[this.coordY + 1][this.coordX].returnType() == 5 || maze[this.coordY + 1][this.coordX].returnType() == 7) {
-
+                                
                                 if (maze[this.coordY + 1][this.coordX] instanceof Door) {
                                     Door door = (Door) maze[this.coordY + 1][this.coordX];
                                     if (this.bag != null && this.bag.pin == door.pin) {
                                         door.setHidden(true);
                                         checkObstacle = false;
                                     } else if (door.getHidden()) {
-                                      checkObstacle = false;
-                                    }else {
+                                        checkObstacle = false;
+                                    } else {
                                         checkObstacle = true;
                                     }
                                 }
-
+                                
                             } else {
                                 checkObstacle = false;
                             }
                         }
                     }
-
+                    
                     if (!checkObstacle) {
                         this.coordY++;
                         totalMoves++;
@@ -232,52 +232,45 @@ public class Player {
                                         door.setHidden(true);
                                         checkObstacle = false;
                                     } else if (door.getHidden()) {
-                                      checkObstacle = false;
+                                        checkObstacle = false;
                                     } else {
                                         checkObstacle = true;
                                     }
                                 }
-
+                                
                             } else {
                                 checkObstacle = false;
                             }
                         }
                     }
-
+                    
                     if (!checkObstacle) {
                         this.coordX--;
                         totalMoves++;
                     }
                 }
-
+                
                 break;
         }
         MazeGame.label1.setText("Total Moves: " + totalMoves);
     }
-
+    
     int getTotalMoves() {
         return totalMoves;
     }
-
+    
     public void setKey(Key key) {
         this.bag = key;
     }
-
+    
     public int checkKey() {
         return this.bag.pin;
     }
-
+    
     public void paintPlayer(Graphics g) {
-        if (!startPosition) {
-            g.setColor(Color.RED);
-            g.fillRect(this.coordX, this.coordY, 30, 30);
-            g.drawRect(this.coordX, this.coordY, 30, 30);
-            startPosition = true;
-        } else {
-            g.setColor(new Color(255, 255, 255));
-            g.fillRect(this.coordX, this.coordY, 30, 30);
-            g.drawRect(this.coordX, this.coordY, 30, 30);
-        }
+        g.setColor(Color.red);
+        g.fillRect(((this.coordX + 1) * 30), ((this.coordY + 1) * 30), 30, 30);
+        g.drawRect(((this.coordX + 1) * 30), ((this.coordY + 1) * 30), 30, 30);
     }
-
+    
 }

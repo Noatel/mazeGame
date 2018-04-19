@@ -7,7 +7,7 @@ import java.text.AttributedString;
 
 /**
  *
- * @author timwa
+ * @author tim Wapenaar
  */
 public class End extends Field{
     
@@ -32,23 +32,23 @@ public class End extends Field{
     @Override
     public void paintField(Graphics g) {
         /*
-        Sla de eindlocatie op
+        * Save the coordinates of the end tile
         */
         endLocation[0] = (this.getCoordX() / 30);
         endLocation[1] = (this.getCoordY() / 30);
         
         /*
-        geeft de kleur de positie en de groote aan van het blok
+        * set the color of the end tile green
         */
         g.setColor(Color.GREEN);
-        g.fillRect(this.getCoordX(), this.getCoordY(), 30, 30);
-        g.drawRect(this.getCoordX(), this.getCoordY(), 30, 30);
+        g.fillRect(((this.getCoordX() + 1) * 30), ((this.getCoordY() + 1) * 30), 30, 30);
+        g.drawRect(((this.getCoordX() + 1) * 30), ((this.getCoordY() + 1) * 30), 30, 30);
         
         /*
-        geeft attributes aan strings waardoor je de kleur kan veranderen
+        * Set the text for the end tile
         */
         AttributedString as = new AttributedString("End");
         as.addAttribute(TextAttribute.FOREGROUND, Color.BLACK);
-        g.drawString(as.getIterator(), this.getCoordX() + 5, this.getCoordY() + 20);
+        g.drawString(as.getIterator(), (((this.getCoordX() + 1) * 30)) + 5, ((this.getCoordY() + 1) * 30) + 20);
     }
 }
