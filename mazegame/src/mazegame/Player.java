@@ -94,6 +94,7 @@ public class Player {
 
     /**
      * Move the player
+     *
      * @param getDirection Char for the movement of the player
      */
     public void move(char getDirection) {
@@ -230,8 +231,6 @@ public class Player {
         return checkObstacle;
     }
 
-    
-
     /**
      * @return totalMoves the moves the player made
      */
@@ -280,7 +279,7 @@ public class Player {
                 Level.loadLevel(Level.currentLevel);
                 resetPlayer();
             } else {
-                System.exit(0);
+                MazeGame.exitWindow();
             }
 
         }

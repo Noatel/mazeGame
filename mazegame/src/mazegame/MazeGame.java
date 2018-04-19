@@ -139,17 +139,31 @@ public class MazeGame extends JComponent {
         window.setFocusable(true);
         window.requestFocusInWindow();
         window.setVisible(true);
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        window.setLocation(dim.width / 2 - window.getSize().width / 2, dim.height / 2 - window.getSize().height / 2);
-        window.setBounds(0, 0, 300, 100);
-        
-        JPanel panel = new JPanel();
-        JLabel label = new JLabel("You made it");
+        window.setLayout(new BoxLayout(window.getContentPane(), BoxLayout.Y_AXIS));
 
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        window.setBounds(0, 0, 300, 110);
+        window.setLocation(dim.width / 2 - window.getSize().width / 2, dim.height / 2 - window.getSize().height / 2);
+
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("You've reached the end, well done!");
         label1.setHorizontalTextPosition(0);
         label1.setVerticalTextPosition(0);
         panel.add(label);
         window.add(panel);
+
+        JButton button = new JButton("Ok");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        window.add(button);
+
+        JPanel panel2 = new JPanel();
+        window.add(panel2);
     }
 
     /**
