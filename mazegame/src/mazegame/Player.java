@@ -101,34 +101,18 @@ public class Player {
                 break;
         }
 
-        if (maze[this.coordY][this.coordX].returnType() == 9) {
-            if (Level.currentLevel < 3) {
-                Level.currentLevel++;
-                System.out.println("you made it!");
-                //Clear the level before if there is one
-                this.clearBag();
+        //Check if the player finished the level
+        this.checkFinish();
 
-                Level.loadLevel(Level.currentLevel);
-                resetPlayer();
-            } else {
-                System.exit(0);
-            }
-
-        }
+        //Set the text of the moves
         MazeGame.label1.setText("Total Moves: " + totalMoves);
     }
 
-    public boolean canWalk(String coord, String sign) {
+    private boolean canWalk(String coord, String sign) {
         boolean checkObstacle = false;
         int coordY = this.coordY;
         int coordX = this.coordX;
 
-        //If its equals the y coord
-        System.out.println("coord =" + coord);
-        System.out.println("sign =" + sign);
-        
-        System.out.println("check" + coord.equals("y"));
-        System.out.println("check" + sign.equals("+"));
         if (coord.equals("y")) {
             //See if you need to increase or decrease the y
             if (sign.equals("-")) {
@@ -152,11 +136,7 @@ public class Player {
             }
         }
 
-        System.out.println("old " + maze[this.coordY][this.coordX + 1].returnType());
-        System.out.println("(" + this.coordY + "," + this.coordX + ")");
-        System.out.println("new " + maze[coordY][coordX].returnType());
-        System.out.println("(" + coordY + "," + coordX + ")");
-
+        //If the type is a wall
         if (maze[coordY][coordX].returnType() == 1) {
             checkObstacle = true;
             return checkObstacle;
@@ -207,9 +187,7 @@ public class Player {
                 }
             }
         }
-        System.out.println("Done" + checkObstacle);
         return checkObstacle;
-
     }
 
     int getTotalMoves() {
@@ -234,6 +212,23 @@ public class Player {
             g.setColor(new Color(255, 255, 255));
             g.fillRect(this.coordX, this.coordY, 30, 30);
             g.drawRect(this.coordX, this.coordY, 30, 30);
+        }
+    }
+
+    private void checkFinish() {
+        if (maze[this.coordY][this.coordX].returnType() == 9) {
+            if (Level.currentLevel < 3) {
+                Level.currentLevel++;
+                System.out.println("you made it!");
+                //Clear the level before if there is one
+                this.clearBag();
+
+                Level.loadLevel(Level.currentLevel);
+                resetPlayer();
+            } else {
+                System.exit(0);
+            }
+
         }
     }
 
