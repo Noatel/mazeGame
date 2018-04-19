@@ -8,7 +8,6 @@ package mazegame;
 import java.awt.Color;
 import java.awt.Graphics;
 import mazegame.FieldTiles.Door;
-import mazegame.FieldTiles.Field;
 import mazegame.FieldTiles.Key;
 import static mazegame.Grid.maze;
 
