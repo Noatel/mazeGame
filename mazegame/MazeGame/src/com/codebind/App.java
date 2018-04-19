@@ -16,10 +16,10 @@ import java.util.Random;
  * Klas : H-1-SE-3.4
  * Versie : 1.0.0
  * <p>
+ * <p>
  * This Game is made in IntelliJ IDEA, not netbeans
  * I prefer this IDEA because i only have PHP experience
  * and this editor looks like PHPSTORM
- * </p>
  */
 
 public class App extends JComponent {

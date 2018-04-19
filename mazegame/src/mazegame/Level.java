@@ -78,7 +78,7 @@ public class Level {
                     // Read the number and add it to the current row:
                     row[i] = scanner.nextInt();
                     //System.out.println(row[i] + "("+countRows+","+i+")");
-                   
+
                     switch (row[i]) {
                         case 0:
                             Grid.maze[newLevel.getNewRow()][i] = new Floor(i, newLevel.getNewRow(), row[i]);
@@ -162,12 +162,14 @@ public class Level {
      * again and set the player position on 0x0
      *
      * @param window reset the JFrame
-     * @param player reset the player totalmoves, set the player and clear the bag
+     * @param player reset the player totalmoves, set the player and clear the
+     * bag
      */
     public static void restart(JFrame window, Player player) {
-        player.setPosition(1, 1);
+        player.resetPlayer();
         player.totalMoves = 0; // reset the total moves
-        player.clearBag();
+        player.setKey(null);
+        
         Level.loadLevel(currentLevel);
 
         window.repaint();
