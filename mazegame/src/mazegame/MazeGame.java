@@ -55,7 +55,6 @@ public class MazeGame extends JComponent {
         //Create the GUI and set the Title "Maze game"
         JFrame window = new JFrame();
         window.setTitle("Maze game");
-        Field[][] maze = Grid.getMaze();
 
         //Load the level and put it in the array map
         Level.loadLevel(Level.currentLevel);
@@ -66,9 +65,6 @@ public class MazeGame extends JComponent {
 
         //If you want to close the program, close it
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        //Load the walls
-        List<Wall> arrayWalls = Wall.returnWalls();
 
         //Now the key part!
         window.addKeyListener(new KeyAdapter() {
@@ -95,34 +91,6 @@ public class MazeGame extends JComponent {
                 //Repaint the frame
                 window.repaint();
             }
-            //Check if the player is at the end location
-//                if (player.getXPosition() == Field.endLocation[0] && player.getYPosition() == Field.endLocation[1]) {
-//                    //If the player beats 3 levels, close the game
-//                    if (Level.currentLevel == 3) {
-//                        JOptionPane.showMessageDialog(null, "You completed the game!");
-//                        window.setVisible(false);
-//                        window.dispose();
-//                    } else {
-//                        //Level finished +1
-//                        Level.currentLevel++;
-//                        Player.totalMoves = 0; // set the total moves back to 0
-//                        label1.setText("Total Moves: " + Player.totalMoves); //rewrite the text to the total moves
-//                        player.bag = null;
-//
-////                        for (Key key : Field.keys) {
-////                            key.setCollected(false);
-////                        }
-////                        for (Door door : Field.doors) {
-////                            door.setClosed(true);
-////                        }
-//                    }
-//
-//                    Level.loadLevel(Level.currentLevel);
-//
-//                    //Set the player to x = 0 and y = 0 coords
-//                    Player.setPositionOneTime = 0;
-////                    Player.setPosition(0, 0);
-
         });
 
         //Menu to restart the game
@@ -165,6 +133,25 @@ public class MazeGame extends JComponent {
         panel.add(label1);
         window.add(panel);
 
+    }
+
+    public static void exitWindow() {
+        JFrame window = new JFrame();
+        window.setTitle("Maze game");
+        window.setFocusable(true);
+        window.requestFocusInWindow();
+        window.setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        window.setLocation(dim.width / 2 - window.getSize().width / 2, dim.height / 2 - window.getSize().height / 2);
+        window.setBounds(0, 0, 300, 100);
+        
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("You made it");
+
+        label1.setHorizontalTextPosition(0);
+        label1.setVerticalTextPosition(0);
+        panel.add(label);
+        window.add(panel);
     }
 
     /**
@@ -256,10 +243,10 @@ public class MazeGame extends JComponent {
                         Key firstKey = (Key) maze[i][j];
                         if (maze[i][j] instanceof Key) {
                             if (player.bag == null) {
-                                    firstKey.paintField(g);
+                                firstKey.paintField(g);
                             } else {
                                 //player collects key
-                               if (firstKey.getCoordX() == player.bag.getCoordX() && firstKey.getCoordY() == player.bag.getCoordY()) {
+                                if (firstKey.getCoordX() == player.bag.getCoordX() && firstKey.getCoordY() == player.bag.getCoordY()) {
                                 } else if (!firstKey.getHidden()) {
                                     firstKey.paintField(g);
                                 }
@@ -278,10 +265,10 @@ public class MazeGame extends JComponent {
                         Key secondKey = (Key) maze[i][j];
                         if (maze[i][j] instanceof Key) {
                             if (player.bag == null) {
-                                    secondKey.paintField(g);
+                                secondKey.paintField(g);
                             } else {
                                 //player collects key
-                               if (secondKey.getCoordX() == player.bag.getCoordX() && secondKey.getCoordY() == player.bag.getCoordY()) {
+                                if (secondKey.getCoordX() == player.bag.getCoordX() && secondKey.getCoordY() == player.bag.getCoordY()) {
                                 } else if (!secondKey.getHidden()) {
                                     secondKey.paintField(g);
                                 }
@@ -300,10 +287,10 @@ public class MazeGame extends JComponent {
                         Key thirdKey = (Key) maze[i][j];
                         if (maze[i][j] instanceof Key) {
                             if (player.bag == null) {
-                                    thirdKey.paintField(g);
+                                thirdKey.paintField(g);
                             } else {
                                 //player collects key
-                               if (thirdKey.getCoordX() == player.bag.getCoordX() && thirdKey.getCoordY() == player.bag.getCoordY()) {
+                                if (thirdKey.getCoordX() == player.bag.getCoordX() && thirdKey.getCoordY() == player.bag.getCoordY()) {
                                 } else if (!thirdKey.getHidden()) {
                                     thirdKey.paintField(g);
                                 }

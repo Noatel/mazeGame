@@ -41,14 +41,6 @@ public class Level {
         String readLevel = ".";
         String map = new File("src/mazegame/Levels").getAbsolutePath();
 
-        //Clear the level before if there is one
-        Wall wall = new Wall();
-        wall.clearWalls();
-        Door.doors.clear();
-        Key.keys.clear();
-        Door.countDoors = 0;
-        Key.countKeys = 0;
-
         //Because we got multiple levels
         switch (level) {
             case 1:
@@ -180,8 +172,7 @@ public class Level {
      * @param window
      */
     public static void restart(JFrame window, Player player) {
-        player.resetSetPosition();
-        player.setPosition(0, 0);
+        player.setPosition(1, 1);
 //        Bag.alreadyCollected.clear();
 //        Bag.bag = 0;
         player.totalMoves = 0; // reset the total moves
