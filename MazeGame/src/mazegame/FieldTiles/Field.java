@@ -5,9 +5,7 @@
  */
 package mazegame.FieldTiles;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.util.ArrayList;
 
 /**
  *

@@ -98,7 +98,7 @@ public class Player {
      * @param getDirection Char for the movement of the player
      */
     public void move(char getDirection) {
-        boolean checkObstacle = false;
+        boolean checkObstacle;
         switch (getDirection) {
             case 'n': //North
                 //check if the player want's to go out of bounds

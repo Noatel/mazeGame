@@ -5,26 +5,36 @@
  */
 package mazegame;
 
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
  *
- * @author NoahTelussa
+ * @author timwa
  */
 public class PlayerTest {
-    
+
     public PlayerTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
+    }
+
+    @Before
+    public void setUp() {
+    }
+
+    @After
+    public void tearDown() {
     }
 
     /**
@@ -34,7 +44,7 @@ public class PlayerTest {
     public void testToString() {
         System.out.println("toString");
         Player instance = new Player();
-        String expResult = "Coord x :1 Coord y :1";
+        String expResult = instance.toString();
         String result = instance.toString();
         assertEquals(expResult, result);
     }
@@ -45,9 +55,12 @@ public class PlayerTest {
     @Test
     public void testSetPosition() {
         System.out.println("setPosition");
+        Player instance = new Player();
         int x = 0;
         int y = 0;
-        Player.setPosition(x, y);
+        instance.setPosition(x, y);
+        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -57,10 +70,11 @@ public class PlayerTest {
     public void testGetYPosition() {
         System.out.println("getYPosition");
         Player instance = new Player();
-        instance.setPosition(1,1);
-        int expResult = 2;
+        int expResult = 0;
         int result = instance.getYPosition();
         assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -70,11 +84,11 @@ public class PlayerTest {
     public void testGetXPosition() {
         System.out.println("getXPosition");
         Player instance = new Player();
-        instance.setPosition(1,1);
-        int expResult = 2;
+        int expResult = 0;
         int result = instance.getXPosition();
         assertEquals(expResult, result);
-       
+        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -83,7 +97,11 @@ public class PlayerTest {
     @Test
     public void testResetPlayer() {
         System.out.println("resetPlayer");
-        Player.resetPlayer();
+        Player instance = new Player();
+
+        instance.resetPlayer();
+        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -92,9 +110,14 @@ public class PlayerTest {
     @Test
     public void testMove() {
         System.out.println("move");
-        char getDirection = ' ';
+        char getDirection = 's';
         Player instance = new Player();
         instance.move(getDirection);
+        int expResult = 1;
+        int result = instance.getYPosition();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
     }
 
 }

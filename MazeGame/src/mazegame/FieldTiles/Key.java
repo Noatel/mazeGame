@@ -85,7 +85,7 @@ public class Key extends Field {
      * @param pin define the value of the pin
      */
     public void setPin(int pin) {
-        pin = pin;
+        this.pin = pin;
     }
 
 }

@@ -9,8 +9,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.font.TextAttribute;
 import java.text.AttributedString;
-import java.util.List;
-import mazegame.Player;
 
 /**
  *
